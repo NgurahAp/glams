@@ -1,0 +1,108 @@
+// src/components/Navbar.tsx
+import { motion, type Variants } from "framer-motion";
+import { Link } from "react-router-dom";
+
+const navLinks = [
+  { label: "FAQ", path: "#" },
+  { label: "CONTACT", path: "#" },
+  { label: "LOCATION", path: "#" },
+  { label: "ABOUT US", path: "/about" },
+];
+
+export default function Navbar() {
+  const linkVariants: Variants = {
+    hidden: { opacity: 0, x: 20 },
+    visible: (i: number) => ({
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.7,
+        delay: 0.15 * i + 0.6,
+        ease: [0.15, 0.1, 0.15, 1],
+      },
+    }),
+    hover: {
+      opacity: 0.6,
+    },
+  };
+
+  return (
+    <motion.nav
+      className="fixed top-0 left-0 right-0 z-50 flex items-start justify-between px-10 py-14"
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+    >
+      {/* Left - Hamburger */}
+      <div className="flex items-start ">
+        <button className="cursor-pointer">
+          <svg
+            width="64"
+            height="24"
+            viewBox="0 0 64 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <line
+              x1="0"
+              y1="4"
+              x2="64"
+              y2="4"
+              stroke="white"
+              strokeWidth="1.5"
+            />
+            <line
+              x1="0"
+              y1="20"
+              x2="64"
+              y2="20"
+              stroke="white"
+              strokeWidth="1.5"
+            />
+          </svg>
+        </button>
+      </div>
+
+      {/* Center - Logo */}
+      <div className="absolute left-1/2 -translate-x-1/2 ">
+        <Link to="/">
+          <img
+            src="https://res.cloudinary.com/dbhx39mmm/image/upload/v1773026894/logo_lqyzbn.png"
+            alt="Logo"
+            className="h-10 w-auto"
+          />
+        </Link>
+      </div>
+
+      {/* Right - Nav Links */}
+      <div className="flex flex-col items-start gap-6">
+        {navLinks.map((link, i) => (
+          <motion.div
+            key={link.label}
+            custom={i}
+            variants={linkVariants}
+            initial="hidden"
+            animate="visible"
+            whileHover="hover"
+          >
+            {link.path === "#" ? (
+              <a
+                href={link.path}
+                className="text-white text-2xl font-light cursor-pointer hover:underline tracking-tight"
+              >
+                {link.label}
+              </a>
+            ) : (
+              <Link
+                to={link.path}
+                className="text-white text-2xl font-light cursor-pointer hover:underline tracking-tight"
+              >
+                {link.label}
+              </Link>
+            )}
+          </motion.div>
+        ))}
+      </div>
+    </motion.nav>
+  );
+}

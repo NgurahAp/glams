@@ -1,1 +1,6 @@
 @import "tailwindcss";
+
+/* use Arial as the default font */
+body {
+  font-family: Arial, sans-serif;
+}
