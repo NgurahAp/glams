@@ -67,7 +67,7 @@ export default function Navbar() {
       <div className="absolute left-1/2 -translate-x-1/2 ">
         <Link to="/">
           <img
-            src="https://res.cloudinary.com/dbhx39mmm/image/upload/v1773026894/logo_lqyzbn.png"
+            src="https://res.cloudinary.com/dbhx39mmm/image/upload/v1773037487/logo_ikbz71.png"
             alt="Logo"
             className="h-10 w-auto"
           />
