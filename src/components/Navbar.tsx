@@ -32,7 +32,7 @@ export default function Navbar() {
 
   return (
     <motion.nav
-      className="fixed top-0 left-0 right-0 z-50 flex items-start justify-between px-10 py-14"
+      className="absolute top-0 left-0 right-0 z-50 flex items-start justify-between px-10 py-14"
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
@@ -68,10 +68,13 @@ export default function Navbar() {
           </button>
         ) : (
           <button onClick={() => navigate(-1)} className="cursor-pointer">
-            <img
+            <motion.img
               src="https://res.cloudinary.com/dbhx39mmm/image/upload/v1773037474/navbar-back_mhlczv.png"
               alt="Back"
               className="h-16 w-auto"
+              style={{ transformOrigin: "left center" }}
+              whileHover={{ scale: 0.85, opacity: 0.6, x: -6, y: -12 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
             />
           </button>
         )}
