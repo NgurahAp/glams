@@ -1,8 +1,8 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
-import MainHero from "./components/MainHero";
-import AboutHero from "./components/AboutHero";
+import Home from "./pages/Home";
+import About from "./pages/About";
 
 const images = [
   "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773024788/about-bottom_jl32sn.png",
@@ -14,8 +14,8 @@ function App() {
   return (
     <Layout>
       <Routes>
-        <Route path="/" element={<MainHero images={images} interval={3000} />} />
-        <Route path="/about" element={<AboutHero image="https://res.cloudinary.com/dbhx39mmm/image/upload/v1773024788/about-hero_rhytpc.png" />} />
+        <Route path="/" element={<Home images={images} interval={3000} />} />
+        <Route path="/about" element={<About image="https://res.cloudinary.com/dbhx39mmm/image/upload/v1773024788/about-hero_rhytpc.png" />} />
       </Routes>
     </Layout>
   );

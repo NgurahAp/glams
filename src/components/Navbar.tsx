@@ -1,6 +1,6 @@
 // src/components/Navbar.tsx
 import { motion, type Variants } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const navLinks = [
   { label: "FAQ", path: "#" },
@@ -10,6 +10,10 @@ const navLinks = [
 ];
 
 export default function Navbar() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const isHome = location.pathname === "/";
+
   const linkVariants: Variants = {
     hidden: { opacity: 0, x: 20 },
     visible: (i: number) => ({
@@ -34,33 +38,43 @@ export default function Navbar() {
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
       {/* Left - Hamburger */}
-      <div className="flex items-start ">
-        <button className="cursor-pointer">
-          <svg
-            width="64"
-            height="24"
-            viewBox="0 0 64 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <line
-              x1="0"
-              y1="4"
-              x2="64"
-              y2="4"
-              stroke="white"
-              strokeWidth="1.5"
+      <div className="flex items-start">
+        {isHome ? (
+          <button className="cursor-pointer">
+            <svg
+              width="64"
+              height="24"
+              viewBox="0 0 64 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <line
+                x1="0"
+                y1="4"
+                x2="64"
+                y2="4"
+                stroke="white"
+                strokeWidth="1.5"
+              />
+              <line
+                x1="0"
+                y1="20"
+                x2="64"
+                y2="20"
+                stroke="white"
+                strokeWidth="1.5"
+              />
+            </svg>
+          </button>
+        ) : (
+          <button onClick={() => navigate(-1)} className="cursor-pointer">
+            <img
+              src="https://res.cloudinary.com/dbhx39mmm/image/upload/v1773037474/navbar-back_mhlczv.png"
+              alt="Back"
+              className="h-16 w-auto"
             />
-            <line
-              x1="0"
-              y1="20"
-              x2="64"
-              y2="20"
-              stroke="white"
-              strokeWidth="1.5"
-            />
-          </svg>
-        </button>
+          </button>
+        )}
       </div>
 
       {/* Center - Logo */}
