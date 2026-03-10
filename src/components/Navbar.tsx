@@ -3,7 +3,6 @@ import { motion, type Variants } from "framer-motion";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const navLinks = [
-  { label: "FAQ", path: "#" },
   { label: "CONTACT", path: "#" },
   { label: "LOCATION", path: "#" },
   { label: "ABOUT US", path: "/about" },
@@ -105,16 +104,18 @@ export default function Navbar() {
             {link.path === "#" ? (
               <a
                 href={link.path}
-                className="text-white text-2xl font-light cursor-pointer hover:underline tracking-tight"
+                className="text-white text-2xl font-light cursor-pointer tracking-tight relative group"
               >
                 {link.label}
+                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[2px] w-0 bg-white transition-all duration-300 ease-out group-hover:w-full" />{" "}
               </a>
             ) : (
               <Link
                 to={link.path}
-                className="text-white text-2xl font-light cursor-pointer hover:underline tracking-tight"
+                className="text-white text-2xl font-light cursor-pointer tracking-tight relative group"
               >
                 {link.label}
+                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[2px] w-0 bg-white transition-all duration-300 ease-out group-hover:w-full" />{" "}
               </Link>
             )}
           </motion.div>

@@ -67,7 +67,7 @@ function ScrollArrow({ onClick }: { onClick: () => void }) {
         {/* Arrowhead */}
         <motion.g animate={arrowControls}>
           <polyline
-            points="4,30 20,8 36,30"
+            points="2,30 20,8 38,30"
             fill="none"
             stroke="white"
             strokeWidth="1.7"

@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, type Variants } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
-interface HomeProps {
+interface MainHeroProps {
   images: string[];
   interval?: number;
 }
 
 const heroTexts = [
-  "GLAMS ACADEMY",
-  "GLAMS AGENCY",
-  "CREATIVE PRODUCTION",
-  "EVENT ORGANIZER",
-  "PHOTOSHOOT PORTOFOLIO",
+  { label: "GLAMS ACADEMY", path: "/glams-academy" },
+  { label: "GLAMS AGENCY", path: "/glams-agency" },
+  { label: "CREATIVE PRODUCTION", path: "/creative-production" },
+  { label: "EVENT ORGANIZER", path: "/event-organizer" },
+  { label: "PHOTOSHOOT PORTOFOLIO", path: "/photoshoot-portofolio" },
 ];
 
 const textVariants: Variants = {
@@ -30,8 +31,9 @@ const textVariants: Variants = {
   },
 };
 
-export default function Home({ images, interval = 3000 }: HomeProps) {
+export default function MainHero({ images, interval = 3000 }: MainHeroProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -58,18 +60,19 @@ export default function Home({ images, interval = 3000 }: HomeProps) {
 
       {/* Bottom Left Text */}
       <div className="absolute bottom-10 left-10 flex flex-col items-start z-10">
-        {heroTexts.map((text, i) => (
+        {heroTexts.map(({ label, path }, i) => (
           <motion.span
-            key={text}
-            className="text-white font-medium leading-none tracking-tight cursor-default"
+            key={label}
+            className="text-white font-medium leading-none tracking-tight cursor-pointer"
             style={{ fontSize: "110px" }}
             custom={i}
             variants={textVariants}
             initial="hidden"
             animate="visible"
             whileHover="hover"
+            onClick={() => navigate(path)}
           >
-            {text}
+            {label}
           </motion.span>
         ))}
       </div>
