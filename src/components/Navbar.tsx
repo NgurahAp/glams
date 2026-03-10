@@ -12,6 +12,11 @@ export default function Navbar() {
   const location = useLocation();
   const navigate = useNavigate();
   const isHome = location.pathname === "/";
+  const isAgencyModel = location.pathname === "/agency-model";
+
+  // Warna text & elemen berdasarkan halaman
+  const textColor = isAgencyModel ? "text-black" : "text-white";
+  const underlineBg = isAgencyModel ? "bg-black" : "bg-white";
 
   const linkVariants: Variants = {
     hidden: { opacity: 0, x: 20 },
@@ -36,7 +41,7 @@ export default function Navbar() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
-      {/* Left - Hamburger */}
+      {/* Left - Hamburger / Back */}
       <div className="flex items-start">
         {isHome ? (
           <button className="cursor-pointer">
@@ -52,7 +57,7 @@ export default function Navbar() {
                 y1="4"
                 x2="64"
                 y2="4"
-                stroke="white"
+                stroke={isAgencyModel ? "black" : "white"}
                 strokeWidth="1.5"
               />
               <line
@@ -60,7 +65,7 @@ export default function Navbar() {
                 y1="20"
                 x2="64"
                 y2="20"
-                stroke="white"
+                stroke={isAgencyModel ? "black" : "white"}
                 strokeWidth="1.5"
               />
             </svg>
@@ -68,9 +73,13 @@ export default function Navbar() {
         ) : (
           <button onClick={() => navigate(-1)} className="cursor-pointer">
             <motion.img
-              src="https://res.cloudinary.com/dbhx39mmm/image/upload/v1773037474/navbar-back_mhlczv.png"
+              src={
+                isAgencyModel
+                  ? "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773037474/navbar-back_mhlczv.png"
+                  : "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773037474/navbar-back_mhlczv.png"
+              }
               alt="Back"
-              className="h-16 w-auto"
+              className={`h-16 w-auto ${isAgencyModel ? "invert" : ""}`}
               style={{ transformOrigin: "left center" }}
               whileHover={{ scale: 0.85, opacity: 0.6, x: -6, y: -12 }}
               transition={{ duration: 0.3, ease: "easeOut" }}
@@ -80,12 +89,12 @@ export default function Navbar() {
       </div>
 
       {/* Center - Logo */}
-      <div className="absolute left-1/2 -translate-x-1/2 ">
+      <div className="absolute left-1/2 -translate-x-1/2">
         <Link to="/">
           <img
             src="https://res.cloudinary.com/dbhx39mmm/image/upload/v1773037487/logo_ikbz71.png"
             alt="Logo"
-            className="h-10 w-auto"
+            className={`h-10 w-auto ${isAgencyModel ? "invert" : ""}`}
           />
         </Link>
       </div>
@@ -104,18 +113,22 @@ export default function Navbar() {
             {link.path === "#" ? (
               <a
                 href={link.path}
-                className="text-white text-2xl font-light cursor-pointer tracking-tight relative group"
+                className={`${textColor} text-2xl font-light cursor-pointer tracking-tight relative group`}
               >
                 {link.label}
-                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[2px] w-0 bg-white transition-all duration-300 ease-out group-hover:w-full" />{" "}
+                <span
+                  className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-[2px] w-0 ${underlineBg} transition-all duration-300 ease-out group-hover:w-full`}
+                />
               </a>
             ) : (
               <Link
                 to={link.path}
-                className="text-white text-2xl font-light cursor-pointer tracking-tight relative group"
+                className={`${textColor} text-2xl font-light cursor-pointer tracking-tight relative group`}
               >
                 {link.label}
-                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[2px] w-0 bg-white transition-all duration-300 ease-out group-hover:w-full" />{" "}
+                <span
+                  className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-[2px] w-0 ${underlineBg} transition-all duration-300 ease-out group-hover:w-full`}
+                />
               </Link>
             )}
           </motion.div>

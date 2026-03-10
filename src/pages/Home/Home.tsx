@@ -9,7 +9,7 @@ interface MainHeroProps {
 
 const heroTexts = [
   { label: "GLAMS ACADEMY", path: "/glams-academy" },
-  { label: "GLAMS AGENCY", path: "/glams-agency" },
+  { label: "GLAMS AGENCY", path: "/agency-model" },
   { label: "CREATIVE PRODUCTION", path: "/creative-production" },
   { label: "EVENT ORGANIZER", path: "/event-organizer" },
   { label: "PHOTOSHOOT PORTOFOLIO", path: "/photoshoot-portofolio" },
