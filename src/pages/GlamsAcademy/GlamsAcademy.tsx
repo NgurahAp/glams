@@ -1,7 +1,6 @@
 import { motion, useInView, type Variants } from "framer-motion";
-import { ArrowLeft } from "lucide-react";
 import { useRef } from "react";
-import { useNavigate, useRouteError } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const paragraphVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
