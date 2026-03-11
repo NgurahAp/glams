@@ -14,8 +14,8 @@ export default function AgencyModel() {
     },
     {
       src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773024790/kid-photo-3_xnb3t0.png",
-      alt: "Kid Model 2",
-      path: "/kid-model-2",
+      alt: "Adult Model",
+      path: "/adult-model",
     },
   ];
 
