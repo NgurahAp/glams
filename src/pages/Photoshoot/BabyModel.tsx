@@ -1,4 +1,4 @@
-import { motion, useInView, type Variants } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { useRef, useState, useCallback } from "react";
 
 const paragraphVariants: Variants = {
@@ -190,7 +190,6 @@ function ModelCarousel() {
 
 export default function BabyModel() {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
     <>
@@ -211,11 +210,13 @@ export default function BabyModel() {
       {/* Content */}
       <div className="bg-white w-full">
         <div className="max-w-[1920px] mx-auto px-16 py-20">
+          {/* Title — triggers on its own when it enters view */}
           <motion.h1
             className="-tracking-wider text-black mb-10 -pr-4"
             style={{ fontSize: "200px" }}
             initial={{ opacity: 0, y: 30 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1] }}
           >
             Baby Model
@@ -225,46 +226,54 @@ export default function BabyModel() {
             <SectionDivider />
 
             <div className="w-[60%]">
+              {/* Description heading */}
               <motion.h3
                 className="font-bold leading-tight tracking-wide text-black mt-5 mb-20"
                 style={{ fontSize: "40px" }}
                 variants={paragraphVariants}
                 initial="hidden"
-                animate={inView ? "visible" : "hidden"}
+                whileInView="visible"
+                viewport={{ once: true }}
               >
                 Description
               </motion.h3>
 
+              {/* Para 1 */}
               <motion.p
                 className="font-normal leading-tight tracking-tight text-justify text-black mb-16"
                 style={{ fontSize: "28px" }}
                 variants={paragraphVariants}
                 initial="hidden"
-                animate={inView ? "visible" : "hidden"}
+                whileInView="visible"
+                viewport={{ once: true }}
               >
                 Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
                 diam nonummy nibh euismod. Lorem ipsum dolor sit amet,
                 consectetuer adipiscing elit, sed diam nonummy nibh euismod.
               </motion.p>
 
+              {/* Para 2 */}
               <motion.p
                 className="font-normal leading-tight tracking-tight text-justify text-black mb-16"
                 style={{ fontSize: "28px" }}
                 variants={paragraphVariants}
                 initial="hidden"
-                animate={inView ? "visible" : "hidden"}
+                whileInView="visible"
+                viewport={{ once: true }}
               >
                 Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
                 diam nonummy nibh euismod. Lorem ipsum dolor sit amet,
                 consectetuer adipiscing elit, sed diam nonummy nibh euismod.
               </motion.p>
 
+              {/* Para 3 bold */}
               <motion.p
                 className="font-bold leading-tight tracking-tight text-black mb-16"
                 style={{ fontSize: "28px" }}
                 variants={paragraphVariants}
                 initial="hidden"
-                animate={inView ? "visible" : "hidden"}
+                whileInView="visible"
+                viewport={{ once: true }}
               >
                 Lorem ipsum dolor sit amet
               </motion.p>
@@ -272,11 +281,13 @@ export default function BabyModel() {
 
             <SectionDivider />
 
+            {/* Age Range */}
             <motion.div
+              className="mb-8"
               variants={paragraphVariants}
               initial="hidden"
-              animate={inView ? "visible" : "hidden"}
-              className="mb-8"
+              whileInView="visible"
+              viewport={{ once: true }}
             >
               <h3
                 className="font-bold leading-tight tracking-tight text-black"
@@ -294,11 +305,13 @@ export default function BabyModel() {
 
             <SectionDivider />
 
+            {/* Gender */}
             <motion.div
+              className="mb-8"
               variants={paragraphVariants}
               initial="hidden"
-              animate={inView ? "visible" : "hidden"}
-              className="mb-8"
+              whileInView="visible"
+              viewport={{ once: true }}
             >
               <h3
                 className="font-bold leading-tight tracking-tight text-black"
@@ -316,10 +329,12 @@ export default function BabyModel() {
 
             <SectionDivider />
 
+            {/* Ethnicity */}
             <motion.div
               variants={paragraphVariants}
               initial="hidden"
-              animate={inView ? "visible" : "hidden"}
+              whileInView="visible"
+              viewport={{ once: true }}
             >
               <h3
                 className="font-bold leading-tight tracking-tight text-black"
@@ -340,24 +355,38 @@ export default function BabyModel() {
 
           <ModelCarousel />
 
+          {/* Contact heading */}
           <motion.h3
             className="font-bold leading-tight tracking-tight text-black mt-16 mb-10"
             style={{ fontSize: "35px" }}
             variants={paragraphVariants}
             initial="hidden"
-            animate={inView ? "visible" : "hidden"}
+            whileInView="visible"
+            viewport={{ once: true }}
           >
             CONTACT FOR BABY MODEL
           </motion.h3>
 
+          {/* Contact details */}
           <motion.p
             className="font-normal leading-tight tracking-tight text-justify text-black mb-16"
             style={{ fontSize: "35px" }}
             variants={paragraphVariants}
             initial="hidden"
-            animate={inView ? "visible" : "hidden"}
+            whileInView="visible"
+            viewport={{ once: true }}
           >
-            PHONE NUMBER : +62 852-8382-4639 <br />
+            PHONE NUMBER :{" "}
+            <a
+              href="https://wa.me/6285283824639"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="relative inline-block group/phone"
+            >
+              +62 852-8382-4639
+              <span className="absolute left-0 bottom-0 h-[2px] w-0 bg-black group-hover/phone:w-full transition-all duration-500 ease-out" />
+            </a>
+            <br />
             GMAIL : glams.management@gmail.com
           </motion.p>
         </div>

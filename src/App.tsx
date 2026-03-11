@@ -5,9 +5,9 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import GlamsAcademy from "./pages/GlamsAcademy/GlamsAcademy";
 import AgencyModel from "./pages/GlamsAgency/glamsAgency";
-import BabyModel from "./pages/BabyModel/BabyModel";
-import KidModel from "./pages/KidModel/KidModel";
-import AdultModel from "./pages/AdultModel/AdultModel";
+import BabyModel from "./pages/Photoshoot/BabyModel";
+import KidModel from "./pages/Photoshoot/KidModel";
+import AdultModel from "./pages/Photoshoot/AdultModel";
 
 const images = [
   "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773024788/about-bottom_jl32sn.png",

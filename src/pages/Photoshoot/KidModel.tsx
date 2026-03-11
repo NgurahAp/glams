@@ -1,0 +1,396 @@
+import { motion, type Variants } from "framer-motion";
+import { useRef, useState, useCallback } from "react";
+
+const paragraphVariants: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.9,
+      ease: [0.25, 0.1, 0.25, 1],
+    },
+  },
+};
+
+function SectionDivider() {
+  return (
+    <motion.div
+      className="w-[75%] border-t border-black my-10"
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8 }}
+    />
+  );
+}
+
+const allModels = [
+  {
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773024788/baby-photo-2_pnov6k.png",
+    alt: "Baby Model 1",
+  },
+  {
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773024790/kid-photo-2_cq5okb.png",
+    alt: "Kid Model 1",
+  },
+  {
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773024790/kid-photo-3_xnb3t0.png",
+    alt: "Kid Model 2",
+  },
+  {
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773024788/baby-photo-2_pnov6k.png",
+    alt: "Baby Model 2",
+  },
+  {
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773024790/kid-photo-2_cq5okb.png",
+    alt: "Kid Model 3",
+  },
+  {
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773024790/kid-photo-3_xnb3t0.png",
+    alt: "Kid Model 4",
+  },
+  {
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773024788/baby-photo-2_pnov6k.png",
+    alt: "Baby Model 3",
+  },
+  {
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773024790/kid-photo-2_cq5okb.png",
+    alt: "Kid Model 5",
+  },
+];
+
+const CARD_WIDTH = 590;
+const CARD_GAP = 32;
+const CARD_STEP = CARD_WIDTH + CARD_GAP;
+const TOTAL = allModels.length;
+
+const loopedModels = [...allModels, ...allModels, ...allModels];
+const LOOP_OFFSET = TOTAL * CARD_STEP;
+
+function ModelCarousel() {
+  const [current, setCurrent] = useState(0);
+
+  const prev = useCallback(() => {
+    setCurrent((c) => (c - 1 + TOTAL) % TOTAL);
+  }, []);
+
+  const next = useCallback(() => {
+    setCurrent((c) => (c + 1) % TOTAL);
+  }, []);
+
+  const translateX = -(current * CARD_STEP) - LOOP_OFFSET;
+
+  return (
+    <div className="relative w-full">
+      {/* Viewport */}
+      <div className="overflow-hidden w-full">
+        <motion.div
+          className="flex"
+          style={{ gap: CARD_GAP }}
+          animate={{ x: translateX }}
+          transition={{ duration: 0.65, ease: [0.25, 0.1, 0.25, 1] }}
+        >
+          {loopedModels.map((model, i) => (
+            <div
+              key={i}
+              className="flex-shrink-0 overflow-hidden group cursor-pointer"
+              style={{ width: CARD_WIDTH, height: 700 }}
+            >
+              <img
+                src={model.src}
+                alt={model.alt}
+                className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+              />
+            </div>
+          ))}
+        </motion.div>
+      </div>
+
+      {/* Controls */}
+      <div className="flex items-center gap-8 mt-10">
+        {/* Prev */}
+        <button
+          onClick={prev}
+          className="flex items-center justify-center flex-shrink-0 p-1 group/btn"
+          aria-label="Previous"
+        >
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 18 18"
+            fill="none"
+            className="transition-transform duration-200 ease-out group-hover/btn:scale-150"
+          >
+            <path
+              d="M11 3L5 9L11 15"
+              stroke="black"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </button>
+
+        {/* Dots */}
+        <div className="flex items-center gap-3">
+          {allModels.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrent(i)}
+              aria-label={`Go to slide ${i + 1}`}
+            >
+              <div
+                className="transition-all duration-300 bg-black"
+                style={{
+                  height: 2,
+                  width: i === current ? 32 : 16,
+                  opacity: i === current ? 1 : 0.25,
+                }}
+              />
+            </button>
+          ))}
+        </div>
+
+        {/* Next */}
+        <button
+          onClick={next}
+          className="flex items-center justify-center flex-shrink-0 p-1 group/btn"
+          aria-label="Next"
+        >
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 18 18"
+            fill="none"
+            className="transition-transform duration-200 ease-out group-hover/btn:scale-150"
+          >
+            <path
+              d="M7 3L13 9L7 15"
+              stroke="black"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </button>
+
+        {/* Counter */}
+        <span
+          className="ml-auto font-normal text-black"
+          style={{ fontSize: "18px", opacity: 0.35, letterSpacing: "0.05em" }}
+        >
+          {String(current + 1).padStart(2, "0")} /{" "}
+          {String(TOTAL).padStart(2, "0")}
+        </span>
+      </div>
+    </div>
+  );
+}
+
+export default function KidModel() {
+  const ref = useRef(null);
+
+  return (
+    <>
+      {/* Hero Section */}
+      <div className="h-screen relative overflow-hidden">
+        <motion.div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage:
+              "url(https://res.cloudinary.com/dbhx39mmm/image/upload/v1773026363/kid-hero_mwfa37.png)",
+          }}
+          initial={{ opacity: 0, filter: "blur(12px)", scale: 1.05 }}
+          animate={{ opacity: 1, filter: "blur(0px)", scale: 1 }}
+          transition={{ duration: 1.2, ease: "easeInOut" }}
+        />
+      </div>
+
+      {/* Content */}
+      <div className="bg-white w-full">
+        <div className="max-w-[1920px] mx-auto px-16 py-20">
+          {/* Title — triggers on its own when it enters view */}
+          <motion.h1
+            className="-tracking-wider text-black mb-10 -pr-4"
+            style={{ fontSize: "200px" }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1] }}
+          >
+            Kid Model
+          </motion.h1>
+
+          <div className="w-[60%] pb-32" ref={ref}>
+            <SectionDivider />
+
+            <div className="w-[60%]">
+              {/* Description heading */}
+              <motion.h3
+                className="font-bold leading-tight tracking-wide text-black mt-5 mb-20"
+                style={{ fontSize: "40px" }}
+                variants={paragraphVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+              >
+                Description
+              </motion.h3>
+
+              {/* Para 1 */}
+              <motion.p
+                className="font-normal leading-tight tracking-tight text-justify text-black mb-16"
+                style={{ fontSize: "28px" }}
+                variants={paragraphVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+              >
+                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
+                diam nonummy nibh euismod. Lorem ipsum dolor sit amet,
+                consectetuer adipiscing elit, sed diam nonummy nibh euismod.
+              </motion.p>
+
+              {/* Para 2 */}
+              <motion.p
+                className="font-normal leading-tight tracking-tight text-justify text-black mb-16"
+                style={{ fontSize: "28px" }}
+                variants={paragraphVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+              >
+                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
+                diam nonummy nibh euismod. Lorem ipsum dolor sit amet,
+                consectetuer adipiscing elit, sed diam nonummy nibh euismod.
+              </motion.p>
+
+              {/* Para 3 bold */}
+              <motion.p
+                className="font-bold leading-tight tracking-tight text-black mb-16"
+                style={{ fontSize: "28px" }}
+                variants={paragraphVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+              >
+                Lorem ipsum dolor sit amet
+              </motion.p>
+            </div>
+
+            <SectionDivider />
+
+            {/* Age Range */}
+            <motion.div
+              className="mb-8"
+              variants={paragraphVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
+              <h3
+                className="font-bold leading-tight tracking-tight text-black"
+                style={{ fontSize: "40px" }}
+              >
+                Age Range
+              </h3>
+              <p
+                className="font-normal leading-tight tracking-tight text-justify text-black"
+                style={{ fontSize: "30px" }}
+              >
+                10 month - 8 years old
+              </p>
+            </motion.div>
+
+            <SectionDivider />
+
+            {/* Gender */}
+            <motion.div
+              className="mb-8"
+              variants={paragraphVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
+              <h3
+                className="font-bold leading-tight tracking-tight text-black"
+                style={{ fontSize: "40px" }}
+              >
+                Gender
+              </h3>
+              <p
+                className="font-normal leading-tight tracking-tight text-justify text-black"
+                style={{ fontSize: "30px" }}
+              >
+                Male and Female
+              </p>
+            </motion.div>
+
+            <SectionDivider />
+
+            {/* Ethnicity */}
+            <motion.div
+              variants={paragraphVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
+              <h3
+                className="font-bold leading-tight tracking-tight text-black"
+                style={{ fontSize: "40px" }}
+              >
+                Ethnicity
+              </h3>
+              <p
+                className="font-normal leading-tight tracking-tight text-justify text-black"
+                style={{ fontSize: "30px" }}
+              >
+                Asian, Western, Mix
+              </p>
+            </motion.div>
+
+            <SectionDivider />
+          </div>
+
+          <ModelCarousel />
+
+          {/* Contact heading */}
+          <motion.h3
+            className="font-bold leading-tight tracking-tight text-black mt-16 mb-10"
+            style={{ fontSize: "35px" }}
+            variants={paragraphVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            CONTACT FOR KID MODEL
+          </motion.h3>
+
+          {/* Contact details */}
+          <motion.p
+            className="font-normal leading-tight tracking-tight text-justify text-black mb-16"
+            style={{ fontSize: "35px" }}
+            variants={paragraphVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            PHONE NUMBER :{" "}
+            <a
+              href="https://wa.me/6285283824639"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="relative inline-block group/phone"
+            >
+              +62 852-8382-4639
+              <span className="absolute left-0 bottom-0 h-[2px] w-0 bg-black group-hover/phone:w-full transition-all duration-500 ease-out" />
+            </a>
+            <br />
+            GMAIL : glams.management@gmail.com
+          </motion.p>
+        </div>
+      </div>
+    </>
+  );
+}
