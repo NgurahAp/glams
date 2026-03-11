@@ -20,28 +20,30 @@ export default function AgencyModel() {
   ];
 
   return (
-    <section className="h-screen bg-[#d9d9d9] flex flex-col justify-end px-12 pb-4">
-      {/* Title */}
-      <div className="mb-10">
-        <h2 className="text-[25px] tracking-tight font-medium mb-2">
-          GLAMS AGENCY MODEL
-        </h2>
-        <div className="h-[1px] bg-black"></div>
-      </div>
+    <section className="h-screen bg-[#d9d9d9] flex flex-col justify-end pb-4">
+      <div className="max-w-[1920px] mx-auto w-full px-12">
+        {/* Title */}
+        <div className="mb-10">
+          <h2 className="text-[25px] tracking-tight font-medium mb-2">
+            GLAMS AGENCY MODEL
+          </h2>
+          <div className="h-[1px] bg-black"></div>
+        </div>
 
-      {/* Images */}
-      <div className="grid grid-cols-3 gap-8 justify-center items-center mx-auto">
-        {models.map((model, index) => (
-          <Link key={index} to={model.path}>
-            <div className="w-[590px] h-[700px] overflow-hidden group cursor-pointer">
-              <img
-                src={model.src}
-                alt={model.alt}
-                className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-              />
-            </div>
-          </Link>
-        ))}
+        {/* Images */}
+        <div className="grid grid-cols-3 gap-8 justify-center items-center mx-auto">
+          {models.map((model, index) => (
+            <Link key={index} to={model.path}>
+              <div className="w-[590px] h-[700px] overflow-hidden group cursor-pointer">
+                <img
+                  src={model.src}
+                  alt={model.alt}
+                  className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                />
+              </div>
+            </Link>
+          ))}
+        </div>
       </div>
     </section>
   );

@@ -87,7 +87,7 @@ export default function About({ image }: AboutProps) {
           animate={{ opacity: 1, filter: "blur(0px)", scale: 1 }}
           transition={{ duration: 1, ease: "easeInOut" }}
         />
-        <div className="absolute bottom-10 left-10 flex flex-col items-start z-10">
+        <div className="absolute bottom-10 left-10 flex flex-col items-start z-10 ">
           <motion.p
             className="text-white font-normal text-[28px] leading-tight tracking-tight max-w-6xl mt-4 cursor-default"
             variants={paragraphVariants}
@@ -102,12 +102,13 @@ export default function About({ image }: AboutProps) {
           </motion.p>
         </div>
       </div>
+
       {/* Content Section */}
-      <div className="bg-white w-full px-16 py-48">
-        <div className="flex">
-          {/* Left - Sticky GLAMS */}
-          <div className="w-[40%] relative pt-14">
-            <div className="">
+      <div className="bg-white w-full">
+        <div className="max-w-[1920px] mx-auto w-full px-16 py-48">
+          <div className="flex">
+            {/* Left - Sticky GLAMS */}
+            <div className="w-[40%] relative pt-14">
               <motion.span
                 className="font-bold leading-none tracking-tight text-black block"
                 style={{ fontSize: "98px" }}
@@ -119,21 +120,22 @@ export default function About({ image }: AboutProps) {
                 GLAMS
               </motion.span>
             </div>
-          </div>
 
-          {/* Right - Sections */}
-          <div className="w-[60%] flex flex-col">
-            {sections.map((section, i) => (
-              <SectionRow
-                key={section.id}
-                title={section.title}
-                body={section.body}
-                isLast={i === sections.length - 1}
-              />
-            ))}
+            {/* Right - Sections */}
+            <div className="w-[60%] flex flex-col">
+              {sections.map((section, i) => (
+                <SectionRow
+                  key={section.id}
+                  title={section.title}
+                  body={section.body}
+                  isLast={i === sections.length - 1}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>
+
       {/* Bottom Image Section */}
       <div className="h-screen relative overflow-hidden">
         <motion.div
@@ -146,7 +148,7 @@ export default function About({ image }: AboutProps) {
           viewport={{ once: true }}
           transition={{ duration: 2, ease: "easeInOut" }}
         />
-      </div>{" "}
+      </div>
     </>
   );
 }

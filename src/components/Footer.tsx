@@ -64,7 +64,6 @@ function ScrollArrow({ onClick }: { onClick: () => void }) {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        {/* Arrowhead */}
         <motion.g animate={arrowControls}>
           <polyline
             points="2,30 20,8 38,30"
@@ -75,8 +74,6 @@ function ScrollArrow({ onClick }: { onClick: () => void }) {
             strokeLinejoin="round"
           />
         </motion.g>
-
-        {/* Vertical line */}
         <motion.line
           x1="20"
           y1="180"
@@ -98,7 +95,7 @@ export default function Footer() {
 
   return (
     <footer className="bg-black w-full text-white">
-      <div className="px-12 py-20 flex flex-col justify-between min-h-[70vh]">
+      <div className="max-w-[1920px] mx-auto w-full px-12 py-20 flex flex-col justify-between min-h-[70vh]">
         <div className="grid grid-cols-3 gap-16">
           {/* CONTACT */}
           <div className="flex flex-col pt-10">
