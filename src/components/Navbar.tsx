@@ -4,7 +4,11 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const navLinks = [
   { label: "CONTACT", path: "#" },
-  { label: "LOCATION", path: "#" },
+  {
+    label: "LOCATION",
+    path: "https://www.google.com/maps/place/GLAMS+Academy+%26+Management+Lippo+Mall+Puri/@-6.1872816,106.7393835,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f5a5c615f901:0x61f530a795f6a371!8m2!3d-6.1872816!4d106.7393835!16s%2Fg%2F11mxsxhlj0!5m1!1e1?entry=ttu&g_ep=EgoyMDI2MDMwOC4wIKXMDSoASAFQAw%3D%3D",
+    external: true,
+  },
   { label: "ABOUT US", path: "/about" },
 ];
 
@@ -113,6 +117,18 @@ export default function Navbar() {
               {link.path === "#" ? (
                 <a
                   href={link.path}
+                  className={`${textColor} text-2xl font-light cursor-pointer tracking-tight relative group`}
+                >
+                  {link.label}
+                  <span
+                    className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-[2px] w-0 ${underlineBg} transition-all duration-300 ease-out group-hover:w-full`}
+                  />
+                </a>
+              ) : (link as any).external ? (
+                <a
+                  href={link.path}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className={`${textColor} text-2xl font-light cursor-pointer tracking-tight relative group`}
                 >
                   {link.label}
