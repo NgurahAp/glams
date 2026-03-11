@@ -1,16 +1,161 @@
-import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
+import { useRef, useState, useCallback } from "react";
 
-export default function KidAgency() {
-  const model = {
+const allPhotos = [
+  {
     src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773024790/kid-photo-2_cq5okb.png",
-    alt: "Kid Model",
-    path: "/kid-model",
-  };
+    alt: "Kid Model 1",
+  },
+  {
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773024790/kid-photo-3_xnb3t0.png",
+    alt: "Kid Model 2",
+  },
+  {
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773024788/baby-photo-2_pnov6k.png",
+    alt: "Kid Model 3",
+  },
+  {
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773024790/kid-photo-2_cq5okb.png",
+    alt: "Kid Model 4",
+  },
+  {
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773024790/kid-photo-3_xnb3t0.png",
+    alt: "Kid Model 5",
+  },
+  {
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773024788/baby-photo-2_pnov6k.png",
+    alt: "Kid Model 6",
+  },
+];
+
+const CARD_WIDTH = 590;
+const CARD_GAP = 32;
+const CARD_STEP = CARD_WIDTH + CARD_GAP;
+const TOTAL = allPhotos.length;
+const loopedPhotos = [...allPhotos, ...allPhotos, ...allPhotos];
+const LOOP_OFFSET = TOTAL * CARD_STEP;
+
+function PhotoCarousel() {
+  const [current, setCurrent] = useState(0);
+
+  const prev = useCallback(
+    () => setCurrent((c) => (c - 1 + TOTAL) % TOTAL),
+    [],
+  );
+  const next = useCallback(() => setCurrent((c) => (c + 1) % TOTAL), []);
+
+  const translateX = -(current * CARD_STEP) - LOOP_OFFSET;
 
   return (
-    <section className="bg-white flex flex-col justify-end pb-4">
+    <div className="relative w-full">
+      <div className="overflow-hidden w-full">
+        <motion.div
+          className="flex"
+          style={{ gap: CARD_GAP }}
+          animate={{ x: translateX }}
+          transition={{ duration: 0.65, ease: [0.25, 0.1, 0.25, 1] }}
+        >
+          {loopedPhotos.map((photo, i) => (
+            <div
+              key={i}
+              className="flex-shrink-0 overflow-hidden group cursor-pointer"
+              style={{ width: CARD_WIDTH, height: 700 }}
+            >
+              <img
+                src={photo.src}
+                alt={photo.alt}
+                className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+              />
+            </div>
+          ))}
+        </motion.div>
+      </div>
+
+      {/* Controls */}
+      <div className="flex items-center gap-8 mt-10">
+        <button
+          onClick={prev}
+          className="flex items-center justify-center flex-shrink-0 p-1 group/btn"
+          aria-label="Previous"
+        >
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 18 18"
+            fill="none"
+            className="transition-transform duration-200 ease-out group-hover/btn:scale-150"
+          >
+            <path
+              d="M11 3L5 9L11 15"
+              stroke="black"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </button>
+
+        <div className="flex items-center gap-3">
+          {allPhotos.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrent(i)}
+              aria-label={`Go to slide ${i + 1}`}
+            >
+              <div
+                className="transition-all duration-300 bg-black"
+                style={{
+                  height: 2,
+                  width: i === current ? 32 : 16,
+                  opacity: i === current ? 1 : 0.25,
+                }}
+              />
+            </button>
+          ))}
+        </div>
+
+        <button
+          onClick={next}
+          className="flex items-center justify-center flex-shrink-0 p-1 group/btn"
+          aria-label="Next"
+        >
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 18 18"
+            fill="none"
+            className="transition-transform duration-200 ease-out group-hover/btn:scale-150"
+          >
+            <path
+              d="M7 3L13 9L7 15"
+              stroke="black"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </button>
+
+        <span
+          className="ml-auto font-normal text-black"
+          style={{ fontSize: "18px", opacity: 0.35, letterSpacing: "0.05em" }}
+        >
+          {String(current + 1).padStart(2, "0")} /{" "}
+          {String(TOTAL).padStart(2, "0")}
+        </span>
+      </div>
+    </div>
+  );
+}
+
+export default function KidAgency() {
+  const contactRef = useRef(null);
+  const contactInView = useInView(contactRef, { once: true, margin: "-80px" });
+
+  return (
+    <section className="bg-white flex flex-col pb-4">
       <div className="max-w-[1920px] mx-auto w-full px-12">
+        {/* Header */}
         <motion.div
           className="mb-10 mt-72"
           initial={{ opacity: 0, y: 12 }}
@@ -24,13 +169,18 @@ export default function KidAgency() {
             className="h-[1px] bg-black"
             initial={{ scaleX: 0 }}
             animate={{ scaleX: 1 }}
-            transition={{ duration: 0.6, delay: 0.75, ease: [0.25, 0.1, 0.25, 1] }}
+            transition={{
+              duration: 0.6,
+              delay: 0.75,
+              ease: [0.25, 0.1, 0.25, 1],
+            }}
             style={{ transformOrigin: "left" }}
           />
         </motion.div>
 
-        <div className="flex justify-center pt-28">
-          <Link to={model.path}>
+        {/* First image — layoutId shared transition */}
+        <div className="flex justify-center pt-28 pb-20">
+          <div className="flex flex-col items-center" style={{ width: 590 }}>
             <motion.div
               layoutId="kid-agency-image"
               style={{ width: 590, height: 700, overflow: "hidden" }}
@@ -40,12 +190,82 @@ export default function KidAgency() {
               className="group"
             >
               <img
-                src={model.src}
-                alt={model.alt}
+                src="https://res.cloudinary.com/dbhx39mmm/image/upload/v1773024790/kid-photo-2_cq5okb.png"
+                alt="Kid Model"
                 className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
               />
             </motion.div>
-          </Link>
+
+            <motion.p
+              className="text-black text-center leading-tight tracking-tight mt-20"
+              style={{ fontSize: 30 }}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.6,
+                delay: 1,
+                ease: [0.25, 0.1, 0.25, 1],
+              }}
+            >
+              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
+              nonummy nibh euismod Lorem ipsum dolor sit amet, consectetuer
+              adipiscing elit, sed diam nonummy nibh euismod
+            </motion.p>
+          </div>
+        </div>
+
+        {/* Carousel */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 1, ease: [0.25, 0.1, 0.25, 1] }}
+        >
+          <PhotoCarousel />
+        </motion.div>
+
+        {/* Contact */}
+        <div ref={contactRef} className="mt-24 mb-16">
+          <motion.h3
+            className="font-bold leading-tight tracking-tight text-black mt-16 mb-10"
+            style={{ fontSize: "35px" }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={contactInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
+          >
+            CONTACT FOR KID MODEL
+          </motion.h3>
+
+          <motion.p
+            className="font-normal leading-tight tracking-tight text-black"
+            style={{ fontSize: "35px" }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={contactInView ? { opacity: 1, y: 0 } : {}}
+            transition={{
+              duration: 0.7,
+              delay: 0.1,
+              ease: [0.25, 0.1, 0.25, 1],
+            }}
+          >
+            PHONE NUMBER :{" "}
+            <a
+              href="https://wa.me/6285283824639"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="relative inline-block group/phone"
+            >
+              +62 852-8382-4639
+              <span className="absolute left-0 bottom-0 h-[2px] w-0 bg-black group-hover/phone:w-full transition-all duration-500 ease-out" />
+            </a>
+            <br />
+            GMAIL :{" "}
+            <a
+              href="mailto:glams.management@gmail.com"
+              className="relative inline-block group/email"
+            >
+              glams.management@gmail.com
+              <span className="absolute left-0 bottom-0 h-[2px] w-0 bg-black group-hover/email:w-full transition-all duration-500 ease-out" />
+            </a>{" "}
+          </motion.p>
         </div>
       </div>
     </section>
