@@ -2,17 +2,16 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion, type Variants } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
-interface MainHeroProps {
-  images: string[];
-  interval?: number;
-}
-
 const heroTexts = [
-  { label: "GLAMS ACADEMY", path: "/glams-academy" },
-  { label: "GLAMS AGENCY", path: "/agency-model" },
-  { label: "CREATIVE PRODUCTION", path: "/creative-production" },
-  { label: "EVENT ORGANIZER", path: "/event-organizer" },
-  { label: "PHOTOSHOOT PORTOFOLIO", path: "/photoshoot" },
+  { label: "Baby Model", path: "/baby-model", layoutId: "baby-model-title" },
+  { label: "Kid Model", path: "/kid-model", layoutId: "kid-model-title" },
+  { label: "Adult Model", path: "/adult-model", layoutId: "adult-model-title" },
+];
+
+const images = [
+  "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773024788/about-bottom_jl32sn.png",
+  "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773024788/about-hero_rhytpc.png",
+  "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773024790/model-hero_jvd8j8.png",
 ];
 
 const textVariants: Variants = {
@@ -31,17 +30,17 @@ const textVariants: Variants = {
   },
 };
 
-export default function MainHero({ images, interval = 3000 }: MainHeroProps) {
+export default function PhotoShoot() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentIndex((i) => (i + 1) % images.length);
-    }, interval);
+    }, 3000);
 
     return () => clearInterval(timer);
-  }, [images.length, interval]);
+  }, [images.length, 3000]);
 
   return (
     <div className="h-screen relative overflow-hidden">
@@ -58,22 +57,27 @@ export default function MainHero({ images, interval = 3000 }: MainHeroProps) {
         />
       </AnimatePresence>
 
-      {/* Bottom Left Text */}
+      {/* Bottom Left Text — shared layoutId untuk transisi ke halaman model */}
       <div className="absolute bottom-10 left-10 flex flex-col items-start z-10">
-        {heroTexts.map(({ label, path }, i) => (
-          <motion.span
+        {heroTexts.map(({ label, path, layoutId }, i) => (
+          <motion.div
             key={label}
-            className="text-white font-medium leading-none tracking-tight cursor-pointer"
-            style={{ fontSize: "110px" }}
             custom={i}
             variants={textVariants}
             initial="hidden"
             animate="visible"
             whileHover="hover"
-            onClick={() => navigate(path)}
+            className="cursor-pointer"
           >
-            {label}
-          </motion.span>
+            <motion.span
+              layoutId={layoutId}
+              onClick={() => navigate(path)}
+              className="font-medium leading-none tracking-tight block"
+              style={{ fontSize: "150px", color: "#ffffff" }}
+            >
+              {label}
+            </motion.span>
+          </motion.div>
         ))}
       </div>
     </div>

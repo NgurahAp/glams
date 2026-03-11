@@ -13,7 +13,7 @@ const navLinks = [
 ];
 
 // Pages with dark/photo backgrounds → white navbar
-const darkBgRoutes = ["/", "/about", "/glams-academy"];
+const darkBgRoutes = ["/", "/about", "/glams-academy", "/photoshoot", "/baby-model", "/kid-model", "/adult-model"];
 
 export default function Navbar() {
   const location = useLocation();

@@ -210,14 +210,17 @@ export default function AdultModel() {
       {/* Content */}
       <div className="bg-white w-full">
         <div className="max-w-[1920px] mx-auto px-16 py-20">
-          {/* Title — triggers on its own when it enters view */}
+          {/* Title — shared layoutId, teks "Adult Model" dari Photoshoot turun ke sini */}
           <motion.h1
-            className="-tracking-wider text-black mb-10 -pr-4"
+            layoutId="adult-model-title"
+            className="-tracking-wider mb-10 -pr-4"
             style={{ fontSize: "200px" }}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1] }}
+            initial={{ color: "#ffffff" }}
+            animate={{ color: "#000000" }}
+            transition={{
+              layout: { duration: 0.75, ease: [0.25, 0.1, 0.25, 1] },
+              color: { duration: 0.5, ease: [0.25, 0.1, 0.25, 1] },
+            }}
           >
             Adult Model
           </motion.h1>
