@@ -8,14 +8,18 @@ const navLinks = [
   { label: "ABOUT US", path: "/about" },
 ];
 
+// Pages with dark/photo backgrounds → white navbar
+const darkBgRoutes = ["/", "/about", "/glams-academy"];
+
 export default function Navbar() {
   const location = useLocation();
   const navigate = useNavigate();
   const isHome = location.pathname === "/";
-  const isAgencyModel = location.pathname === "/agency-model";
+  const isDark = darkBgRoutes.includes(location.pathname);
 
-  const textColor = isAgencyModel ? "text-black" : "text-white";
-  const underlineBg = isAgencyModel ? "bg-black" : "bg-white";
+  const textColor = isDark ? "text-white" : "text-black";
+  const underlineBg = isDark ? "bg-white" : "bg-black";
+  const strokeColor = isDark ? "white" : "black";
 
   const linkVariants: Variants = {
     hidden: { opacity: 0, x: 20 },
@@ -57,7 +61,7 @@ export default function Navbar() {
                   y1="4"
                   x2="64"
                   y2="4"
-                  stroke={isAgencyModel ? "black" : "white"}
+                  stroke={strokeColor}
                   strokeWidth="1.5"
                 />
                 <line
@@ -65,7 +69,7 @@ export default function Navbar() {
                   y1="20"
                   x2="64"
                   y2="20"
-                  stroke={isAgencyModel ? "black" : "white"}
+                  stroke={strokeColor}
                   strokeWidth="1.5"
                 />
               </svg>
@@ -75,7 +79,7 @@ export default function Navbar() {
               <motion.img
                 src="https://res.cloudinary.com/dbhx39mmm/image/upload/v1773037474/navbar-back_mhlczv.png"
                 alt="Back"
-                className={`h-16 w-auto ${isAgencyModel ? "invert" : ""}`}
+                className={`h-16 w-auto ${!isDark ? "invert" : ""}`}
                 style={{ transformOrigin: "left center" }}
                 whileHover={{ scale: 0.85, opacity: 0.6, x: -6, y: -12 }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
@@ -90,7 +94,7 @@ export default function Navbar() {
             <img
               src="https://res.cloudinary.com/dbhx39mmm/image/upload/v1773037487/logo_ikbz71.png"
               alt="Logo"
-              className={`h-10 w-auto ${isAgencyModel ? "invert" : ""}`}
+              className={`h-10 w-auto ${!isDark ? "invert" : ""}`}
             />
           </Link>
         </div>
