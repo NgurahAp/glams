@@ -54,23 +54,17 @@ function SectionRow({
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
     >
-      <div className="flex py-16">
-        <div className="flex flex-col gap-11">
-          <h2
-            className="font-bold leading-tight tracking-tight text-black"
-            style={{ fontSize: "40px" }}
-          >
+      <div className="flex py-12">
+        <div className="flex flex-col gap-8">
+          <h2 className="font-bold text-2xl leading-tight tracking-tight text-black">
             {title}
           </h2>
-          <p
-            className="font-normal leading-tight text-black pb-8"
-            style={{ fontSize: "28px" }}
-          >
+          <p className="font-normal leading-tight text-lg text-black pb-8">
             {body}
           </p>
         </div>
       </div>
-      <div className="w-full border-t border-black pb-24" />
+      <div className="w-full border-t border-black pb-16" />
     </motion.div>
   );
 }
@@ -87,9 +81,9 @@ export default function About({ image }: AboutProps) {
           animate={{ opacity: 1, filter: "blur(0px)", scale: 1 }}
           transition={{ duration: 1, ease: "easeInOut" }}
         />
-        <div className="absolute bottom-10 left-10 flex flex-col items-start z-10 ">
+        <div className="absolute bottom-10 left-8 flex flex-col items-start z-10 ">
           <motion.p
-            className="text-white font-normal text-[28px] leading-tight tracking-tight max-w-6xl mt-4 cursor-default"
+            className="text-white font-normal text-xl leading-tight tracking-tight max-w-3xl mt-4 cursor-default"
             variants={paragraphVariants}
             initial="hidden"
             animate="visible"
@@ -105,13 +99,12 @@ export default function About({ image }: AboutProps) {
 
       {/* Content Section */}
       <div className="bg-white w-full">
-        <div className="max-w-[1920px] mx-auto w-full px-16 py-48">
+        <div className="max-w-7xl mx-auto w-full px-8 py-24">
           <div className="flex">
             {/* Left - Sticky GLAMS */}
             <div className="w-[40%] relative pt-14">
               <motion.span
-                className="font-bold leading-none tracking-tight text-black block"
-                style={{ fontSize: "98px" }}
+                className="font-bold leading-none text-6xl tracking-tight text-black block"
                 initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}

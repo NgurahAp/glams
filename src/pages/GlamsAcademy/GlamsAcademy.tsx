@@ -59,13 +59,12 @@ function CurriculumRow({
         delay: index * 0.1,
         ease: [0.25, 0.1, 0.25, 1],
       }}
-      className="flex py-28 "
+      className="flex py-20 "
     >
       {/* Left Title */}
       <div className="w-[40%] pr-10">
         <motion.h3
-          className="font-bold leading-tight tracking-tight text-black pt-8 max-w-96"
-          style={{ fontSize: "28px" }}
+          className="font-bold leading-tight text-lg tracking-tight text-black pt-8 max-w-52"
           variants={paragraphVariants}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
@@ -84,8 +83,7 @@ function CurriculumRow({
         />
 
         <motion.p
-          className="font-normal leading-tight tracking-tight text-black "
-          style={{ fontSize: "28px" }}
+          className="font-normal text-lg leading-tight tracking-tight text-justify text-black "
           variants={paragraphVariants}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
@@ -117,7 +115,7 @@ export default function GlamsAcademy() {
       </div>
 
       {/* Content Section */}
-      <div className="bg-white w-full px-16 py-16">
+      <div className="bg-white w-full px-8 py-12">
         <div className="flex">
           {/* Left Title */}
           <motion.div
@@ -130,10 +128,7 @@ export default function GlamsAcademy() {
               ease: [0.25, 0.1, 0.25, 1],
             }}
           >
-            <h2
-              className="font-bold leading-tight tracking-tight text-black"
-              style={{ fontSize: "32px" }}
-            >
+            <h2 className="font-bold leading-tight text-xl tracking-tight text-black">
               GLAMS ACADEMY
             </h2>
           </motion.div>
@@ -146,10 +141,7 @@ export default function GlamsAcademy() {
             whileInView="visible"
             viewport={{ once: true }}
           >
-            <p
-              className="font-normal leading-tight tracking-tight text-black "
-              style={{ fontSize: "28px" }}
-            >
+            <p className="font-normal text-lg leading-tight tracking-tight text-justify text-black ">
               Sebagai salah satu pelopor modelling anak, kami hadir untuk
               mendampingi tumbuh kembang anak. Baik dari sisi karakter maupun
               kepribadian. Melalui modelling sebagai sarana belajar, kami
@@ -161,7 +153,7 @@ export default function GlamsAcademy() {
 
         {/* Divider */}
         <motion.div
-          className="w-full border-t border-black my-20"
+          className="w-full border-t border-black mt-28 mb-16"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -170,8 +162,7 @@ export default function GlamsAcademy() {
 
         {/* Curriculum Title */}
         <motion.h2
-          className="font-bold leading-tight tracking-tight text-black mb-40"
-          style={{ fontSize: "32px" }}
+          className="font-bold leading-tight text-xl tracking-tight text-black mb-20"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -193,7 +184,7 @@ export default function GlamsAcademy() {
           />
         ))}
 
-        <div className="w-full px-16 py-32">
+        <div className="w-full px-10 py-24">
           <motion.button
             onClick={() => navigate(-1)}
             className="flex items-center gap-6"
@@ -203,8 +194,7 @@ export default function GlamsAcademy() {
           >
             {/* Text */}
             <motion.span
-              className="text-black tracking-tight"
-              style={{ fontSize: "45px" }}
+              className="text-black text-2xl tracking-tight"
               variants={{
                 rest: { x: 0 },
                 hover: { x: 40 },
@@ -215,8 +205,8 @@ export default function GlamsAcademy() {
             </motion.span>
 
             <svg
-              width="260"
-              height="40"
+              width="172"
+              height="28"
               viewBox="0 0 260 40"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"

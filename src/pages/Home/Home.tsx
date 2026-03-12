@@ -59,12 +59,11 @@ export default function MainHero({ images, interval = 3000 }: MainHeroProps) {
       </AnimatePresence>
 
       {/* Bottom Left Text */}
-      <div className="absolute bottom-10 left-10 flex flex-col items-start z-10">
+      <div className="absolute bottom-5 left-5 flex flex-col items-start z-10">
         {heroTexts.map(({ label, path }, i) => (
           <motion.span
             key={label}
-            className="text-white font-medium leading-none tracking-tight cursor-pointer"
-            style={{ fontSize: "110px" }}
+            className="text-white text-7xl font-medium leading-none tracking-tight cursor-pointer"
             custom={i}
             variants={textVariants}
             initial="hidden"

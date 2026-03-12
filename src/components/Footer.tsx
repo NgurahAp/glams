@@ -13,12 +13,12 @@ function FooterLink({ label, href }: { label: string; href: string }) {
   return (
     <motion.a
       href={href}
-      className="flex items-center gap-4 w-full font-bold text-white text-3xl tracking-tight uppercase"
+      className="flex items-center gap-4 w-full font-bold text-white text-xl tracking-tight uppercase"
       whileHover={{ opacity: 0.6 }}
       transition={{ duration: 0.2 }}
     >
       <span>{label}</span>
-      <span className="text-3xl font-light">+</span>
+      <span className="text-xl font-light">+</span>
     </motion.a>
   );
 }
@@ -55,11 +55,11 @@ function ScrollArrow({ onClick }: { onClick: () => void }) {
       className="cursor-pointer flex flex-col items-center"
       onHoverStart={handleHoverStart}
       onHoverEnd={handleHoverEnd}
-      style={{ width: 40, height: 180 }}
+      style={{ width: 28, height: 126 }}
     >
       <svg
-        width="40"
-        height="180"
+        width="28"
+        height="126"
         viewBox="0 0 40 180"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -95,13 +95,13 @@ export default function Footer() {
 
   return (
     <footer className="bg-black w-full text-white">
-      <div className="max-w-[1920px] mx-auto w-full px-12 py-20 flex flex-col justify-between min-h-[70vh]">
-        <div className="grid grid-cols-3 gap-16">
+      <div className="max-w-[1920px] mx-auto w-full px-12 py-14 flex flex-col justify-between min-h-[70vh]">
+        <div className="grid grid-cols-3 gap-24">
           {/* CONTACT */}
           <div className="flex flex-col pt-10">
             <div className="border-t border-white/40 w-full mb-6" />
-            <span className="text-4xl tracking-tight mb-10">CONTACT</span>
-            <div className="flex flex-col gap-24">
+            <span className="text-2xl tracking-tight mb-20">CONTACT</span>
+            <div className="flex flex-col gap-16">
               {contactItems.map((item) => (
                 <FooterLink
                   key={item.label}
@@ -115,8 +115,8 @@ export default function Footer() {
           {/* LOCATION */}
           <div className="flex flex-col pt-10">
             <div className="border-t border-white/40 w-full mb-6" />
-            <span className="text-4xl tracking-tight mb-10">LOCATION</span>
-            <div className="flex flex-col gap-24">
+            <span className="text-2xl tracking-tight mb-20">LOCATION</span>
+            <div className="flex flex-col gap-16">
               {locationItems.map((item) => (
                 <FooterLink
                   key={item.label}
@@ -131,7 +131,7 @@ export default function Footer() {
           <div className="flex flex-col justify-between items-end pt-10">
             <ScrollArrow onClick={scrollToTop} />
             <div className="flex justify-end">
-              <p className="text-3xl tracking-tight text-left leading-tight max-w-2xl text-white/80">
+              <p className="text-lg tracking-tight text-left leading-tight max-w-2xl text-white/80">
                 THIS WEBSITE NOT ENDORSE OR
                 <br />
                 APPROVED BY, NOT IN ANY WAY

@@ -30,22 +30,22 @@ export default function AgencyModel() {
 
   return (
     <section className="h-screen bg-white flex flex-col justify-end pb-4">
-      <div className="max-w-[1920px] mx-auto w-full px-12">
+      <div className="max-w-7xl mx-auto w-full px-8">
         {/* Title */}
         <motion.div
-          className="mb-10"
+          className="mb-6"
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
         >
-          <h2 className="text-[25px] tracking-tight font-medium mb-2">
+          <h2 className="text-lg tracking-tight font-medium mb-2">
             GLAMS AGENCY MODEL
           </h2>
           <div className="h-[1px] bg-black" />
         </motion.div>
 
-        {/* Images — outer div animates entrance, inner layoutId stays clean */}
-        <div className="grid grid-cols-3 gap-8 justify-center items-center mx-auto">
+        {/* Images */}
+        <div className="grid grid-cols-3 gap-x-4 justify-center items-center mx-auto">
           {models.map((model, index) => (
             <motion.div
               key={model.id}
@@ -62,8 +62,8 @@ export default function AgencyModel() {
                 onClick={() => navigate(model.path)}
                 className="group"
                 style={{
-                  width: 590,
-                  height: 700,
+                  width: "100%",
+                  height: 460,
                   overflow: "hidden",
                   cursor: "pointer",
                 }}

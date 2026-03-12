@@ -60,8 +60,8 @@ const allModels = [
   },
 ];
 
-const CARD_WIDTH = 590;
-const CARD_GAP = 32;
+const CARD_WIDTH = 400;
+const CARD_GAP = 20;
 const CARD_STEP = CARD_WIDTH + CARD_GAP;
 const TOTAL = allModels.length;
 
@@ -83,7 +83,6 @@ function ModelCarousel() {
 
   return (
     <div className="relative w-full">
-      {/* Viewport */}
       <div className="overflow-hidden w-full">
         <motion.div
           className="flex"
@@ -95,7 +94,7 @@ function ModelCarousel() {
             <div
               key={i}
               className="flex-shrink-0 overflow-hidden group cursor-pointer"
-              style={{ width: CARD_WIDTH, height: 700 }}
+              style={{ width: CARD_WIDTH, height: "100%" }}
             >
               <img
                 src={model.src}
@@ -108,16 +107,15 @@ function ModelCarousel() {
       </div>
 
       {/* Controls */}
-      <div className="flex items-center gap-8 mt-10">
-        {/* Prev */}
+      <div className="flex items-center gap-8 mt-6">
         <button
           onClick={prev}
           className="flex items-center justify-center flex-shrink-0 p-1 group/btn"
           aria-label="Previous"
         >
           <svg
-            width="18"
-            height="18"
+            width="13"
+            height="13"
             viewBox="0 0 18 18"
             fill="none"
             className="transition-transform duration-200 ease-out group-hover/btn:scale-150"
@@ -132,7 +130,6 @@ function ModelCarousel() {
           </svg>
         </button>
 
-        {/* Dots */}
         <div className="flex items-center gap-3">
           {allModels.map((_, i) => (
             <button
@@ -143,7 +140,7 @@ function ModelCarousel() {
               <div
                 className="transition-all duration-300 bg-black"
                 style={{
-                  height: 2,
+                  height: 1,
                   width: i === current ? 32 : 16,
                   opacity: i === current ? 1 : 0.25,
                 }}
@@ -152,15 +149,14 @@ function ModelCarousel() {
           ))}
         </div>
 
-        {/* Next */}
         <button
           onClick={next}
           className="flex items-center justify-center flex-shrink-0 p-1 group/btn"
           aria-label="Next"
         >
           <svg
-            width="18"
-            height="18"
+            width="13"
+            height="13"
             viewBox="0 0 18 18"
             fill="none"
             className="transition-transform duration-200 ease-out group-hover/btn:scale-150"
@@ -175,10 +171,9 @@ function ModelCarousel() {
           </svg>
         </button>
 
-        {/* Counter */}
         <span
-          className="ml-auto font-normal text-black"
-          style={{ fontSize: "18px", opacity: 0.35, letterSpacing: "0.05em" }}
+          className="ml-auto font-normal text-sm text-black"
+          style={{ opacity: 0.35, letterSpacing: "0.05em" }}
         >
           {String(current + 1).padStart(2, "0")} /{" "}
           {String(TOTAL).padStart(2, "0")}
@@ -209,12 +204,11 @@ export default function AdultModel() {
 
       {/* Content */}
       <div className="bg-white w-full">
-        <div className="max-w-[1920px] mx-auto px-16 py-20">
-          {/* Title — shared layoutId, teks "Adult Model" dari Photoshoot turun ke sini */}
+        <div className="max-w-7xl mx-auto px-8 py-14">
+          {/* Title */}
           <motion.h1
             layoutId="adult-model-title"
-            className="-tracking-wider mb-10 -pr-4"
-            style={{ fontSize: "200px" }}
+            className="-tracking-wider mb-10 text-9xl -pr-4"
             initial={{ color: "#ffffff" }}
             animate={{ color: "#000000" }}
             transition={{
@@ -225,14 +219,12 @@ export default function AdultModel() {
             Adult Model
           </motion.h1>
 
-          <div className="w-[60%] pb-32" ref={ref}>
+          <div className="w-[60%] pb-20" ref={ref}>
             <SectionDivider />
 
-            <div className="w-[60%]">
-              {/* Description heading */}
+            <div className="w-[65%]">
               <motion.h3
-                className="font-bold leading-tight tracking-wide text-black mt-5 mb-20"
-                style={{ fontSize: "40px" }}
+                className="font-bold text-3xl leading-tight -tracking-tight text-black mt-5 mb-20"
                 variants={paragraphVariants}
                 initial="hidden"
                 whileInView="visible"
@@ -241,10 +233,8 @@ export default function AdultModel() {
                 Description
               </motion.h3>
 
-              {/* Para 1 */}
               <motion.p
-                className="font-normal leading-tight tracking-tight text-justify text-black mb-16"
-                style={{ fontSize: "28px" }}
+                className="font-normal text-xl leading-tight tracking-tight text-justify text-black mb-16"
                 variants={paragraphVariants}
                 initial="hidden"
                 whileInView="visible"
@@ -255,10 +245,8 @@ export default function AdultModel() {
                 consectetuer adipiscing elit, sed diam nonummy nibh euismod.
               </motion.p>
 
-              {/* Para 2 */}
               <motion.p
-                className="font-normal leading-tight tracking-tight text-justify text-black mb-16"
-                style={{ fontSize: "28px" }}
+                className="font-normal text-xl leading-tight tracking-tight text-justify text-black mb-16"
                 variants={paragraphVariants}
                 initial="hidden"
                 whileInView="visible"
@@ -269,10 +257,8 @@ export default function AdultModel() {
                 consectetuer adipiscing elit, sed diam nonummy nibh euismod.
               </motion.p>
 
-              {/* Para 3 bold */}
               <motion.p
-                className="font-bold leading-tight tracking-tight text-black mb-16"
-                style={{ fontSize: "28px" }}
+                className="font-semibold text-xl leading-tight tracking-tight text-justify text-black mb-16"
                 variants={paragraphVariants}
                 initial="hidden"
                 whileInView="visible"
@@ -284,7 +270,6 @@ export default function AdultModel() {
 
             <SectionDivider />
 
-            {/* Age Range */}
             <motion.div
               className="mb-8"
               variants={paragraphVariants}
@@ -292,23 +277,16 @@ export default function AdultModel() {
               whileInView="visible"
               viewport={{ once: true }}
             >
-              <h3
-                className="font-bold leading-tight tracking-tight text-black"
-                style={{ fontSize: "40px" }}
-              >
+              <h3 className="font-bold leading-tight tracking-tight text-black text-3xl">
                 Age Range
               </h3>
-              <p
-                className="font-normal leading-tight tracking-tight text-justify text-black"
-                style={{ fontSize: "30px" }}
-              >
+              <p className="font-normal leading-tight tracking-tight text-justify text-black text-xl pt-2">
                 10 month - 8 years old
               </p>
             </motion.div>
 
             <SectionDivider />
 
-            {/* Gender */}
             <motion.div
               className="mb-8"
               variants={paragraphVariants}
@@ -316,39 +294,26 @@ export default function AdultModel() {
               whileInView="visible"
               viewport={{ once: true }}
             >
-              <h3
-                className="font-bold leading-tight tracking-tight text-black"
-                style={{ fontSize: "40px" }}
-              >
+              <h3 className="font-bold leading-tight tracking-tight text-black text-3xl">
                 Gender
               </h3>
-              <p
-                className="font-normal leading-tight tracking-tight text-justify text-black"
-                style={{ fontSize: "30px" }}
-              >
+              <p className="font-normal leading-tight tracking-tight text-justify text-black text-xl pt-2">
                 Male and Female
               </p>
             </motion.div>
 
             <SectionDivider />
 
-            {/* Ethnicity */}
             <motion.div
               variants={paragraphVariants}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
             >
-              <h3
-                className="font-bold leading-tight tracking-tight text-black"
-                style={{ fontSize: "40px" }}
-              >
+              <h3 className="font-bold leading-tight tracking-tight text-black text-3xl">
                 Ethnicity
               </h3>
-              <p
-                className="font-normal leading-tight tracking-tight text-justify text-black"
-                style={{ fontSize: "30px" }}
-              >
+              <p className="font-normal leading-tight tracking-tight text-justify text-black text-xl pt-2">
                 Asian, Western, Mix
               </p>
             </motion.div>
@@ -358,10 +323,9 @@ export default function AdultModel() {
 
           <ModelCarousel />
 
-          {/* Contact heading */}
+          {/* Contact */}
           <motion.h3
-            className="font-bold leading-tight tracking-tight text-black mt-16 mb-10"
-            style={{ fontSize: "35px" }}
+            className="font-bold text-2xl leading-tight tracking-tight text-black mt-10 mb-8"
             variants={paragraphVariants}
             initial="hidden"
             whileInView="visible"
@@ -370,10 +334,8 @@ export default function AdultModel() {
             CONTACT FOR ADULT MODEL
           </motion.h3>
 
-          {/* Contact details */}
           <motion.p
-            className="font-normal leading-tight tracking-tight text-justify text-black mb-16"
-            style={{ fontSize: "35px" }}
+            className="font-normal leading-tight text-2xl tracking-tight text-justify text-black mb-16"
             variants={paragraphVariants}
             initial="hidden"
             whileInView="visible"
@@ -390,7 +352,14 @@ export default function AdultModel() {
               <span className="absolute left-0 bottom-0 h-[2px] w-0 bg-black group-hover/phone:w-full transition-all duration-500 ease-out" />
             </a>
             <br />
-            GMAIL : glams.management@gmail.com
+            GMAIL :{" "}
+            <a
+              href="mailto:glams.management@gmail.com"
+              className="relative inline-block group/email"
+            >
+              glams.management@gmail.com
+              <span className="absolute left-0 bottom-0 h-[2px] w-0 bg-black group-hover/email:w-full transition-all duration-500 ease-out" />
+            </a>
           </motion.p>
         </div>
       </div>
