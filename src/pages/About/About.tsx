@@ -1,5 +1,4 @@
-import { motion, useInView, type Variants } from "framer-motion";
-import { useRef } from "react";
+import { motion, type Variants } from "framer-motion";
 
 interface AboutProps {
   image: string;
