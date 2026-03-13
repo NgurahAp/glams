@@ -142,11 +142,13 @@ export default function GlamsAcademy() {
             viewport={{ once: true }}
           >
             <p className="font-normal text-lg leading-tight tracking-tight text-justify text-black ">
-              Sebagai salah satu pelopor modelling anak, kami hadir untuk
-              mendampingi tumbuh kembang anak. Baik dari sisi karakter maupun
-              kepribadian. Melalui modelling sebagai sarana belajar, kami
-              membantu anak untuk membangun rasa percaya diri, mengenali potensi
-              dirinya, dan berani tampil dengan keunikan masing-masing.
+              As one of the pioneers in kids’ modelling education, we focus on
+              nurturing children’s growth both in character and personality.
+              Through modelling as our learning medium, we help shape the next
+              generation to build confidence, develop strong self-esteem, and
+              shine in their own unique way. We believe every child has a unique
+              spark, and that confidence grows when they are guided, supported,
+              and gently encouraged along the way.
             </p>
           </motion.div>
         </div>
