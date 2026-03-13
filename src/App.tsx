@@ -13,6 +13,7 @@ import AdultAgency from "./pages/GlamsAgency/adultAgency";
 import BabyAgency from "./pages/GlamsAgency/babyAgency";
 import KidAgency from "./pages/GlamsAgency/kidAgency";
 import PhotoShoot from "./pages/Photoshoot/Photoshoot";
+import CreativeProduction from "./pages/CreativeProduction/CreativeProduction";
 
 const images = [
   "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773024788/about-bottom_jl32sn.png",
@@ -43,6 +44,7 @@ function App() {
           <Route path="/baby-agency" element={<BabyAgency />} />
           <Route path="/kid-agency" element={<KidAgency />} />
           <Route path="/photoshoot" element={<PhotoShoot />} />
+          <Route path="/production" element={<CreativeProduction />} />
         </Routes>
       </AnimatePresence>
     </Layout>
