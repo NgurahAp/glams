@@ -11,7 +11,7 @@ const heroTexts = [
   { label: "GLAMS ACADEMY", path: "/glams-academy" },
   { label: "GLAMS AGENCY", path: "/agency-model" },
   { label: "CREATIVE PRODUCTION", path: "/production" },
-  { label: "EVENT ORGANIZER", path: "/event-organizer" },
+  { label: "EVENT ORGANIZER", path: "/event" },
   { label: "PHOTOSHOOT PORTOFOLIO", path: "/photoshoot" },
 ];
 

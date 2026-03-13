@@ -12,7 +12,6 @@ const navLinks = [
   { label: "ABOUT US", path: "/about" },
 ];
 
-// Pages with dark/photo backgrounds → white navbar
 const darkBgRoutes = [
   "/",
   "/about",
@@ -23,11 +22,14 @@ const darkBgRoutes = [
   "/adult-model",
 ];
 
+const cleanRoutes = ["/event"];
+
 export default function Navbar() {
   const location = useLocation();
   const navigate = useNavigate();
   const isHome = location.pathname === "/";
   const isDark = darkBgRoutes.includes(location.pathname);
+  const isClean = cleanRoutes.includes(location.pathname);
 
   const textColor = isDark ? "text-white" : "text-black";
   const underlineBg = isDark ? "bg-white" : "bg-black";
@@ -59,45 +61,46 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto w-full px-8 flex items-start justify-between">
         {/* Left - Hamburger / Back */}
         <div className="flex items-start">
-          {isHome ? (
-            <button className="cursor-pointer">
-              <svg
-                width="50"
-                height="24"
-                viewBox="0 0 50 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <line
-                  x1="0"
-                  y1="4"
-                  x2="50"
-                  y2="4"
-                  stroke={strokeColor}
-                  strokeWidth="1.5"
+          {!isClean &&
+            (isHome ? (
+              <button className="cursor-pointer">
+                <svg
+                  width="50"
+                  height="24"
+                  viewBox="0 0 50 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <line
+                    x1="0"
+                    y1="4"
+                    x2="50"
+                    y2="4"
+                    stroke={strokeColor}
+                    strokeWidth="1.5"
+                  />
+                  <line
+                    x1="0"
+                    y1="20"
+                    x2="50"
+                    y2="20"
+                    stroke={strokeColor}
+                    strokeWidth="1.5"
+                  />
+                </svg>
+              </button>
+            ) : (
+              <button onClick={() => navigate(-1)} className="cursor-pointer">
+                <motion.img
+                  src="https://res.cloudinary.com/dbhx39mmm/image/upload/v1773037474/navbar-back_mhlczv.png"
+                  alt="Back"
+                  className={`h-10 w-auto ${!isDark ? "invert" : ""}`}
+                  style={{ transformOrigin: "left center" }}
+                  whileHover={{ scale: 0.85, opacity: 0.6, x: -6, y: -12 }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
                 />
-                <line
-                  x1="0"
-                  y1="20"
-                  x2="50"
-                  y2="20"
-                  stroke={strokeColor}
-                  strokeWidth="1.5"
-                />
-              </svg>
-            </button>
-          ) : (
-            <button onClick={() => navigate(-1)} className="cursor-pointer">
-              <motion.img
-                src="https://res.cloudinary.com/dbhx39mmm/image/upload/v1773037474/navbar-back_mhlczv.png"
-                alt="Back"
-                className={`h-10 w-auto ${!isDark ? "invert" : ""}`}
-                style={{ transformOrigin: "left center" }}
-                whileHover={{ scale: 0.85, opacity: 0.6, x: -6, y: -12 }}
-                transition={{ duration: 0.3, ease: "easeOut" }}
-              />
-            </button>
-          )}
+              </button>
+            ))}
         </div>
 
         {/* Center - Logo */}
@@ -112,52 +115,54 @@ export default function Navbar() {
         </div>
 
         {/* Right - Nav Links */}
-        <div className="flex flex-col items-start gap-3">
-          {navLinks.map((link, i) => (
-            <motion.div
-              key={link.label}
-              custom={i}
-              variants={linkVariants}
-              initial="hidden"
-              animate="visible"
-              whileHover="hover"
-            >
-              {link.path === "#" ? (
-                <a
-                  href={link.path}
-                  className={`${textColor} text-md font-light cursor-pointer tracking-tight relative group`}
-                >
-                  {link.label}
-                  <span
-                    className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-[2px] w-0 ${underlineBg} transition-all duration-300 ease-out group-hover:w-full`}
-                  />
-                </a>
-              ) : (link as any).external ? (
-                <a
-                  href={link.path}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`${textColor} text-md font-light cursor-pointer tracking-tight relative group`}
-                >
-                  {link.label}
-                  <span
-                    className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-[2px] w-0 ${underlineBg} transition-all duration-300 ease-out group-hover:w-full`}
-                  />
-                </a>
-              ) : (
-                <Link
-                  to={link.path}
-                  className={`${textColor} text-md font-light cursor-pointer tracking-tight relative group`}
-                >
-                  {link.label}
-                  <span
-                    className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-[2px] w-0 ${underlineBg} transition-all duration-300 ease-out group-hover:w-full`}
-                  />
-                </Link>
-              )}
-            </motion.div>
-          ))}
-        </div>
+        {!isClean && (
+          <div className="flex flex-col items-start gap-3">
+            {navLinks.map((link, i) => (
+              <motion.div
+                key={link.label}
+                custom={i}
+                variants={linkVariants}
+                initial="hidden"
+                animate="visible"
+                whileHover="hover"
+              >
+                {link.path === "#" ? (
+                  <a
+                    href={link.path}
+                    className={`${textColor} text-md font-light cursor-pointer tracking-tight relative group`}
+                  >
+                    {link.label}
+                    <span
+                      className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-[2px] w-0 ${underlineBg} transition-all duration-300 ease-out group-hover:w-full`}
+                    />
+                  </a>
+                ) : (link as any).external ? (
+                  <a
+                    href={link.path}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`${textColor} text-md font-light cursor-pointer tracking-tight relative group`}
+                  >
+                    {link.label}
+                    <span
+                      className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-[2px] w-0 ${underlineBg} transition-all duration-300 ease-out group-hover:w-full`}
+                    />
+                  </a>
+                ) : (
+                  <Link
+                    to={link.path}
+                    className={`${textColor} text-md font-light cursor-pointer tracking-tight relative group`}
+                  >
+                    {link.label}
+                    <span
+                      className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-[2px] w-0 ${underlineBg} transition-all duration-300 ease-out group-hover:w-full`}
+                    />
+                  </Link>
+                )}
+              </motion.div>
+            ))}
+          </div>
+        )}
       </div>
     </motion.nav>
   );
