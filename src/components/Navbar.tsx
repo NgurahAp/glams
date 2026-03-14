@@ -15,7 +15,6 @@ const navLinks = [
 const darkBgRoutes = [
   "/",
   "/about",
-  "/glams-academy",
   "/photoshoot",
   "/baby-model",
   "/kid-model",
