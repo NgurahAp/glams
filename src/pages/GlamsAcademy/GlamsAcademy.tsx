@@ -348,7 +348,8 @@ function BasicFundamentalSection() {
       <motion.div
         className="w-full overflow-hidden flex justify-center rounded-sm"
         initial={{ opacity: 0, y: 40 }}
-        animate={sectionInView ? { opacity: 1, y: 0 } : {}}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
         transition={{ duration: 1.1, ease: [0.25, 0.1, 0.25, 1] }}
       >
         <motion.img
@@ -356,7 +357,8 @@ function BasicFundamentalSection() {
           alt="Basic Fundamental Class"
           className="w-[100%] h-auto object-cover"
           initial={{ scale: 1.05 }}
-          animate={sectionInView ? { scale: 1 } : {}}
+          whileInView={{ scale: 1 }}
+          viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 1.4, ease: [0.25, 0.1, 0.25, 1] }}
         />
       </motion.div>
@@ -365,7 +367,8 @@ function BasicFundamentalSection() {
       <motion.h2
         className="text-6xl font-semibold tracking-tight text-black uppercase text-left py-4"
         initial={{ opacity: 0, y: 30 }}
-        animate={sectionInView ? { opacity: 1, y: 0 } : {}}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
         transition={{ duration: 0.9, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
       >
         BASIC FUNDAMENTAL CLASS
@@ -376,7 +379,8 @@ function BasicFundamentalSection() {
         <motion.h3
           className="text-3xl font-semibold text-black uppercase text-left"
           initial={{ opacity: 0, y: 30 }}
-          animate={sectionInView ? { opacity: 1, y: 0 } : {}}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.9, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
         >
           Modeling Class
@@ -384,7 +388,8 @@ function BasicFundamentalSection() {
         <motion.div
           className="w-full mt-2 mb-6"
           initial={{ opacity: 0, y: 16 }}
-          animate={sectionInView ? { opacity: 1, y: 0 } : {}}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
           transition={{
             duration: 0.8,
             delay: 0.45,
@@ -414,10 +419,11 @@ function BasicFundamentalSection() {
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 40 }}
-              animate={sectionInView ? { opacity: 1, y: 0 } : {}}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
               transition={{
                 duration: 0.7,
-                delay: 0.4 + index * 0.15,
+                delay: index * 0.18,
                 ease: [0.25, 0.1, 0.25, 1],
               }}
               style={{ width: "100%", height: 460, overflow: "hidden" }}
@@ -437,7 +443,8 @@ function BasicFundamentalSection() {
         <motion.h3
           className="text-3xl font-semibold text-black uppercase text-left"
           initial={{ opacity: 0, y: 30 }}
-          animate={sectionInView ? { opacity: 1, y: 0 } : {}}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.9, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
         >
           Pose & Photoshoot Class
@@ -445,7 +452,8 @@ function BasicFundamentalSection() {
         <motion.div
           className="w-full mt-2 mb-6"
           initial={{ opacity: 0, y: 16 }}
-          animate={sectionInView ? { opacity: 1, y: 0 } : {}}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
           transition={{
             duration: 0.8,
             delay: 0.45,
@@ -476,10 +484,11 @@ function BasicFundamentalSection() {
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 40 }}
-              animate={sectionInView ? { opacity: 1, y: 0 } : {}}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
               transition={{
                 duration: 0.7,
-                delay: 0.55 + index * 0.15,
+                delay: index * 0.18,
                 ease: [0.25, 0.1, 0.25, 1],
               }}
               style={{ width: "100%", height: 460, overflow: "hidden" }}
@@ -499,7 +508,8 @@ function BasicFundamentalSection() {
         <motion.h3
           className="text-3xl font-semibold text-black uppercase text-left"
           initial={{ opacity: 0, y: 30 }}
-          animate={sectionInView ? { opacity: 1, y: 0 } : {}}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.9, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
         >
           Personality Development
@@ -507,7 +517,8 @@ function BasicFundamentalSection() {
         <motion.div
           className="w-full mt-2 mb-6"
           initial={{ opacity: 0, y: 16 }}
-          animate={sectionInView ? { opacity: 1, y: 0 } : {}}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
           transition={{
             duration: 0.8,
             delay: 0.45,
@@ -529,10 +540,11 @@ function BasicFundamentalSection() {
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 40 }}
-              animate={sectionInView ? { opacity: 1, y: 0 } : {}}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
               transition={{
                 duration: 0.7,
-                delay: 0.55 + index * 0.15,
+                delay: index * 0.18,
                 ease: [0.25, 0.1, 0.25, 1],
               }}
               style={{ width: "100%", height: 460, overflow: "hidden" }}
@@ -614,7 +626,7 @@ function WhatNextSection() {
           transition={{ duration: 1.1, ease: [0.25, 0.1, 0.25, 1] }}
         >
           <motion.img
-            src="https://res.cloudinary.com/dbhx39mmm/image/upload/v1773512882/whats-next_nzqe4m.png"
+            src="https://res.cloudinary.com/dbhx39mmm/image/upload/v1773024790/kid-photo-2_cq5okb.png"
             alt="What Next"
             className="w-full h-auto object-cover object-top"
             initial={{ scale: 1.05 }}
@@ -720,7 +732,7 @@ function FAQItem({
         transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
         style={{ overflow: "hidden" }}
       >
-        <p className=" font-medium leading-relaxed tracking-tight text-black pb-5 pl-9">
+        <p className="text-sm font-normal leading-relaxed tracking-tight text-black pb-5 pl-9">
           {answer}
         </p>
       </motion.div>
@@ -736,7 +748,7 @@ function FAQSection() {
   return (
     <div ref={ref} className="w-full px-12 mt-24 mb-12">
       <motion.h2
-        className="text-5xl  tracking-tight text-black uppercase mb-10"
+        className="text-[clamp(3rem,6vw,5rem)] font-bold tracking-tight text-black uppercase mb-10"
         initial={{ opacity: 0, y: 30 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.9, ease: [0.25, 0.1, 0.25, 1] }}
@@ -767,7 +779,7 @@ function ClassScheduleSection() {
   return (
     <div ref={ref} className="w-full px-12 mt-24">
       <motion.h2
-        className="text-7xl font-medium tracking-tight text-black uppercase text-center mb-10"
+        className="text-[clamp(3rem,7vw,6rem)] font-medium tracking-tight text-black uppercase text-center mb-10"
         initial={{ opacity: 0, y: 30 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.9, ease: [0.25, 0.1, 0.25, 1] }}
@@ -781,10 +793,10 @@ function ClassScheduleSection() {
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
       >
-        <span className="text-4xl font-bold tracking-tight text-black uppercase">
+        <span className="text-lg font-bold tracking-tight text-black uppercase">
           KIDS 10.30-12.00
         </span>
-        <span className="text-4xl font-bold tracking-tight text-black uppercase">
+        <span className="text-lg font-bold tracking-tight text-black uppercase">
           TEEN 13.30-15.00
         </span>
       </motion.div>
