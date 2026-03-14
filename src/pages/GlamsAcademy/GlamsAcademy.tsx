@@ -340,7 +340,6 @@ export default function GlamsAcademyHero() {
 
 function BasicFundamentalSection() {
   const sectionRef = useRef(null);
-  const sectionInView = useInView(sectionRef, { once: true, margin: "-80px" });
 
   return (
     <div ref={sectionRef} className="w-full px-12 mt-24">
