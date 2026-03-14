@@ -26,13 +26,11 @@ const textVariants: Variants = {
       ease: [0.25, 0.1, 0.25, 1],
     },
   }),
-  hover: {
-    opacity: 0.6,
-  },
 };
 
 export default function MainHero({ images, interval = 3000 }: MainHeroProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -52,9 +50,16 @@ export default function MainHero({ images, interval = 3000 }: MainHeroProps) {
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: `url(${images[currentIndex]})` }}
           initial={{ opacity: 0, filter: "blur(12px)", scale: 1.05 }}
-          animate={{ opacity: 1, filter: "blur(0px)", scale: 1 }}
+          animate={{
+            opacity: 1,
+            filter: hoveredIndex !== null ? "blur(8px)" : "blur(0px)",
+            scale: 1,
+          }}
           exit={{ opacity: 0, filter: "blur(12px)", scale: 0.98 }}
-          transition={{ duration: 1, ease: "easeInOut" }}
+          transition={{
+            duration: hoveredIndex !== null ? 0.3 : 1,
+            ease: "easeInOut",
+          }}
         />
       </AnimatePresence>
 
@@ -67,8 +72,14 @@ export default function MainHero({ images, interval = 3000 }: MainHeroProps) {
             custom={i}
             variants={textVariants}
             initial="hidden"
-            animate="visible"
-            whileHover="hover"
+            animate={{
+              opacity:
+                hoveredIndex === null ? 1 : hoveredIndex === i ? 1 : 0.35,
+              y: 0,
+            }}
+            transition={{ duration: 0.25 }}
+            onHoverStart={() => setHoveredIndex(i)}
+            onHoverEnd={() => setHoveredIndex(null)}
             onClick={() => navigate(path)}
           >
             {label}
