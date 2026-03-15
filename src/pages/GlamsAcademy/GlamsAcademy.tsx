@@ -17,7 +17,16 @@ const curriculum = [
       "We help students discover their strengths and grow with confidence.",
     description2:
       "Through simple exercises, they learn to understand their personality, communicate better, and build a positive presence.",
-    tags: ["Runway Walk", "Posture"],
+    tags: [
+      {
+        label: "Catwalk Kids",
+        link: "https://www.instagram.com/reels/DI1II52SCKP/",
+      },
+      {
+        label: "Catwalk Teens",
+        link: "https://www.instagram.com/reels/DI2mj4YSm4s/",
+      },
+    ],
   },
   {
     title: "PERSONALITY\nDEVELOPMENT\nCLASS",
@@ -27,7 +36,13 @@ const curriculum = [
       "We help students discover their strengths and grow with confidence.",
     description2:
       "Through simple exercises, they learn to understand their personality, communicate better, and build a positive presence.",
-    tags: ["Public Speaking", "Hairdo"],
+    tags: [
+      {
+        label: "Public Speaking",
+        link: "https://www.instagram.com/reels/DLsO1GSyf7N/",
+      },
+      { label: "Hairdo", link: "https://www.instagram.com/reels/DI_LdhbyQJm/" },
+    ],
   },
   {
     title: "POSE AND\nPHOTOSHOOT\nCLASS",
@@ -37,7 +52,16 @@ const curriculum = [
       "We teach students to express themselves confidently in front of the camera through simple, fun posing exercises.",
     description2:
       "They learn angles, expressions, and how to feel comfortable during photoshoots—building natural posing skills, creative expression, and camera confidence.",
-    tags: ["The Second Act", "Tangled"],
+    tags: [
+      {
+        label: "The Second Act",
+        link: "https://www.instagram.com/reels/DUssy2BEoPR/",
+      },
+      {
+        label: "Tangled",
+        link: "https://www.instagram.com/reels/DROfIVfkqa6/",
+      },
+    ],
   },
   {
     title: "REAL STAGE\nFASHION",
@@ -47,7 +71,13 @@ const curriculum = [
       "For the final assignment, we help students feel confident on the runway through simple, supportive techniques.",
     description2:
       "They learn stage presence, timing, and poise to deliver a polished, confident performance.",
-    tags: ["ESMOD", "RUNWAY GLOW"],
+    tags: [
+      { label: "ESMOD", link: "https://www.instagram.com/reels/DSEjqrnkt2D/" },
+      {
+        label: "RUNWAY GLOW",
+        link: "https://www.instagram.com/reels/DO4-0ZAkeu-//",
+      },
+    ],
   },
   {
     title: "ACTING\nCLASS",
@@ -57,7 +87,9 @@ const curriculum = [
       "We help students express themselves through fun, easy acting exercises.",
     description2:
       "They learn to use their voice, expressions, and movements to tell a story—acting out simple scenes, showing emotions confidently, and performing creatively.",
-    tags: ["Acting", "Acting"],
+    tags: [
+      { label: "Acting", link: "https://www.instagram.com/reels/DLWsGb-yMwn/" },
+    ],
   },
 ];
 
@@ -73,7 +105,7 @@ function CurriculumCard({
   image: string;
   description1: string;
   description2: string;
-  tags: string[];
+  tags: { label: string; link: string }[];
   index: number;
 }) {
   const ref = useRef(null);
@@ -165,12 +197,13 @@ function CurriculumCard({
           }}
         >
           {tags.map((tag) => (
-            <span
-              key={tag}
-              className="border border-black rounded-full px-5 py-1.5 text-xs tracking-wide text-black w-fit"
+            <button
+              key={tag.label}
+              onClick={() => window.open(tag.link, "_blank")}
+              className="border border-black rounded-full px-5 py-1.5 text-xs tracking-wide text-black w-fit hover:bg-black hover:text-white transition-colors duration-300 cursor-pointer"
             >
-              {tag}
-            </span>
+              {tag.label}
+            </button>
           ))}
         </motion.div>
       </div>
@@ -249,7 +282,12 @@ export default function GlamsAcademyHero() {
             }}
           >
             <motion.button
-              onClick={() => navigate("/glams-academy/register")}
+              onClick={() =>
+                window.open(
+                  "https://api.whatsapp.com/message/FSA37HDUPBF2D1?autoload=1&app_absent=0",
+                  "_blank",
+                )
+              }
               className="border border-black rounded-full px-7 py-2.5 font-semibold tracking-[0.22em] uppercase text-black bg-[#f5f3e8] hover:bg-black hover:text-white transition-colors duration-300"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
