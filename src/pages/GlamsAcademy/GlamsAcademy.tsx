@@ -1,6 +1,5 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 const IMAGE_URL =
   "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773485712/academy_herp_ltporv.jpg";
@@ -212,7 +211,6 @@ function CurriculumCard({
 }
 
 export default function GlamsAcademyHero() {
-  const navigate = useNavigate();
   const curriculumRef = useRef(null);
   const curriculumInView = useInView(curriculumRef, {
     once: true,
