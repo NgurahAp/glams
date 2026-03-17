@@ -32,7 +32,6 @@ export default function Navbar() {
 
   const textColor = isDark ? "text-white" : "text-black";
   const underlineBg = isDark ? "bg-white" : "bg-black";
-  const strokeColor = isDark ? "white" : "black";
 
   const linkVariants: Variants = {
     hidden: { opacity: 0, x: 20 },
