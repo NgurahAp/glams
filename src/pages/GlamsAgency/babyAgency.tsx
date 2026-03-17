@@ -15,32 +15,57 @@ const paragraphVariants: Variants = {
 
 const allModels = [
   {
-    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773024788/baby-photo-2_pnov6k.png",
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773684387/DSC09923_ttqqma.jpg",
     alt: "Baby Model 1",
   },
   {
-    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773024790/kid-photo-2_cq5okb.png",
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773684386/DSC09977_gbgcy2.jpg",
     alt: "Baby Model 2",
   },
   {
-    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773024790/kid-photo-3_xnb3t0.png",
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773684384/DSC09551_yng4d1.jpg",
     alt: "Baby Model 3",
   },
   {
-    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773024788/baby-photo-2_pnov6k.png",
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773684381/DSC09921_qtrdnx.jpg",
     alt: "Baby Model 4",
   },
   {
-    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773024790/kid-photo-2_cq5okb.png",
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773684363/DSC08994_3_wy6tok.jpg",
     alt: "Baby Model 5",
   },
   {
-    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773024790/kid-photo-3_xnb3t0.png",
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773684332/DSC04066_k4cddv.jpg",
     alt: "Baby Model 6",
+  },
+  {
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773684332/DSC03271_pqkvgq.jpg",
+    alt: "Baby Model 7",
+  },
+  {
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773684332/DSC03502_amfxok.jpg",
+    alt: "Baby Model 8",
+  },
+  {
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773684329/DSC03374_scr4uo.jpg",
+    alt: "Baby Model 9",
+  },
+  {
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773684325/DSC01350_tyjcoi.jpg",
+    alt: "Baby Model 10",
+  },
+  {
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773684325/DSC01756_jx8fjb.jpg",
+    alt: "Baby Model 11",
+  },
+  {
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773684324/DSC00459_cgzmeh.jpg",
+    alt: "Baby Model 12",
   },
 ];
 
 const CARD_WIDTH = 400;
+const CARD_HEIGHT = 520; // ← fixed height untuk semua card
 const CARD_GAP = 20;
 const CARD_STEP = CARD_WIDTH + CARD_GAP;
 const TOTAL = allModels.length;
@@ -74,7 +99,7 @@ function ModelCarousel() {
             <div
               key={i}
               className="flex-shrink-0 overflow-hidden group cursor-pointer"
-              style={{ width: CARD_WIDTH, height: "100%" }}
+              style={{ width: CARD_WIDTH, height: CARD_HEIGHT }} // ← width & height sama semua
             >
               <img
                 src={model.src}

@@ -62,32 +62,7 @@ export default function Navbar() {
         <div className="flex items-start">
           {!isClean &&
             (isHome ? (
-              <button className="cursor-pointer">
-                <svg
-                  width="50"
-                  height="24"
-                  viewBox="0 0 50 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <line
-                    x1="0"
-                    y1="4"
-                    x2="50"
-                    y2="4"
-                    stroke={strokeColor}
-                    strokeWidth="1.5"
-                  />
-                  <line
-                    x1="0"
-                    y1="20"
-                    x2="50"
-                    y2="20"
-                    stroke={strokeColor}
-                    strokeWidth="1.5"
-                  />
-                </svg>
-              </button>
+              <button className="cursor-pointer"></button>
             ) : (
               <button onClick={() => navigate(-1)} className="cursor-pointer">
                 <motion.img

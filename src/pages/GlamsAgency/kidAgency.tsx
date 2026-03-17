@@ -15,37 +15,185 @@ const paragraphVariants: Variants = {
 
 const allPhotos = [
   {
-    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773024790/kid-photo-2_cq5okb.png",
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773768066/DSC04090_hkqj80.jpg",
     alt: "Kid Model 1",
   },
   {
-    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773024790/kid-photo-3_xnb3t0.png",
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773768063/DSC03857_qgdgxe.jpg",
     alt: "Kid Model 2",
   },
   {
-    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773024788/baby-photo-2_pnov6k.png",
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773768057/DSC04295_p4wrl4.jpg",
     alt: "Kid Model 3",
   },
   {
-    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773024790/kid-photo-2_cq5okb.png",
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773768053/DSC04158_e2tedo.jpg",
     alt: "Kid Model 4",
   },
   {
-    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773024790/kid-photo-3_xnb3t0.png",
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773768048/DSC04558_k2w7cx.jpg",
     alt: "Kid Model 5",
   },
   {
-    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773024788/baby-photo-2_pnov6k.png",
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773768044/DSC04813_nmm3hf.jpg",
     alt: "Kid Model 6",
+  },
+  {
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773768040/DSC04646_wjnu9a.jpg",
+    alt: "Kid Model 7",
+  },
+  {
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773768036/DSC04472_cddtdf.jpg",
+    alt: "Kid Model 8",
+  },
+  {
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773768031/DSC05015_dbvgxg.jpg",
+    alt: "Kid Model 9",
+  },
+  {
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773768027/DSC03368_pbosy1.jpg",
+    alt: "Kid Model 10",
+  },
+  {
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773768803/DSC03806_lgomen.jpg",
+    alt: "Kid Model 11",
+  },
+  {
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773768807/DSC03082_yakijn.jpg",
+    alt: "Kid Model 12",
+  },
+  {
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773765722/DSC09412_sijbyc.jpg",
+    alt: "Kid Model 13",
+  },
+  {
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773765718/Salinan_DSC01113_czu3kw.jpg",
+    alt: "Kid Model 14",
+  },
+  {
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773765718/DSC09654_hgn78f.jpg",
+    alt: "Kid Model 15",
+  },
+  {
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773765718/DSC06807_xykhs3.jpg",
+    alt: "Kid Model 16",
+  },
+  {
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773765716/Salinan_DSC02999_heq46f.jpg",
+    alt: "Kid Model 17",
+  },
+  {
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773765715/Salinan_DSC03103_vcbosb.jpg",
+    alt: "Kid Model 18",
+  },
+  {
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773765714/Salinan_DSC01010_fjzsqc.jpg",
+    alt: "Kid Model 19",
+  },
+  {
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773765713/DSC06522_x5dk47.jpg",
+    alt: "Kid Model 20",
+  },
+  {
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773765711/DSC06310_ldsl9i.jpg",
+    alt: "Kid Model 21",
+  },
+  {
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773765711/DSC07024_yrqeun.jpg",
+    alt: "Kid Model 22",
+  },
+  {
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773765711/DSC08017_heea8g.jpg",
+    alt: "Kid Model 23",
+  },
+  {
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773765710/DSC05986_bqs1x4.jpg",
+    alt: "Kid Model 24",
+  },
+  {
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773765710/DSC06566_fljwn2.jpg",
+    alt: "Kid Model 25",
+  },
+  {
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773765708/DSC06602_whrpdr.jpg",
+    alt: "Kid Model 26",
+  },
+  {
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773765708/DSC06225_wuhcok.jpg",
+    alt: "Kid Model 27",
+  },
+  {
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773765705/DSC06434_hnau4z.jpg",
+    alt: "Kid Model 28",
+  },
+  {
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773765705/DSC06096_hd97ax.jpg",
+    alt: "Kid Model 29",
+  },
+  {
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773765703/DSC06404_hmydfe.jpg",
+    alt: "Kid Model 30",
+  },
+  {
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773765702/DSC06003_bbl7ql.jpg",
+    alt: "Kid Model 31",
+  },
+  {
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773765701/DSC05819_shkjw2.jpg",
+    alt: "Kid Model 32",
+  },
+  {
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773765701/DSC05925_cfmcaf.jpg",
+    alt: "Kid Model 33",
+  },
+  {
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773765701/DSC05725_dkcpau.jpg",
+    alt: "Kid Model 34",
+  },
+  {
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773765699/DSC05565_yuxaih.jpg",
+    alt: "Kid Model 35",
+  },
+  {
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773765699/DSC05620_vqrngz.jpg",
+    alt: "Kid Model 36",
+  },
+  {
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773765693/DSC05450_ehtkc3.jpg",
+    alt: "Kid Model 37",
+  },
+  {
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773765693/DSC05619_d2ai89.jpg",
+    alt: "Kid Model 38",
+  },
+  {
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773765687/DSC04134_oygan4.jpg",
+    alt: "Kid Model 39",
+  },
+  {
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773765683/DSC02569_1_bjnwjg.jpg",
+    alt: "Kid Model 40",
+  },
+  {
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773765680/DSC03294_1_1_bnmhst.jpg",
+    alt: "Kid Model 41",
+  },
+  {
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773765680/DSC03294_1_1_bnmhst.jpg",
+    alt: "Kid Model 42",
   },
 ];
 
 const CARD_WIDTH = 400;
+const CARD_HEIGHT = 520; // ← fixed height semua card sama
 const CARD_GAP = 20;
 const CARD_STEP = CARD_WIDTH + CARD_GAP;
 const TOTAL = allPhotos.length;
 const loopedPhotos = [...allPhotos, ...allPhotos, ...allPhotos];
 const LOOP_OFFSET = TOTAL * CARD_STEP;
+
+// Jumlah dot yang ditampilkan maksimal
+const MAX_DOTS = 7;
 
 function PhotoCarousel() {
   const [current, setCurrent] = useState(0);
@@ -57,6 +205,23 @@ function PhotoCarousel() {
   const next = useCallback(() => setCurrent((c) => (c + 1) % TOTAL), []);
 
   const translateX = -(current * CARD_STEP) - LOOP_OFFSET;
+
+  // Hitung dot yang tampil — window geser mengikuti current
+  const half = Math.floor(MAX_DOTS / 2);
+  let startDot = current - half;
+  let endDot = current + half;
+  if (startDot < 0) {
+    startDot = 0;
+    endDot = MAX_DOTS - 1;
+  }
+  if (endDot >= TOTAL) {
+    endDot = TOTAL - 1;
+    startDot = Math.max(0, TOTAL - MAX_DOTS);
+  }
+  const visibleDots = Array.from(
+    { length: endDot - startDot + 1 },
+    (_, i) => startDot + i,
+  );
 
   return (
     <div className="relative w-full">
@@ -71,7 +236,7 @@ function PhotoCarousel() {
             <div
               key={i}
               className="flex-shrink-0 overflow-hidden group cursor-pointer"
-              style={{ width: CARD_WIDTH, height: "100%" }}
+              style={{ width: CARD_WIDTH, height: CARD_HEIGHT }} // ← height fixed
             >
               <img
                 src={photo.src}
@@ -84,7 +249,8 @@ function PhotoCarousel() {
       </div>
 
       {/* Controls */}
-      <div className="flex items-center gap-8 mt-6">
+      <div className="flex items-center gap-6 mt-6">
+        {/* Prev */}
         <button
           onClick={prev}
           className="flex items-center justify-center flex-shrink-0 p-1 group/btn"
@@ -107,8 +273,19 @@ function PhotoCarousel() {
           </svg>
         </button>
 
-        <div className="flex items-center gap-3">
-          {allPhotos.map((_, i) => (
+        {/* Dot indicators — windowed, max 7 */}
+        <div className="flex items-center gap-2">
+          {/* Ellipsis kiri */}
+          {startDot > 0 && (
+            <span
+              className="text-black text-xs"
+              style={{ opacity: 0.3, lineHeight: 1 }}
+            >
+              ···
+            </span>
+          )}
+
+          {visibleDots.map((i) => (
             <button
               key={i}
               onClick={() => setCurrent(i)}
@@ -124,8 +301,19 @@ function PhotoCarousel() {
               />
             </button>
           ))}
+
+          {/* Ellipsis kanan */}
+          {endDot < TOTAL - 1 && (
+            <span
+              className="text-black text-xs"
+              style={{ opacity: 0.3, lineHeight: 1 }}
+            >
+              ···
+            </span>
+          )}
         </div>
 
+        {/* Next */}
         <button
           onClick={next}
           className="flex items-center justify-center flex-shrink-0 p-1 group/btn"
@@ -148,6 +336,7 @@ function PhotoCarousel() {
           </svg>
         </button>
 
+        {/* Counter */}
         <span
           className="ml-auto font-normal text-sm text-black"
           style={{ opacity: 0.35, letterSpacing: "0.05em" }}
