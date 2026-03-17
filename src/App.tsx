@@ -17,9 +17,11 @@ import CreativeProduction from "./pages/CreativeProduction/CreativeProduction";
 import EventOrganizer from "./pages/EventOrganizer/EventOrganizer";
 
 const images = [
-  "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773024788/about-bottom_jl32sn.png",
-  "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773024788/about-hero_rhytpc.png",
-  "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773024790/model-hero_jvd8j8.png",
+  "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773673674/JACK3019_hb48xv.jpg",
+  "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773673672/JACK3586_zzvnux.jpg",
+  "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773673672/JACK3085_s4gzty.jpg",
+  "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773673671/JACK3209_la2flr.jpg",
+  "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773673670/JACK3233_vj3slo.jpg",
 ];
 
 function App() {

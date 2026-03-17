@@ -57,7 +57,7 @@ export default function Navbar() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
-      <div className="max-w-7xl mx-auto w-full px-8 flex items-start justify-between">
+      <div className=" w-full px-8 flex items-start justify-between">
         {/* Left - Hamburger / Back */}
         <div className="flex items-start">
           {!isClean &&

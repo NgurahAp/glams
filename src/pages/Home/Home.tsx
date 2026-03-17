@@ -68,13 +68,13 @@ export default function MainHero({ images, interval = 3000 }: MainHeroProps) {
         {heroTexts.map(({ label, path }, i) => (
           <motion.span
             key={label}
-            className="text-white text-7xl font-medium leading-none tracking-tight cursor-pointer"
+            className="text-white text-7xl font-medium leading-none -tracking-wider cursor-pointer"
             custom={i}
             variants={textVariants}
             initial="hidden"
             animate={{
               opacity:
-                hoveredIndex === null ? 1 : hoveredIndex === i ? 1 : 0.35,
+                hoveredIndex === null ? 1 : hoveredIndex === i ? 0.35 : 1,
               y: 0,
             }}
             transition={{ duration: 0.25 }}
