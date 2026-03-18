@@ -1,5 +1,5 @@
 import { motion, type Variants } from "framer-motion";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 
 const paragraphVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
@@ -185,31 +185,71 @@ const allPhotos = [
 ];
 
 const CARD_WIDTH = 400;
-const CARD_HEIGHT = 520; // ← fixed height semua card sama
+const CARD_HEIGHT = 520;
 const CARD_GAP = 20;
 const CARD_STEP = CARD_WIDTH + CARD_GAP;
 const TOTAL = allPhotos.length;
-const loopedPhotos = [...allPhotos, ...allPhotos, ...allPhotos];
-const LOOP_OFFSET = TOTAL * CARD_STEP;
 
-// Jumlah dot yang ditampilkan maksimal
+function optimizeUrl(src: string) {
+  return src.replace("/upload/", "/upload/q_auto,f_auto,w_420/");
+}
+
 const MAX_DOTS = 7;
+const RENDER_COUNT = 9;
 
 function PhotoCarousel() {
-  const [current, setCurrent] = useState(0);
+  const currentRef = useRef(0);
+  const [renderCurrent, setRenderCurrent] = useState(0);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const isAnimating = useRef(false);
 
-  const prev = useCallback(
-    () => setCurrent((c) => (c - 1 + TOTAL) % TOTAL),
-    [],
+  const moveTo = useCallback((idx: number) => {
+    if (!trackRef.current) return;
+    trackRef.current.style.transform = `translateX(${-idx * CARD_STEP}px)`;
+  }, []);
+
+  const navigate = useCallback(
+    (nextIdx: number) => {
+      if (isAnimating.current) return;
+      isAnimating.current = true;
+
+      currentRef.current = nextIdx;
+      setRenderCurrent(nextIdx);
+
+      requestAnimationFrame(() => {
+        moveTo(nextIdx);
+      });
+
+      setTimeout(() => {
+        isAnimating.current = false;
+      }, 680);
+    },
+    [moveTo],
   );
-  const next = useCallback(() => setCurrent((c) => (c + 1) % TOTAL), []);
 
-  const translateX = -(current * CARD_STEP) - LOOP_OFFSET;
+  const goPrev = useCallback(() => {
+    navigate((currentRef.current - 1 + TOTAL) % TOTAL);
+  }, [navigate]);
 
-  // Hitung dot yang tampil — window geser mengikuti current
-  const half = Math.floor(MAX_DOTS / 2);
-  let startDot = current - half;
-  let endDot = current + half;
+  const goNext = useCallback(() => {
+    navigate((currentRef.current + 1) % TOTAL);
+  }, [navigate]);
+
+  const goTo = useCallback((i: number) => navigate(i), [navigate]);
+
+  // Virtualized slots
+  const half = Math.floor(RENDER_COUNT / 2);
+  const slots = Array.from({ length: RENDER_COUNT }, (_, i) => {
+    const offset = i - half;
+    const realIdx = (((renderCurrent + offset) % TOTAL) + TOTAL) % TOTAL;
+    const slotPos = renderCurrent + offset;
+    return { realIdx, slotPos };
+  });
+
+  // Dot window
+  const dotHalf = Math.floor(MAX_DOTS / 2);
+  let startDot = renderCurrent - dotHalf;
+  let endDot = renderCurrent + dotHalf;
   if (startDot < 0) {
     startDot = 0;
     endDot = MAX_DOTS - 1;
@@ -225,34 +265,47 @@ function PhotoCarousel() {
 
   return (
     <div className="relative w-full">
+      {/* Overflow container */}
       <div className="overflow-hidden w-full">
-        <motion.div
-          className="flex"
-          style={{ gap: CARD_GAP }}
-          animate={{ x: translateX }}
-          transition={{ duration: 0.65, ease: [0.25, 0.1, 0.25, 1] }}
+        <div
+          ref={trackRef}
+          className="relative"
+          style={{
+            height: CARD_HEIGHT,
+            transform: `translateX(0px)`,
+            transition: "transform 0.65s cubic-bezier(0.25, 0.1, 0.25, 1)",
+            willChange: "transform",
+          }}
         >
-          {loopedPhotos.map((photo, i) => (
+          {slots.map(({ realIdx, slotPos }) => (
             <div
-              key={i}
-              className="flex-shrink-0 overflow-hidden group cursor-pointer"
-              style={{ width: CARD_WIDTH, height: CARD_HEIGHT }} // ← height fixed
+              key={`slot-${slotPos}`}
+              className="absolute overflow-hidden group cursor-pointer"
+              style={{
+                width: CARD_WIDTH,
+                height: CARD_HEIGHT,
+                top: 0,
+                left: slotPos * CARD_STEP,
+                contain: "layout paint style",
+              }}
             >
               <img
-                src={photo.src}
-                alt={photo.alt}
+                src={optimizeUrl(allPhotos[realIdx].src)}
+                alt={allPhotos[realIdx].alt}
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
               />
             </div>
           ))}
-        </motion.div>
+        </div>
       </div>
 
       {/* Controls */}
       <div className="flex items-center gap-6 mt-6">
         {/* Prev */}
         <button
-          onClick={prev}
+          onClick={goPrev}
           className="flex items-center justify-center flex-shrink-0 p-1 group/btn"
           aria-label="Previous"
         >
@@ -273,49 +326,29 @@ function PhotoCarousel() {
           </svg>
         </button>
 
-        {/* Dot indicators — windowed, max 7 */}
+        {/* Dot indicators */}
         <div className="flex items-center gap-2">
-          {/* Ellipsis kiri */}
-          {startDot > 0 && (
-            <span
-              className="text-black text-xs"
-              style={{ opacity: 0.3, lineHeight: 1 }}
-            >
-              ···
-            </span>
-          )}
-
           {visibleDots.map((i) => (
             <button
               key={i}
-              onClick={() => setCurrent(i)}
+              onClick={() => goTo(i)}
               aria-label={`Go to slide ${i + 1}`}
             >
               <div
                 className="transition-all duration-300 bg-black"
                 style={{
                   height: 1,
-                  width: i === current ? 32 : 16,
-                  opacity: i === current ? 1 : 0.25,
+                  width: i === renderCurrent ? 32 : 16,
+                  opacity: i === renderCurrent ? 1 : 0.25,
                 }}
               />
             </button>
           ))}
-
-          {/* Ellipsis kanan */}
-          {endDot < TOTAL - 1 && (
-            <span
-              className="text-black text-xs"
-              style={{ opacity: 0.3, lineHeight: 1 }}
-            >
-              ···
-            </span>
-          )}
         </div>
 
         {/* Next */}
         <button
-          onClick={next}
+          onClick={goNext}
           className="flex items-center justify-center flex-shrink-0 p-1 group/btn"
           aria-label="Next"
         >
@@ -341,7 +374,7 @@ function PhotoCarousel() {
           className="ml-auto font-normal text-sm text-black"
           style={{ opacity: 0.35, letterSpacing: "0.05em" }}
         >
-          {String(current + 1).padStart(2, "0")} /{" "}
+          {String(renderCurrent + 1).padStart(2, "0")} /{" "}
           {String(TOTAL).padStart(2, "0")}
         </span>
       </div>
@@ -393,7 +426,6 @@ export default function KidAgency() {
               />
             </motion.div>
 
-            {/* Lorem */}
             <motion.p
               className="text-black text-center text-xl leading-tight tracking-tight mt-14"
               initial={{ opacity: 0, y: 10 }}

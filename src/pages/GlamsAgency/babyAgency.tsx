@@ -1,5 +1,5 @@
 import { motion, type Variants } from "framer-motion";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 
 const paragraphVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
@@ -65,56 +65,102 @@ const allModels = [
 ];
 
 const CARD_WIDTH = 400;
-const CARD_HEIGHT = 520; // ← fixed height untuk semua card
+const CARD_HEIGHT = 520;
 const CARD_GAP = 20;
 const CARD_STEP = CARD_WIDTH + CARD_GAP;
 const TOTAL = allModels.length;
+const RENDER_COUNT = 9;
 
-const loopedModels = [...allModels, ...allModels, ...allModels];
-const LOOP_OFFSET = TOTAL * CARD_STEP;
+function optimizeUrl(src: string) {
+  return src.replace("/upload/", "/upload/q_auto,f_auto,w_420/");
+}
 
 function ModelCarousel() {
-  const [current, setCurrent] = useState(0);
+  const currentRef = useRef(0);
+  const [renderCurrent, setRenderCurrent] = useState(0);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const isAnimating = useRef(false);
 
-  const prev = useCallback(() => {
-    setCurrent((c) => (c - 1 + TOTAL) % TOTAL);
+  const moveTo = useCallback((idx: number) => {
+    if (!trackRef.current) return;
+    trackRef.current.style.transform = `translateX(${-idx * CARD_STEP}px)`;
   }, []);
 
-  const next = useCallback(() => {
-    setCurrent((c) => (c + 1) % TOTAL);
-  }, []);
+  const navigate = useCallback(
+    (nextIdx: number) => {
+      if (isAnimating.current) return;
+      isAnimating.current = true;
+      currentRef.current = nextIdx;
+      setRenderCurrent(nextIdx);
+      requestAnimationFrame(() => {
+        moveTo(nextIdx);
+      });
+      setTimeout(() => {
+        isAnimating.current = false;
+      }, 680);
+    },
+    [moveTo],
+  );
 
-  const translateX = -(current * CARD_STEP) - LOOP_OFFSET;
+  const goPrev = useCallback(
+    () => navigate((currentRef.current - 1 + TOTAL) % TOTAL),
+    [navigate],
+  );
+  const goNext = useCallback(
+    () => navigate((currentRef.current + 1) % TOTAL),
+    [navigate],
+  );
+  const goTo = useCallback((i: number) => navigate(i), [navigate]);
+
+  const half = Math.floor(RENDER_COUNT / 2);
+  const slots = Array.from({ length: RENDER_COUNT }, (_, i) => {
+    const offset = i - half;
+    const realIdx = (((renderCurrent + offset) % TOTAL) + TOTAL) % TOTAL;
+    const slotPos = renderCurrent + offset;
+    return { realIdx, slotPos };
+  });
 
   return (
     <div className="relative w-full">
       <div className="overflow-hidden w-full">
-        <motion.div
-          className="flex"
-          style={{ gap: CARD_GAP }}
-          animate={{ x: translateX }}
-          transition={{ duration: 0.65, ease: [0.25, 0.1, 0.25, 1] }}
+        <div
+          ref={trackRef}
+          className="relative"
+          style={{
+            height: CARD_HEIGHT,
+            transform: "translateX(0px)",
+            transition: "transform 0.65s cubic-bezier(0.25, 0.1, 0.25, 1)",
+            willChange: "transform",
+          }}
         >
-          {loopedModels.map((model, i) => (
+          {slots.map(({ realIdx, slotPos }) => (
             <div
-              key={i}
-              className="flex-shrink-0 overflow-hidden group cursor-pointer"
-              style={{ width: CARD_WIDTH, height: CARD_HEIGHT }} // ← width & height sama semua
+              key={`slot-${slotPos}`}
+              className="absolute overflow-hidden group cursor-pointer"
+              style={{
+                width: CARD_WIDTH,
+                height: CARD_HEIGHT,
+                top: 0,
+                left: slotPos * CARD_STEP,
+                contain: "layout paint style",
+              }}
             >
               <img
-                src={model.src}
-                alt={model.alt}
+                src={optimizeUrl(allModels[realIdx].src)}
+                alt={allModels[realIdx].alt}
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
               />
             </div>
           ))}
-        </motion.div>
+        </div>
       </div>
 
       {/* Controls */}
       <div className="flex items-center gap-8 mt-6">
         <button
-          onClick={prev}
+          onClick={goPrev}
           className="flex items-center justify-center flex-shrink-0 p-1 group/btn"
         >
           <svg
@@ -136,13 +182,13 @@ function ModelCarousel() {
 
         <div className="flex items-center gap-3">
           {allModels.map((_, i) => (
-            <button key={i} onClick={() => setCurrent(i)}>
+            <button key={i} onClick={() => goTo(i)}>
               <div
                 className="transition-all duration-300 bg-black"
                 style={{
                   height: 1,
-                  width: i === current ? 32 : 16,
-                  opacity: i === current ? 1 : 0.25,
+                  width: i === renderCurrent ? 32 : 16,
+                  opacity: i === renderCurrent ? 1 : 0.25,
                 }}
               />
             </button>
@@ -150,7 +196,7 @@ function ModelCarousel() {
         </div>
 
         <button
-          onClick={next}
+          onClick={goNext}
           className="flex items-center justify-center flex-shrink-0 p-1 group/btn"
         >
           <svg
@@ -174,7 +220,7 @@ function ModelCarousel() {
           className="ml-auto font-normal text-sm text-black"
           style={{ opacity: 0.35, letterSpacing: "0.05em" }}
         >
-          {String(current + 1).padStart(2, "0")} /{" "}
+          {String(renderCurrent + 1).padStart(2, "0")} /{" "}
           {String(TOTAL).padStart(2, "0")}
         </span>
       </div>
@@ -226,7 +272,6 @@ export default function BabyAgency() {
               />
             </motion.div>
 
-            {/* Lorem */}
             <motion.p
               className="text-black text-center text-xl leading-tight tracking-tight mt-14"
               initial={{ opacity: 0, y: 10 }}
