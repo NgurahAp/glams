@@ -67,10 +67,6 @@ const allModels = [
     alt: "Adult Model 13",
   },
   {
-    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773764070/DSC042381_tsbosf.jpg",
-    alt: "Adult Model 14",
-  },
-  {
     src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773764069/FAMILY_X8_DEC-474_o3ikal.jpg",
     alt: "Adult Model 15",
   },
@@ -217,7 +213,7 @@ const RENDER_COUNT = 9;
 const MAX_DOTS = 7;
 
 function optimizeUrl(src: string) {
-  return src.replace("/upload/", "/upload/q_auto,f_auto,w_420/");
+  return src.replace("/upload/", "/upload/q_auto,f_auto,w_800,dpr_auto/");
 }
 
 function ModelCarousel() {

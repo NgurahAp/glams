@@ -72,7 +72,7 @@ const TOTAL = allModels.length;
 const RENDER_COUNT = 9;
 
 function optimizeUrl(src: string) {
-  return src.replace("/upload/", "/upload/q_auto,f_auto,w_420/");
+  return src.replace("/upload/", "/upload/q_auto,f_auto,w_800,dpr_auto/");
 }
 
 function ModelCarousel() {

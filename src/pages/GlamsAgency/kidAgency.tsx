@@ -178,10 +178,6 @@ const allPhotos = [
     src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773765680/DSC03294_1_1_bnmhst.jpg",
     alt: "Kid Model 41",
   },
-  {
-    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773765680/DSC03294_1_1_bnmhst.jpg",
-    alt: "Kid Model 42",
-  },
 ];
 
 const CARD_WIDTH = 400;
@@ -191,7 +187,7 @@ const CARD_STEP = CARD_WIDTH + CARD_GAP;
 const TOTAL = allPhotos.length;
 
 function optimizeUrl(src: string) {
-  return src.replace("/upload/", "/upload/q_auto,f_auto,w_420/");
+  return src.replace("/upload/", "/upload/q_auto,f_auto,w_800,dpr_auto/");
 }
 
 const MAX_DOTS = 7;
