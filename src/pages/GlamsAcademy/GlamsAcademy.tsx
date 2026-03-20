@@ -1,5 +1,6 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
+import MobileSplash from "../../components/MobileSplash";
 
 const IMAGE_URL =
   "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773485712/academy_herp_ltporv.jpg";
@@ -211,6 +212,8 @@ function CurriculumCard({
 }
 
 export default function GlamsAcademyHero() {
+  const [splashDone, setSplashDone] = useState(false);
+
   const curriculumRef = useRef(null);
   const curriculumInView = useInView(curriculumRef, {
     once: true,
@@ -218,159 +221,172 @@ export default function GlamsAcademyHero() {
   });
 
   return (
-    <div className="bg-white flex flex-col items-center px-12 py-24 max-w-7xl mx-auto w-full">
-      {/* ── Hero Section ── */}
-      <div className="flex items-center justify-center overflow-hidden w-full">
-        {/* Left — Image */}
-        <motion.div
-          className="w-[50%] relative overflow-hidden flex justify-end rounded-sm"
-          initial={{ opacity: 0, x: -40 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1.1, ease: [0.25, 0.1, 0.25, 1] }}
-        >
-          <motion.img
-            src={IMAGE_URL}
-            alt="Glams Academy"
-            className="w-[80%] h-auto object-cover object-top"
-            initial={{ scale: 1.08 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 1.4, ease: [0.25, 0.1, 0.25, 1] }}
-          />
-        </motion.div>
+    <>
+      {!splashDone && (
+        <MobileSplash
+          onDismiss={() => setSplashDone(true)}
+          imageUrl="https://res.cloudinary.com/dbhx39mmm/image/upload/v1773673670/JACK3233_vj3slo.jpg"
+          title={"GLAMS\nACADEMY"}
+        />
+      )}
+      <div className="bg-white flex flex-col items-center px-12 py-24 max-w-7xl mx-auto w-full">
+        {/* ── Hero Section ── */}
+        <div className="flex items-center justify-center overflow-hidden w-full">
+          {/* Left — Image */}
+          <motion.div
+            className="w-[50%] relative overflow-hidden flex justify-end rounded-sm"
+            initial={{ opacity: 0, x: -40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1.1, ease: [0.25, 0.1, 0.25, 1] }}
+          >
+            <motion.img
+              src={IMAGE_URL}
+              alt="Glams Academy"
+              className="w-[80%] h-auto object-cover object-top"
+              initial={{ scale: 1.08 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 1.4, ease: [0.25, 0.1, 0.25, 1] }}
+            />
+          </motion.div>
 
-        {/* Right — Content */}
-        <div className="w-[50%] flex flex-col items-start justify-center px-8">
-          <div className="overflow-hidden mb-2">
-            <motion.h1
-              className="text-[clamp(2.8rem,5.5vw,5rem)] font-medium leading-[0.92] tracking-tight text-black uppercase"
-              initial={{ y: 60, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
+          {/* Right — Content */}
+          <div className="w-[50%] flex flex-col items-start justify-center px-8">
+            <div className="overflow-hidden mb-2">
+              <motion.h1
+                className="text-[clamp(2.8rem,5.5vw,5rem)] font-medium leading-[0.92] tracking-tight text-black uppercase"
+                initial={{ y: 60, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{
+                  duration: 0.9,
+                  delay: 0.2,
+                  ease: [0.25, 0.1, 0.25, 1],
+                }}
+              >
+                GLAMS
+                <br />
+                ACADEMY
+              </motion.h1>
+            </div>
+
+            <motion.p
+              className="text-lg font-semibold tracking-tight text-black uppercase mb-2"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{
-                duration: 0.9,
-                delay: 0.2,
+                duration: 0.8,
+                delay: 0.5,
                 ease: [0.25, 0.1, 0.25, 1],
               }}
             >
-              GLAMS
-              <br />
-              ACADEMY
-            </motion.h1>
-          </div>
+              CATWALK, ACTING, PUBLIC SPEAKING, DANCE
+            </motion.p>
 
-          <motion.p
-            className="text-lg font-semibold tracking-tight text-black uppercase mb-2"
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.8,
-              delay: 0.5,
-              ease: [0.25, 0.1, 0.25, 1],
-            }}
-          >
-            CATWALK, ACTING, PUBLIC SPEAKING, DANCE
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.8,
-              delay: 0.7,
-              ease: [0.25, 0.1, 0.25, 1],
-            }}
-          >
-            <motion.button
-              onClick={() =>
-                window.open(
-                  "https://api.whatsapp.com/message/FSA37HDUPBF2D1?autoload=1&app_absent=0",
-                  "_blank",
-                )
-              }
-              className="border border-black rounded-full px-7 py-2.5 font-semibold tracking-[0.22em] uppercase text-black bg-[#f5f3e8] hover:bg-black hover:text-white transition-colors duration-300"
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
-              transition={{ duration: 0.2 }}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.8,
+                delay: 0.7,
+                ease: [0.25, 0.1, 0.25, 1],
+              }}
             >
-              JOIN GLAMS ACADEMY
-            </motion.button>
-          </motion.div>
+              <motion.button
+                onClick={() =>
+                  window.open(
+                    "https://api.whatsapp.com/message/FSA37HDUPBF2D1?autoload=1&app_absent=0",
+                    "_blank",
+                  )
+                }
+                className="border border-black rounded-full px-7 py-2.5 font-semibold tracking-[0.22em] uppercase text-black bg-[#f5f3e8] hover:bg-black hover:text-white transition-colors duration-300"
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ duration: 0.2 }}
+              >
+                JOIN GLAMS ACADEMY
+              </motion.button>
+            </motion.div>
+          </div>
         </div>
-      </div>
 
-      {/* ── Description ── */}
-      <motion.p
-        className="text-lg font-normal leading-snug tracking-tight py-10 text-justify px-24 text-black"
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-60px" }}
-        transition={{ duration: 0.9, ease: [0.25, 0.1, 0.25, 1] }}
-      >
-        As one of the pioneers in kids' modelling education, we focus on
-        nurturing children's growth both in character and personality. Through
-        modelling as our learning medium, we help shape the next generation to
-        build confidence, develop strong self-esteem, and shine in their own
-        unique way. We believe every child has a unique spark, and that
-        confidence grows when they are guided, supported, and gently encouraged
-        along the way.
-      </motion.p>
-
-      {/* ── Class Curriculum Section ── */}
-      <div ref={curriculumRef} className="w-full px-12">
-        {/* Full-width image */}
-        <motion.div
-          className="w-full overflow-hidden flex justify-center rounded-sm"
-          initial={{ opacity: 0, y: 40 }}
-          animate={curriculumInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 1.1, ease: [0.25, 0.1, 0.25, 1] }}
+        {/* ── Description ── */}
+        <motion.p
+          className="text-lg font-normal leading-snug tracking-tight py-10 text-justify px-24 text-black"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.9, ease: [0.25, 0.1, 0.25, 1] }}
         >
-          <motion.img
-            src={CURRICULUM_IMG_URL}
-            alt="Class Curriculum"
-            className="w-[90%] h-auto object-cover"
-            initial={{ scale: 1.05 }}
-            animate={curriculumInView ? { scale: 1 } : {}}
-            transition={{ duration: 1.4, ease: [0.25, 0.1, 0.25, 1] }}
-          />
-        </motion.div>
+          As one of the pioneers in kids' modelling education, we focus on
+          nurturing children's growth both in character and personality. Through
+          modelling as our learning medium, we help shape the next generation to
+          build confidence, develop strong self-esteem, and shine in their own
+          unique way. We believe every child has a unique spark, and that
+          confidence grows when they are guided, supported, and gently
+          encouraged along the way.
+        </motion.p>
 
-        {/* Title below image */}
-        <motion.h2
-          className="text-[clamp(2.5rem,6vw,5.5rem)] font-medium tracking-tight text-black uppercase text-center"
-          initial={{ opacity: 0, y: 30 }}
-          animate={curriculumInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.9, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-        >
-          CLASS CURRICULUM
-        </motion.h2>
+        {/* ── Class Curriculum Section ── */}
+        <div ref={curriculumRef} className="w-full px-12">
+          {/* Full-width image */}
+          <motion.div
+            className="w-full overflow-hidden flex justify-center rounded-sm"
+            initial={{ opacity: 0, y: 40 }}
+            animate={curriculumInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 1.1, ease: [0.25, 0.1, 0.25, 1] }}
+          >
+            <motion.img
+              src={CURRICULUM_IMG_URL}
+              alt="Class Curriculum"
+              className="w-[90%] h-auto object-cover"
+              initial={{ scale: 1.05 }}
+              animate={curriculumInView ? { scale: 1 } : {}}
+              transition={{ duration: 1.4, ease: [0.25, 0.1, 0.25, 1] }}
+            />
+          </motion.div>
+
+          {/* Title below image */}
+          <motion.h2
+            className="text-[clamp(2.5rem,6vw,5.5rem)] font-medium tracking-tight text-black uppercase text-center"
+            initial={{ opacity: 0, y: 30 }}
+            animate={curriculumInView ? { opacity: 1, y: 0 } : {}}
+            transition={{
+              duration: 0.9,
+              delay: 0.3,
+              ease: [0.25, 0.1, 0.25, 1],
+            }}
+          >
+            CLASS CURRICULUM
+          </motion.h2>
+        </div>
+
+        {/* ── Curriculum Cards ── */}
+        <div className="w-full px-12 mt-8">
+          {curriculum.map((item, index) => (
+            <CurriculumCard
+              key={index}
+              index={index}
+              title={item.title}
+              image={item.image}
+              description1={item.description1}
+              description2={item.description2}
+              tags={item.tags}
+            />
+          ))}
+        </div>
+
+        {/* ── Basic Fundamental Class Section ── */}
+        <BasicFundamentalSection />
+
+        {/* ── What Next Section ── */}
+        <WhatNextSection />
+
+        {/* ── Class Schedule Section ── */}
+        <ClassScheduleSection />
+
+        {/* ── FAQ Section ── */}
+        <FAQSection />
       </div>
-
-      {/* ── Curriculum Cards ── */}
-      <div className="w-full px-12 mt-8">
-        {curriculum.map((item, index) => (
-          <CurriculumCard
-            key={index}
-            index={index}
-            title={item.title}
-            image={item.image}
-            description1={item.description1}
-            description2={item.description2}
-            tags={item.tags}
-          />
-        ))}
-      </div>
-
-      {/* ── Basic Fundamental Class Section ── */}
-      <BasicFundamentalSection />
-
-      {/* ── What Next Section ── */}
-      <WhatNextSection />
-
-      {/* ── Class Schedule Section ── */}
-      <ClassScheduleSection />
-
-      {/* ── FAQ Section ── */}
-      <FAQSection />
-    </div>
+    </>
   );
 }
 

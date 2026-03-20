@@ -51,12 +51,12 @@ export default function Navbar() {
 
   return (
     <motion.nav
-      className="absolute top-0 left-0 right-0 z-50 py-5"
+      className="absolute top-0 left-0 right-0 z-50 py-8 md:py-5"
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
-      <div className=" w-full px-8 flex items-start justify-between">
+      <div className="w-full px-4 md:px-8 flex items-start justify-between">
         {/* Left - Hamburger / Back */}
         <div className="flex items-start">
           {!isClean &&
@@ -67,7 +67,7 @@ export default function Navbar() {
                 <motion.img
                   src="https://res.cloudinary.com/dbhx39mmm/image/upload/v1773037474/navbar-back_mhlczv.png"
                   alt="Back"
-                  className={`h-10 w-auto ${!isDark ? "invert" : ""}`}
+                  className={`h-7 md:h-10 w-auto ${!isDark ? "invert" : ""}`}
                   style={{ transformOrigin: "left center" }}
                   whileHover={{ scale: 0.85, opacity: 0.6, x: -6, y: -12 }}
                   transition={{ duration: 0.3, ease: "easeOut" }}
@@ -82,14 +82,14 @@ export default function Navbar() {
             <img
               src="https://res.cloudinary.com/dbhx39mmm/image/upload/v1773037487/logo_ikbz71.png"
               alt="Logo"
-              className={`h-8 w-auto ${!isDark ? "invert" : ""}`}
+              className={`h-6 md:h-8 w-auto ${!isDark ? "invert" : ""}`}
             />
           </Link>
         </div>
 
         {/* Right - Nav Links */}
         {!isClean && (
-          <div className="flex flex-col items-start gap-3">
+          <div className="flex flex-col items-start md:gap-3">
             {navLinks.map((link, i) => (
               <motion.div
                 key={link.label}
@@ -102,11 +102,11 @@ export default function Navbar() {
                 {link.path === "#" ? (
                   <a
                     href={link.path}
-                    className={`${textColor} text-md font-light cursor-pointer tracking-tight relative group`}
+                    className={`${textColor} text-[10px] leading-0 md:text-base font-light cursor-pointer tracking-tight relative group`}
                   >
                     {link.label}
                     <span
-                      className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-[2px] w-0 ${underlineBg} transition-all duration-300 ease-out group-hover:w-full`}
+                      className={`absolute top-0 left-1/2 -translate-x-1/2 h-0.5 w-0 ${underlineBg} transition-all duration-300 ease-out group-hover:w-full`}
                     />
                   </a>
                 ) : (link as any).external ? (
@@ -114,21 +114,21 @@ export default function Navbar() {
                     href={link.path}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`${textColor} text-md font-light cursor-pointer tracking-tight relative group`}
+                    className={`${textColor} text-[10px] leading-0 md:text-base font-light cursor-pointer tracking-tight relative group`}
                   >
                     {link.label}
                     <span
-                      className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-[2px] w-0 ${underlineBg} transition-all duration-300 ease-out group-hover:w-full`}
+                      className={`absolute top-0 left-1/2 -translate-x-1/2 h-0.5 w-0 ${underlineBg} transition-all duration-300 ease-out group-hover:w-full`}
                     />
                   </a>
                 ) : (
                   <Link
                     to={link.path}
-                    className={`${textColor} text-md font-light cursor-pointer tracking-tight relative group`}
+                    className={`${textColor} text-[10px] leading-0 md:text-base font-light cursor-pointer tracking-tight relative group`}
                   >
                     {link.label}
                     <span
-                      className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-[2px] w-0 ${underlineBg} transition-all duration-300 ease-out group-hover:w-full`}
+                      className={`absolute top-0 left-1/2 -translate-x-1/2 h-0.5 w-0 ${underlineBg} transition-all duration-300 ease-out group-hover:w-full`}
                     />
                   </Link>
                 )}
