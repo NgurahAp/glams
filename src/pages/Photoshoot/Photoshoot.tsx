@@ -57,8 +57,8 @@ export default function PhotoShoot() {
         />
       </AnimatePresence>
 
-      {/* Bottom Left Text — shared layoutId untuk transisi ke halaman model */}
-      <div className="absolute bottom-8 left-8 flex flex-col items-start z-10">
+      {/* Bottom Left Text */}
+      <div className="absolute bottom-16 left-4 md:bottom-8 md:left-8 flex flex-col items-start z-10">
         {heroTexts.map(({ label, path, layoutId }, i) => (
           <motion.div
             key={label}
@@ -72,7 +72,8 @@ export default function PhotoShoot() {
             <motion.span
               layoutId={layoutId}
               onClick={() => navigate(path)}
-              className="font-medium leading-none tracking-tight block text-8xl text-white"
+              className="font-medium leading-none tracking-tight block text-white"
+              style={{ fontSize: "clamp(3.5rem, 13vw, 6rem)" }}
             >
               {label}
             </motion.span>
