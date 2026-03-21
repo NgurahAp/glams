@@ -218,7 +218,7 @@ export default function GlamsAcademyHero() {
           title={"GLAMS\nACADEMY"}
         />
       )}
-      <div className="bg-white flex flex-col items-center px-4 md:px-12 py-36 md:py-24 max-w-7xl mx-auto w-full">
+      <div className="bg-white flex flex-col items-center px-4 md:px-12 py-36 md:py-24 max-w-7xl mx-auto w-full overflow-x-hidden">
         {/* ── Hero Section ── */}
         <div className="flex flex-col-reverse md:flex-row md:items-center justify-center overflow-hidden w-full gap-6 md:gap-0">
           {/* Image */}
@@ -429,7 +429,7 @@ function BasicFundamentalSection() {
             Catwalk, Stage Choreography, fashion dance, Parade formation
           </p>
         </motion.div>
-        <div className="grid grid-cols-3 gap-x-2 md:gap-x-4">
+        <div className="grid grid-cols-3 gap-2 md:gap-4">
           {[
             {
               src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773024788/baby-photo-2_pnov6k.png",
@@ -493,7 +493,7 @@ function BasicFundamentalSection() {
             Portfolio-building photoshoot
           </p>
         </motion.div>
-        <div className="grid grid-cols-3 gap-x-2 md:gap-x-4">
+        <div className="grid grid-cols-3 gap-2 md:gap-4">
           {[
             {
               src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773024788/baby-photo-2_pnov6k.png",
@@ -557,7 +557,7 @@ function BasicFundamentalSection() {
             Self-presentation
           </p>
         </motion.div>
-        <div className="grid grid-cols-3 gap-x-2 md:gap-x-4">
+        <div className="grid grid-cols-3 gap-2 md:gap-4">
           {[
             "https://res.cloudinary.com/dbhx39mmm/video/upload/v1773511744/Web-Motion-2_revisi_wljpbg.mp4",
             "https://res.cloudinary.com/dbhx39mmm/video/upload/v1773511749/Motion-1_revisi_gsmsbx.mp4",
@@ -817,15 +817,15 @@ function ClassScheduleSection() {
       </motion.h2>
 
       <motion.div
-        className="flex justify-center gap-10 md:gap-32"
+        className="flex flex-wrap justify-center gap-4 md:gap-16"
         initial={{ opacity: 0, y: 20 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
       >
-        <span className="text-sm md:text-lg font-bold tracking-tight text-black uppercase">
+        <span className="text-sm md:text-lg font-bold tracking-tight text-black uppercase whitespace-nowrap">
           KIDS 10.30-12.00
         </span>
-        <span className="text-sm md:text-lg font-bold tracking-tight text-black uppercase">
+        <span className="text-sm md:text-lg font-bold tracking-tight text-black uppercase whitespace-nowrap">
           TEEN 13.30-15.00
         </span>
       </motion.div>

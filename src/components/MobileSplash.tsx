@@ -1,6 +1,6 @@
 // src/components/MobileSplash.tsx
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const mobileNavLinks = [
@@ -25,6 +25,7 @@ export default function MobileSplash({
   title,
 }: MobileSplashProps) {
   const [dismissed, setDismissed] = useState(false);
+  const [touchStart, setTouchStart] = useState(0);
 
   const handleTap = () => {
     if (dismissed) return;
@@ -32,35 +33,71 @@ export default function MobileSplash({
     setTimeout(onDismiss, 700);
   };
 
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStart(e.touches[0].clientY);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (dismissed) return;
+    const touchEnd = e.touches[0].clientY;
+    const diff = touchStart - touchEnd;
+
+    // If user scrolls down or up more than 30px, dismiss splash
+    if (Math.abs(diff) > 30) {
+      setDismissed(true);
+      setTimeout(onDismiss, 700);
+    }
+  };
+
+  // Prevent body scroll when splash is active
+  useEffect(() => {
+    if (!dismissed) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [dismissed]);
+
   return (
     <AnimatePresence>
       {!dismissed && (
         <motion.div
           className="fixed inset-0 h-screen w-full z-[100] md:hidden cursor-pointer overflow-hidden"
-          onClick={handleTap}
           initial={{ y: 0 }}
           exit={{ y: "-100%" }}
           transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }}
         >
+          {/* Touch overlay to detect swipe */}
+          <div
+            className="absolute inset-0 z-50"
+            onClick={handleTap}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            style={{ touchAction: "none" }}
+          />
+
           {/* Background Image */}
           <img
             src={imageUrl}
             alt={title}
-            className="absolute inset-0 w-full h-full object-cover object-center"
+            className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none"
           />
 
           {/* Overlay */}
-          <div className="absolute inset-0 bg-black/10" />
+          <div className="absolute inset-0 bg-black/10 pointer-events-none" />
 
           {/* Content layer — full height flex column */}
-          <div className="relative z-10 flex flex-col justify-between h-full">
+          <div className="relative z-10 flex flex-col justify-between h-full pointer-events-none">
             {/* Navbar */}
             <motion.div
-              className="flex items-start justify-between px-4 py-8"
+              className="flex items-start justify-between px-4 py-8 pointer-events-auto"
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.6, ease: "easeOut" }}
-              onClick={(e) => e.stopPropagation()}
             >
               {/* Left: Logo */}
               <Link to="/">
@@ -115,7 +152,7 @@ export default function MobileSplash({
 
             {/* Bottom: title + scroll indicator */}
             <motion.div
-              className="flex flex-col items-center gap-0 pb-20 px-5"
+              className="flex flex-col items-center gap-0 pb-20 px-5 pointer-events-none"
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 0.6 }}

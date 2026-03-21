@@ -9,9 +9,9 @@ interface LayoutProps {
 
 export default function Layout({ children }: LayoutProps) {
   return (
-    <div className="relative min-h-screen">
+    <div className="relative min-h-screen overflow-x-hidden">
       <Navbar />
-      <main>{children}</main>
+      <main className="overflow-x-hidden">{children}</main>
       <Footer />
     </div>
   );
