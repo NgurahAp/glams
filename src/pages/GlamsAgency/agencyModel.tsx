@@ -36,27 +36,27 @@ export default function AgencyModel() {
       {!splashDone && (
         <MobileSplash
           onDismiss={() => setSplashDone(true)}
-          imageUrl="https://res.cloudinary.com/dbhx39mmm/image/upload/v1773673670/JACK3233_vj3slo.jpg"
-          title={"GLAMS\nACADEMY"}
+          imageUrl="https://res.cloudinary.com/dbhx39mmm/image/upload/v1773673674/JACK3019_hb48xv.jpg"
+          title={"GLAMS\nAGENCY"}
         />
-      )}{" "}
-      <section className="h-screen bg-white flex flex-col justify-end pb-4">
-        <div className="max-w-7xl mx-auto w-full px-8">
+      )}
+      <section className="md:h-screen bg-white flex flex-col justify-end pb-4 pt-24 md:pt-0">
+        <div className="max-w-7xl mx-auto w-full px-4 md:px-8">
           {/* Title */}
           <motion.div
-            className="mb-6"
+            className="mb-4 md:mb-6"
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
           >
-            <h2 className="text-lg tracking-tight font-medium mb-2">
+            <h2 className="text-sm md:text-lg tracking-tight font-medium mb-2">
               GLAMS AGENCY MODEL
             </h2>
             <div className="h-[1px] bg-black" />
           </motion.div>
 
           {/* Images */}
-          <div className="grid grid-cols-3 gap-x-4 justify-center items-center mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-y-2 md:gap-y-0 md:gap-x-4 justify-center items-center mx-auto">
             {models.map((model, index) => (
               <motion.div
                 key={model.id}
@@ -71,13 +71,7 @@ export default function AgencyModel() {
                 <motion.div
                   layoutId={model.layoutId}
                   onClick={() => navigate(model.path)}
-                  className="group"
-                  style={{
-                    width: "100%",
-                    height: 460,
-                    overflow: "hidden",
-                    cursor: "pointer",
-                  }}
+                  className="group w-full overflow-hidden cursor-pointer md:h-[460px]"
                 >
                   <img
                     src={model.src}

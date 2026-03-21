@@ -1,5 +1,5 @@
 import { motion, type Variants } from "framer-motion";
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 
 const paragraphVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
@@ -64,10 +64,6 @@ const allModels = [
   },
 ];
 
-const CARD_WIDTH = 400;
-const CARD_HEIGHT = 520;
-const CARD_GAP = 20;
-const CARD_STEP = CARD_WIDTH + CARD_GAP;
 const TOTAL = allModels.length;
 const RENDER_COUNT = 9;
 
@@ -75,16 +71,61 @@ function optimizeUrl(src: string) {
   return src.replace("/upload/", "/upload/q_auto,f_auto,w_800,dpr_auto/");
 }
 
+function CarouselProgress({
+  current,
+  total,
+}: {
+  current: number;
+  total: number;
+}) {
+  const progress = ((current + 1) / total) * 100;
+
+  return (
+    <div className="relative flex-1 h-[2px] bg-black/15">
+      <motion.div
+        className="absolute left-0 top-0 h-full bg-black"
+        animate={{ width: `${progress}%` }}
+        transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+      />
+    </div>
+  );
+}
+
 function ModelCarousel() {
   const currentRef = useRef(0);
   const [renderCurrent, setRenderCurrent] = useState(0);
   const trackRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const isAnimating = useRef(false);
+  const [cardWidth, setCardWidth] = useState(400);
 
-  const moveTo = useCallback((idx: number) => {
-    if (!trackRef.current) return;
-    trackRef.current.style.transform = `translateX(${-idx * CARD_STEP}px)`;
+  // Measure container width on mount and resize — always show 3 cards
+  useEffect(() => {
+    const measure = () => {
+      if (containerRef.current) {
+        const w = containerRef.current.offsetWidth;
+        const isMobile = w < 640;
+        const gap = isMobile ? 6 : 20;
+        setCardWidth(Math.floor((w - gap * 2) / 3));
+      }
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
   }, []);
+
+  const isMobile = cardWidth < 200;
+  const CARD_GAP_ACTUAL = isMobile ? 6 : 20;
+  const CARD_STEP = cardWidth + CARD_GAP_ACTUAL;
+  const CARD_HEIGHT = Math.floor(cardWidth * 1.3);
+
+  const moveTo = useCallback(
+    (idx: number) => {
+      if (!trackRef.current) return;
+      trackRef.current.style.transform = `translateX(${-idx * CARD_STEP}px)`;
+    },
+    [CARD_STEP],
+  );
 
   const navigate = useCallback(
     (nextIdx: number) => {
@@ -110,7 +151,6 @@ function ModelCarousel() {
     () => navigate((currentRef.current + 1) % TOTAL),
     [navigate],
   );
-  const goTo = useCallback((i: number) => navigate(i), [navigate]);
 
   const half = Math.floor(RENDER_COUNT / 2);
   const slots = Array.from({ length: RENDER_COUNT }, (_, i) => {
@@ -121,7 +161,7 @@ function ModelCarousel() {
   });
 
   return (
-    <div className="relative w-full">
+    <div className="relative w-full" ref={containerRef}>
       <div className="overflow-hidden w-full">
         <div
           ref={trackRef}
@@ -138,7 +178,7 @@ function ModelCarousel() {
               key={`slot-${slotPos}`}
               className="absolute overflow-hidden group cursor-pointer"
               style={{
-                width: CARD_WIDTH,
+                width: cardWidth,
                 height: CARD_HEIGHT,
                 top: 0,
                 left: slotPos * CARD_STEP,
@@ -158,63 +198,52 @@ function ModelCarousel() {
       </div>
 
       {/* Controls */}
-      <div className="flex items-center gap-8 mt-6">
-        <button
-          onClick={goPrev}
-          className="flex items-center justify-center flex-shrink-0 p-1 group/btn"
-        >
-          <svg
-            width="13"
-            height="13"
-            viewBox="0 0 18 18"
-            fill="none"
-            className="transition-transform duration-200 ease-out group-hover/btn:scale-150"
+      <div className="flex items-center gap-4 mt-6">
+        <div className="flex items-center gap-4 flex-1 md:flex-none md:w-72">
+          <button
+            onClick={goPrev}
+            className="flex items-center justify-center flex-shrink-0 p-1 group/btn"
           >
-            <path
-              d="M11 3L5 9L11 15"
-              stroke="black"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </button>
-
-        <div className="flex items-center gap-3">
-          {allModels.map((_, i) => (
-            <button key={i} onClick={() => goTo(i)}>
-              <div
-                className="transition-all duration-300 bg-black"
-                style={{
-                  height: 1,
-                  width: i === renderCurrent ? 32 : 16,
-                  opacity: i === renderCurrent ? 1 : 0.25,
-                }}
+            <svg
+              width="13"
+              height="13"
+              viewBox="0 0 18 18"
+              fill="none"
+              className="transition-transform duration-200 ease-out group-hover/btn:scale-150"
+            >
+              <path
+                d="M11 3L5 9L11 15"
+                stroke="black"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
-            </button>
-          ))}
-        </div>
+            </svg>
+          </button>
 
-        <button
-          onClick={goNext}
-          className="flex items-center justify-center flex-shrink-0 p-1 group/btn"
-        >
-          <svg
-            width="13"
-            height="13"
-            viewBox="0 0 18 18"
-            fill="none"
-            className="transition-transform duration-200 ease-out group-hover/btn:scale-150"
+          <CarouselProgress current={renderCurrent} total={TOTAL} />
+
+          <button
+            onClick={goNext}
+            className="flex items-center justify-center flex-shrink-0 p-1 group/btn"
           >
-            <path
-              d="M7 3L13 9L7 15"
-              stroke="black"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </button>
+            <svg
+              width="13"
+              height="13"
+              viewBox="0 0 18 18"
+              fill="none"
+              className="transition-transform duration-200 ease-out group-hover/btn:scale-150"
+            >
+              <path
+                d="M7 3L13 9L7 15"
+                stroke="black"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
+        </div>
 
         <span
           className="ml-auto font-normal text-sm text-black"
@@ -236,18 +265,17 @@ export default function BabyAgency() {
 
   return (
     <section className="bg-white flex flex-col justify-end pb-4">
-      <div className="max-w-7xl mx-auto w-full px-8">
+      <div className="max-w-7xl mx-auto w-full px-4 md:px-8">
         {/* Title */}
         <motion.div
-          className="mb-6 mt-40"
+          className="mb-6 mt-28 md:mt-40"
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
         >
-          <h2 className="text-lg tracking-tight font-medium mb-2">
+          <h2 className="text-sm md:text-lg tracking-tight font-medium mb-2">
             GLAMS AGENCY BABY MODEL
           </h2>
-
           <motion.div
             className="h-[1px] bg-black"
             initial={{ scaleX: 0 }}
@@ -258,22 +286,21 @@ export default function BabyAgency() {
         </motion.div>
 
         {/* Hero Image */}
-        <div className="flex justify-center py-24">
-          <div className="flex flex-col items-center" style={{ width: 460 }}>
+        <div className="flex justify-center pb-8 md:py-24">
+          <div className="flex flex-col items-center w-full md:w-[460px]">
             <motion.div
               layoutId="baby-agency-image"
-              style={{ width: "100%", height: "100%", overflow: "hidden" }}
-              className="group"
+              className="w-full overflow-hidden group"
             >
               <img
                 src={model.src}
                 alt={model.alt}
-                className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                className="w-full h-auto object-cover transition-transform duration-500 ease-out group-hover:scale-105"
               />
             </motion.div>
 
             <motion.p
-              className="text-black text-center text-xl leading-tight tracking-tight mt-14"
+              className="text-black text-center text-sm md:text-xl leading-tight tracking-tight mt-8 md:mt-14"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 1 }}
@@ -290,7 +317,7 @@ export default function BabyAgency() {
 
         {/* Contact */}
         <motion.h3
-          className="font-bold text-2xl leading-tight tracking-tight text-black mt-10 mb-8"
+          className="font-bold text-lg md:text-2xl leading-tight tracking-tight text-black mt-10 mb-4 md:mb-8"
           variants={paragraphVariants}
           initial="hidden"
           whileInView="visible"
@@ -300,7 +327,7 @@ export default function BabyAgency() {
         </motion.h3>
 
         <motion.p
-          className="font-normal leading-tight text-2xl tracking-tight text-justify text-black mb-16"
+          className="font-normal leading-tight text-sm md:text-2xl tracking-tight text-justify text-black mb-10 md:mb-16"
           variants={paragraphVariants}
           initial="hidden"
           whileInView="visible"

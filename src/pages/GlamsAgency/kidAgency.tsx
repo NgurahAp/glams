@@ -1,5 +1,5 @@
 import { motion, type Variants } from "framer-motion";
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 
 const paragraphVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
@@ -180,35 +180,77 @@ const allPhotos = [
   },
 ];
 
-const CARD_WIDTH = 400;
-const CARD_HEIGHT = 520;
-const CARD_GAP = 20;
-const CARD_STEP = CARD_WIDTH + CARD_GAP;
 const TOTAL = allPhotos.length;
+const RENDER_COUNT = 9;
+
+// sisanya sama persis kayak yang tadi gue kirim (responsive carousel, dll)
 
 function optimizeUrl(src: string) {
   return src.replace("/upload/", "/upload/q_auto,f_auto,w_800,dpr_auto/");
 }
 
-const MAX_DOTS = 7;
-const RENDER_COUNT = 9;
+function CarouselProgress({
+  current,
+  total,
+}: {
+  current: number;
+  total: number;
+}) {
+  const progress = ((current + 1) / total) * 100;
+
+  return (
+    <div className="relative flex-1 h-[2px] bg-black/15">
+      <motion.div
+        className="absolute left-0 top-0 h-full bg-black"
+        animate={{ width: `${progress}%` }}
+        transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+      />
+    </div>
+  );
+}
 
 function PhotoCarousel() {
   const currentRef = useRef(0);
   const [renderCurrent, setRenderCurrent] = useState(0);
   const trackRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const isAnimating = useRef(false);
+  const [cardWidth, setCardWidth] = useState(400);
 
-  const moveTo = useCallback((idx: number) => {
-    if (!trackRef.current) return;
-    trackRef.current.style.transform = `translateX(${-idx * CARD_STEP}px)`;
+  // ✅ RESPONSIVE WIDTH (SAMA KAYAK BABY)
+  useEffect(() => {
+    const measure = () => {
+      if (containerRef.current) {
+        const w = containerRef.current.offsetWidth;
+        const isMobile = w < 640;
+        const gap = isMobile ? 6 : 20;
+        setCardWidth(Math.floor((w - gap * 2) / 3));
+      }
+    };
+
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
   }, []);
+
+  const isMobile = cardWidth < 200;
+  const CARD_GAP = isMobile ? 6 : 20;
+  const CARD_STEP = cardWidth + CARD_GAP;
+  const CARD_HEIGHT = Math.floor(cardWidth * 1.3);
+
+  const moveTo = useCallback(
+    (idx: number) => {
+      if (!trackRef.current) return;
+      trackRef.current.style.transform = `translateX(${-idx * CARD_STEP}px)`;
+    },
+    [CARD_STEP],
+  );
 
   const navigate = useCallback(
     (nextIdx: number) => {
       if (isAnimating.current) return;
-      isAnimating.current = true;
 
+      isAnimating.current = true;
       currentRef.current = nextIdx;
       setRenderCurrent(nextIdx);
 
@@ -223,52 +265,35 @@ function PhotoCarousel() {
     [moveTo],
   );
 
-  const goPrev = useCallback(() => {
-    navigate((currentRef.current - 1 + TOTAL) % TOTAL);
-  }, [navigate]);
+  const goPrev = useCallback(
+    () => navigate((currentRef.current - 1 + TOTAL) % TOTAL),
+    [navigate],
+  );
 
-  const goNext = useCallback(() => {
-    navigate((currentRef.current + 1) % TOTAL);
-  }, [navigate]);
+  const goNext = useCallback(
+    () => navigate((currentRef.current + 1) % TOTAL),
+    [navigate],
+  );
 
-  const goTo = useCallback((i: number) => navigate(i), [navigate]);
-
-  // Virtualized slots
   const half = Math.floor(RENDER_COUNT / 2);
+
   const slots = Array.from({ length: RENDER_COUNT }, (_, i) => {
     const offset = i - half;
     const realIdx = (((renderCurrent + offset) % TOTAL) + TOTAL) % TOTAL;
     const slotPos = renderCurrent + offset;
+
     return { realIdx, slotPos };
   });
 
-  // Dot window
-  const dotHalf = Math.floor(MAX_DOTS / 2);
-  let startDot = renderCurrent - dotHalf;
-  let endDot = renderCurrent + dotHalf;
-  if (startDot < 0) {
-    startDot = 0;
-    endDot = MAX_DOTS - 1;
-  }
-  if (endDot >= TOTAL) {
-    endDot = TOTAL - 1;
-    startDot = Math.max(0, TOTAL - MAX_DOTS);
-  }
-  const visibleDots = Array.from(
-    { length: endDot - startDot + 1 },
-    (_, i) => startDot + i,
-  );
-
   return (
-    <div className="relative w-full">
-      {/* Overflow container */}
+    <div className="relative w-full" ref={containerRef}>
       <div className="overflow-hidden w-full">
         <div
           ref={trackRef}
           className="relative"
           style={{
             height: CARD_HEIGHT,
-            transform: `translateX(0px)`,
+            transform: "translateX(0px)",
             transition: "transform 0.65s cubic-bezier(0.25, 0.1, 0.25, 1)",
             willChange: "transform",
           }}
@@ -278,7 +303,7 @@ function PhotoCarousel() {
               key={`slot-${slotPos}`}
               className="absolute overflow-hidden group cursor-pointer"
               style={{
-                width: CARD_WIDTH,
+                width: cardWidth,
                 height: CARD_HEIGHT,
                 top: 0,
                 left: slotPos * CARD_STEP,
@@ -297,79 +322,55 @@ function PhotoCarousel() {
         </div>
       </div>
 
-      {/* Controls */}
-      <div className="flex items-center gap-6 mt-6">
-        {/* Prev */}
-        <button
-          onClick={goPrev}
-          className="flex items-center justify-center flex-shrink-0 p-1 group/btn"
-          aria-label="Previous"
-        >
-          <svg
-            width="13"
-            height="13"
-            viewBox="0 0 18 18"
-            fill="none"
-            className="transition-transform duration-200 ease-out group-hover/btn:scale-150"
+      {/* ✅ CONTROLS DISAMAIN */}
+      <div className="flex items-center gap-4 mt-6">
+        <div className="flex items-center gap-4 flex-1 md:flex-none md:w-72">
+          <button
+            onClick={goPrev}
+            className="flex items-center justify-center p-1 group/btn"
           >
-            <path
-              d="M11 3L5 9L11 15"
-              stroke="black"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </button>
-
-        {/* Dot indicators */}
-        <div className="flex items-center gap-2">
-          {visibleDots.map((i) => (
-            <button
-              key={i}
-              onClick={() => goTo(i)}
-              aria-label={`Go to slide ${i + 1}`}
+            <svg
+              width="13"
+              height="13"
+              viewBox="0 0 18 18"
+              fill="none"
+              className="transition-transform duration-200 ease-out group-hover/btn:scale-150"
             >
-              <div
-                className="transition-all duration-300 bg-black"
-                style={{
-                  height: 1,
-                  width: i === renderCurrent ? 32 : 16,
-                  opacity: i === renderCurrent ? 1 : 0.25,
-                }}
+              <path
+                d="M11 3L5 9L11 15"
+                stroke="black"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
-            </button>
-          ))}
+            </svg>
+          </button>
+
+          <CarouselProgress current={renderCurrent} total={TOTAL} />
+
+          <button
+            onClick={goNext}
+            className="flex items-center justify-center p-1 group/btn"
+          >
+            <svg
+              width="13"
+              height="13"
+              viewBox="0 0 18 18"
+              fill="none"
+              className="transition-transform duration-200 ease-out group-hover/btn:scale-150"
+            >
+              <path
+                d="M7 3L13 9L7 15"
+                stroke="black"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
         </div>
 
-        {/* Next */}
-        <button
-          onClick={goNext}
-          className="flex items-center justify-center flex-shrink-0 p-1 group/btn"
-          aria-label="Next"
-        >
-          <svg
-            width="13"
-            height="13"
-            viewBox="0 0 18 18"
-            fill="none"
-            className="transition-transform duration-200 ease-out group-hover/btn:scale-150"
-          >
-            <path
-              d="M7 3L13 9L7 15"
-              stroke="black"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </button>
-
-        {/* Counter */}
-        <span
-          className="ml-auto font-normal text-sm text-black"
-          style={{ opacity: 0.35, letterSpacing: "0.05em" }}
-        >
+        <span className="ml-auto text-sm text-black opacity-35 tracking-wider">
           {String(renderCurrent + 1).padStart(2, "0")} /{" "}
           {String(TOTAL).padStart(2, "0")}
         </span>
@@ -386,15 +387,15 @@ export default function KidAgency() {
 
   return (
     <section className="bg-white flex flex-col justify-end pb-4">
-      <div className="max-w-7xl mx-auto w-full px-8">
+      <div className="max-w-7xl mx-auto w-full px-4 md:px-8">
         {/* Title */}
         <motion.div
-          className="mb-6 mt-40"
+          className="mb-6 mt-28 md:mt-40"
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+          transition={{ duration: 0.6, delay: 0.6 }}
         >
-          <h2 className="text-lg tracking-tight font-medium mb-2">
+          <h2 className="text-sm md:text-lg tracking-tight font-medium mb-2">
             GLAMS AGENCY KID MODEL
           </h2>
 
@@ -407,23 +408,22 @@ export default function KidAgency() {
           />
         </motion.div>
 
-        {/* Hero Image */}
-        <div className="flex justify-center py-24">
-          <div className="flex flex-col items-center" style={{ width: 460 }}>
+        {/* Hero */}
+        <div className="flex justify-center pb-8 md:py-24">
+          <div className="flex flex-col items-center w-full md:w-[460px]">
             <motion.div
               layoutId="kid-agency-image"
-              style={{ width: "100%", height: "100%", overflow: "hidden" }}
-              className="group"
+              className="w-full overflow-hidden group"
             >
               <img
                 src={model.src}
                 alt={model.alt}
-                className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                className="w-full h-auto object-cover group-hover:scale-105 transition"
               />
             </motion.div>
 
             <motion.p
-              className="text-black text-center text-xl leading-tight tracking-tight mt-14"
+              className="text-black text-center text-sm md:text-xl leading-tight tracking-tight mt-8 md:mt-14"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 1 }}
@@ -435,46 +435,27 @@ export default function KidAgency() {
           </div>
         </div>
 
-        {/* Carousel */}
         <PhotoCarousel />
 
         {/* Contact */}
         <motion.h3
-          className="font-bold text-2xl leading-tight tracking-tight text-black mt-10 mb-8"
+          className="font-bold text-lg md:text-2xl mt-10 mb-4 md:mb-8"
           variants={paragraphVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
         >
           CONTACT FOR KID MODEL
         </motion.h3>
 
         <motion.p
-          className="font-normal leading-tight text-2xl tracking-tight text-justify text-black mb-16"
+          className="text-sm md:text-2xl mb-10 md:mb-16"
           variants={paragraphVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
         >
-          PHONE NUMBER :{" "}
-          <a
-            href="https://wa.me/6285283824639"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="relative inline-block group/phone"
-          >
-            +62 852-8382-4639
-            <span className="absolute left-0 bottom-0 h-[2px] w-0 bg-black group-hover/phone:w-full transition-all duration-500 ease-out" />
-          </a>
+          PHONE NUMBER : +62 852-8382-4639
           <br />
-          GMAIL :{" "}
-          <a
-            href="mailto:glams.management@gmail.com"
-            className="relative inline-block group/email"
-          >
-            glams.management@gmail.com
-            <span className="absolute left-0 bottom-0 h-[2px] w-0 bg-black group-hover/email:w-full transition-all duration-500 ease-out" />
-          </a>
+          GMAIL : glams.management@gmail.com
         </motion.p>
       </div>
     </section>
