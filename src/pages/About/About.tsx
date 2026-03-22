@@ -18,7 +18,7 @@ const paragraphVariants: Variants = {
 };
 
 function Divider() {
-  return <div className="w-full border-t border-black pb-16" />;
+  return <div className="w-full border-t border-black pb-8 md:pb-16" />;
 }
 
 export default function About({ image }: AboutProps) {
@@ -34,9 +34,9 @@ export default function About({ image }: AboutProps) {
           transition={{ duration: 1 }}
         />
 
-        <div className="absolute bottom-10 left-8 flex flex-col items-start z-10">
+        <div className="absolute bottom-6 md:bottom-10 left-4 md:left-8 flex flex-col items-start z-10">
           <motion.p
-            className="text-white font-normal text-xl leading-tight tracking-tight max-w-3xl mt-4"
+            className="text-white font-normal text-sm md:text-xl leading-tight tracking-tight max-w-xs md:max-w-3xl mt-4"
             variants={paragraphVariants}
             initial="hidden"
             animate="visible"
@@ -52,12 +52,12 @@ export default function About({ image }: AboutProps) {
 
       {/* CONTENT */}
       <div className="bg-white w-full">
-        <div className="max-w-7xl mx-auto px-8 py-24">
-          <div className="flex">
+        <div className="max-w-7xl mx-auto px-4 md:px-8 py-12 md:py-24">
+          <div className="flex flex-col md:flex-row">
             {/* LEFT */}
-            <div className="w-[40%] pt-14">
+            <div className="w-full md:w-[40%] pt-0 md:pt-14 mb-6 md:mb-0">
               <motion.span
-                className="font-bold leading-none text-6xl tracking-tight text-black block"
+                className="font-bold leading-none text-4xl md:text-6xl tracking-tight text-black block"
                 initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -68,14 +68,14 @@ export default function About({ image }: AboutProps) {
             </div>
 
             {/* RIGHT */}
-            <div className="w-[60%] flex flex-col">
+            <div className="w-full md:w-[60%] flex flex-col">
               {/* ABOUT */}
-              <div className="py-12 flex flex-col gap-8 text-justify">
-                <h2 className="font-bold text-2xl tracking-tight text-black">
+              <div className="py-8 md:py-12 flex flex-col gap-6 md:gap-8">
+                <h2 className="font-bold text-xl md:text-2xl tracking-tight text-black">
                   ABOUT
                 </h2>
 
-                <div className="flex flex-col gap-6 text-lg leading-tight text-black">
+                <div className="flex flex-col gap-4 md:gap-6 text-sm md:text-lg leading-tight text-black">
                   <p>GLAMS Models Management</p>
 
                   <p>
@@ -92,7 +92,7 @@ export default function About({ image }: AboutProps) {
                   </p>
 
                   <p>
-                    Glams models management is one of the pioneers in kids’
+                    Glams models management is one of the pioneers in kids'
                     modelling education, with a strong focus on nurturing
                     character, personality, and confidence from an early age.
                     Using modeling as a learning medium, glams guides children
@@ -115,12 +115,12 @@ export default function About({ image }: AboutProps) {
               <Divider />
 
               {/* OUR VISION */}
-              <div className="py-12 flex flex-col gap-8 text-justify">
-                <h2 className="font-bold text-2xl tracking-tight text-black">
+              <div className="py-8 md:py-12 flex flex-col gap-6 md:gap-8">
+                <h2 className="font-bold text-xl md:text-2xl tracking-tight text-black">
                   OUR VISION
                 </h2>
 
-                <p className="text-lg leading-tight text-black">
+                <p className="text-sm md:text-lg leading-tight text-black">
                   To become a premier modeling school and agency in Indonesia,
                   recognized for developing confident, distinctive, and globally
                   competitive talents while delivering high-quality creative
@@ -131,31 +131,27 @@ export default function About({ image }: AboutProps) {
               <Divider />
 
               {/* OUR DIVISIONS */}
-              <div className="py-12 flex flex-col gap-8 text-justify">
-                <h2 className="font-bold text-2xl tracking-tight text-black">
+              <div className="py-8 md:py-12 flex flex-col gap-6 md:gap-8">
+                <h2 className="font-bold text-xl md:text-2xl tracking-tight text-black">
                   OUR DIVISIONS
                 </h2>
 
-                <div className="flex flex-col gap-4 text-lg leading-tight text-black">
+                <div className="flex flex-col gap-3 md:gap-4 text-sm md:text-lg leading-tight text-black">
                   <p>
                     GLAMS Academy – Professional modeling and talent development
                     programs.
                   </p>
-
                   <p>
                     GLAMS Agency – Representation for kids, teens, and adults.
                   </p>
-
                   <p>
                     Photography & Video Production – Professional portfolio
                     development.
                   </p>
-
                   <p>
                     Creative Production – Brand campaigns and commercial
                     content.
                   </p>
-
                   <p>
                     Event Coordination – Commercial fashion shows and brand
                     activations.
@@ -166,12 +162,12 @@ export default function About({ image }: AboutProps) {
               <Divider />
 
               {/* PATHWAY */}
-              <div className="py-12 flex flex-col gap-8 text-justify">
-                <h2 className="font-bold text-2xl tracking-tight text-black">
+              <div className="py-8 md:py-12 flex flex-col gap-6 md:gap-8">
+                <h2 className="font-bold text-xl md:text-2xl tracking-tight text-black">
                   PATHWAY TO BECOME A GLAMS MODEL
                 </h2>
 
-                <p className="text-lg leading-tight text-black">
+                <p className="text-sm md:text-lg leading-tight text-black">
                   We specialize in discovering and developing new faces.
                   Experience is not required — We aim potential model with
                   character and commitment and willingness to follow guideline
@@ -183,12 +179,12 @@ export default function About({ image }: AboutProps) {
               <Divider />
 
               {/* WORK FIELD */}
-              <div className="py-12 flex flex-col gap-8 text-justify">
-                <h2 className="font-bold text-2xl tracking-tight text-black">
+              <div className="py-8 md:py-12 flex flex-col gap-6 md:gap-8">
+                <h2 className="font-bold text-xl md:text-2xl tracking-tight text-black">
                   WORK FIELD
                 </h2>
 
-                <p className="text-lg leading-tight text-black">
+                <p className="text-sm md:text-lg leading-tight text-black">
                   GLAMS works with local and international clients across:{" "}
                   <br /> Photoshoots – Video shoots – TVC – Commercial
                   advertising – Digital campaigns – Fashion events
