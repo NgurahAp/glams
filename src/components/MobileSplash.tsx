@@ -41,22 +41,18 @@ export default function MobileSplash({
     if (dismissed) return;
     const touchEnd = e.touches[0].clientY;
     const diff = touchStart - touchEnd;
-
-    // If user scrolls down or up more than 30px, dismiss splash
     if (Math.abs(diff) > 30) {
       setDismissed(true);
       setTimeout(onDismiss, 700);
     }
   };
 
-  // Prevent body scroll when splash is active
   useEffect(() => {
     if (!dismissed) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
     }
-
     return () => {
       document.body.style.overflow = "";
     };
@@ -67,11 +63,16 @@ export default function MobileSplash({
       {!dismissed && (
         <motion.div
           className="fixed inset-0 h-screen w-full z-[100] md:hidden cursor-pointer overflow-hidden"
-          initial={{ y: 0 }}
-          exit={{ y: "-100%" }}
+          initial={{ transform: "translateY(0%)" }} // ← pakai transform, bukan y
+          exit={{ transform: "translateY(-100%)" }}
           transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }}
+          style={{
+            willChange: "transform", // ← hint ke browser untuk GPU
+            backfaceVisibility: "hidden", // ← cegah flicker
+            WebkitBackfaceVisibility: "hidden",
+          }}
         >
-          {/* Touch overlay to detect swipe */}
+          {/* Touch overlay */}
           <div
             className="absolute inset-0 z-50"
             onClick={handleTap}
@@ -80,17 +81,18 @@ export default function MobileSplash({
             style={{ touchAction: "none" }}
           />
 
-          {/* Background Image */}
+          {/* Background Image — pakai transform3d agar masuk GPU layer */}
           <img
             src={imageUrl}
             alt={title}
             className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none"
+            style={{ transform: "translateZ(0)" }}
           />
 
           {/* Overlay */}
           <div className="absolute inset-0 bg-black/10 pointer-events-none" />
 
-          {/* Content layer — full height flex column */}
+          {/* Content */}
           <div className="relative z-10 flex flex-col justify-between h-full pointer-events-none">
             {/* Navbar */}
             <motion.div
@@ -99,7 +101,6 @@ export default function MobileSplash({
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.6, ease: "easeOut" }}
             >
-              {/* Left: Logo */}
               <Link to="/">
                 <img
                   src="https://res.cloudinary.com/dbhx39mmm/image/upload/v1773037487/logo_ikbz71.png"
@@ -108,7 +109,6 @@ export default function MobileSplash({
                 />
               </Link>
 
-              {/* Right: Nav Links */}
               <div className="flex flex-col items-end gap-2">
                 {mobileNavLinks.map((link, i) => (
                   <motion.div
@@ -150,14 +150,13 @@ export default function MobileSplash({
               </div>
             </motion.div>
 
-            {/* Bottom: title + scroll indicator */}
+            {/* Bottom */}
             <motion.div
               className="flex flex-col items-center gap-0 pb-20 px-5 pointer-events-none"
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 0.6 }}
             >
-              {/* Title block — left aligned */}
               <div className="w-full">
                 <p className="text-white text-sm font-light italic tracking-tighter uppercase">
                   CLICK FOR MORE
@@ -167,7 +166,6 @@ export default function MobileSplash({
                 </h1>
               </div>
 
-              {/* Scroll indicator — centered */}
               <motion.div
                 className="flex flex-col items-center pt-20 w-full"
                 initial={{ opacity: 0, y: 10 }}
