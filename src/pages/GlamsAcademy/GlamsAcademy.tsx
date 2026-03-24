@@ -684,50 +684,153 @@ function WhatNextSection() {
   );
 }
 
-const faqs = [
+type AnswerBlock =
+  | { type: "text"; content: string }
+  | { type: "list"; items: string[] };
+
+type FAQItem = {
+  question: string;
+  answer: AnswerBlock[];
+};
+
+// ─── Data ─────────────────────────────────────────────────────────────────────
+
+const faqs: FAQItem[] = [
   {
     question: "What age can join?",
-    answer:
-      "Our program is open to children aged 4–17 years old. We group students by age to ensure the learning pace and activities are suitable for each stage of development.",
+    answer: [
+      {
+        type: "text",
+        content:
+          "Children from 3 years old up to teens and adults are welcome to join.",
+      },
+    ],
   },
   {
     question: "Does my child need experience?",
-    answer:
-      "No experience is required. We teach beginners to advanced-level students.",
+    answer: [
+      {
+        type: "text",
+        content:
+          "No experience is required. We teach beginners to advanced-level students.",
+      },
+    ],
   },
   {
     question: "What will they learn?",
-    answer:
-      "Students will learn catwalk techniques, personality development, posing and photoshoot skills, acting, public speaking, and real stage performance — all in a fun and supportive environment.",
+    answer: [
+      { type: "text", content: "Your child will gain:" },
+      {
+        type: "list",
+        items: [
+          "Catwalk skills",
+          "Confident posing",
+          "Good posture",
+          "Stage presence",
+          "Teamwork & creativity",
+          "Public speaking & acting",
+          "Personality development",
+        ],
+      },
+      { type: "text", content: "Off-Class Activities:" },
+      {
+        type: "list",
+        items: ["Fashion shows on real stages", "Professional photoshoots"],
+      },
+    ],
   },
   {
     question: "How long is the program?",
-    answer:
-      "The program runs for several months with weekly sessions. Duration may vary depending on the class level and schedule chosen.",
+    answer: [
+      {
+        type: "text",
+        content: "Short Cycle : 8 meetings",
+      },
+      {
+        type: "text",
+        content: "Intensive Program : 16 meetings",
+      },
+    ],
   },
   {
     question: "What about the fees?",
-    answer:
-      "Program fees vary by class type and level. Please contact us directly or visit the registration page for the latest pricing details.",
+    answer: [
+      {
+        type: "text",
+        content:
+          "A one time registration fee and tuition package are available (details on request)",
+      },
+    ],
   },
   {
     question: "What should they wear?",
-    answer:
-      "Students should wear comfortable clothes that allow easy movement. For specific classes like catwalk or stage performance, guidance will be provided by the instructor.",
+    answer: [
+      {
+        type: "text",
+        content: "Class attire: GLAMS T-shirt & themed wear.",
+      },
+      {
+        type: "text",
+        content:
+          "Additional guidance will be provided for fashion shows and photoshoots.",
+      },
+    ],
   },
   {
     question: "Are there real shows and photoshoots?",
-    answer:
-      "Yes! As part of the curriculum, students participate in real runway shows and professional photoshoots to build confidence and create portfolio-worthy memories.",
+    answer: [
+      {
+        type: "text",
+        content:
+          "Yes, students will join fashion shows, showcases, and professional photoshoots.",
+      },
+    ],
   },
   {
     question: "How to register?",
-    answer:
-      "You can register directly through the Join Glams Academy button on this page, or contact our team via WhatsApp or social media for more information.",
+    answer: [
+      {
+        type: "text",
+        content: "Contact us via WhatsApp: +62 858-1112-2263",
+      },
+      {
+        type: "text",
+        content:
+          "We will guide you through the registration form and next steps.",
+      },
+    ],
   },
 ];
 
-function FAQItem({
+// ─── Answer Renderer ──────────────────────────────────────────────────────────
+
+function AnswerContent({ blocks }: { blocks: AnswerBlock[] }) {
+  return (
+    <div className="text-xs md:text-sm font-normal leading-relaxed tracking-tight text-black pb-4 md:pb-5 pl-7 md:pl-9 space-y-2">
+      {blocks.map((block, i) => {
+        if (block.type === "text") {
+          return <p key={i}>{block.content}</p>;
+        }
+
+        if (block.type === "list") {
+          return (
+            <ul key={i} className="list-disc list-inside space-y-1">
+              {block.items.map((item, j) => (
+                <li key={j}>{item}</li>
+              ))}
+            </ul>
+          );
+        }
+
+        return null;
+      })}
+    </div>
+  );
+}
+
+// ─── FAQ Item ─────────────────────────────────────────────────────────────────
+
+function FAQItemComponent({
   question,
   answer,
   index,
@@ -735,7 +838,7 @@ function FAQItem({
   onToggle,
 }: {
   question: string;
-  answer: string;
+  answer: AnswerBlock[];
   index: number;
   isOpen: boolean;
   onToggle: () => void;
@@ -777,15 +880,15 @@ function FAQItem({
         transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
         style={{ overflow: "hidden" }}
       >
-        <p className="text-xs md:text-sm font-normal leading-relaxed tracking-tight text-black pb-4 md:pb-5 pl-7 md:pl-9">
-          {answer}
-        </p>
+        <AnswerContent blocks={answer} />
       </motion.div>
     </motion.div>
   );
 }
 
-function FAQSection() {
+// ─── FAQ Section ──────────────────────────────────────────────────────────────
+
+export function FAQSection() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -806,7 +909,7 @@ function FAQSection() {
 
       <div className="border-t border-gray-200">
         {faqs.map((faq, index) => (
-          <FAQItem
+          <FAQItemComponent
             key={index}
             index={index}
             question={faq.question}
