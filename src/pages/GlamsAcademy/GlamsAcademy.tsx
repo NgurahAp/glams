@@ -10,6 +10,19 @@ const IMAGE_URL =
 const CURRICULUM_IMG_URL =
   "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773488816/curriculum_ds3lwl.jpg";
 
+const curriculumContacts = [
+  {
+    label: "PHONE NUMBER",
+    href: "tel:+6285811122263",
+    ariaLabel: "Call GLAMS Academy at +62 858-1112-2263",
+  },
+  {
+    label: "GMAIL",
+    href: "mailto:glams.management@gmail.com",
+    ariaLabel: "Email GLAMS Academy at glams.management@gmail.com",
+  },
+];
+
 const curriculum = [
   {
     title: "CATWALK CLASS",
@@ -19,16 +32,6 @@ const curriculum = [
       "We help students discover their strengths and grow with confidence.",
     description2:
       "Through simple exercises, they learn to understand their personality, communicate better, and build a positive presence.",
-    tags: [
-      {
-        label: "Catwalk Kids",
-        link: "https://www.instagram.com/reels/DI1II52SCKP/",
-      },
-      {
-        label: "Catwalk Teens",
-        link: "https://www.instagram.com/reels/DI2mj4YSm4s/",
-      },
-    ],
   },
   {
     title: "PERSONALITY\nDEVELOPMENT\nCLASS",
@@ -38,13 +41,6 @@ const curriculum = [
       "We help students discover their strengths and grow with confidence.",
     description2:
       "Through simple exercises, they learn to understand their personality, communicate better, and build a positive presence.",
-    tags: [
-      {
-        label: "Public Speaking",
-        link: "https://www.instagram.com/reels/DLsO1GSyf7N/",
-      },
-      { label: "Hairdo", link: "https://www.instagram.com/reels/DI_LdhbyQJm/" },
-    ],
   },
   {
     title: "POSE AND\nPHOTOSHOOT\nCLASS",
@@ -54,16 +50,6 @@ const curriculum = [
       "We teach students to express themselves confidently in front of the camera through simple, fun posing exercises.",
     description2:
       "They learn angles, expressions, and how to feel comfortable during photoshoots—building natural posing skills, creative expression, and camera confidence.",
-    tags: [
-      {
-        label: "The Second Act",
-        link: "https://www.instagram.com/reels/DUssy2BEoPR/",
-      },
-      {
-        label: "Tangled",
-        link: "https://www.instagram.com/reels/DROfIVfkqa6/",
-      },
-    ],
   },
   {
     title: "REAL STAGE\nFASHION",
@@ -73,13 +59,6 @@ const curriculum = [
       "For the final assignment, we help students feel confident on the runway through simple, supportive techniques.",
     description2:
       "They learn stage presence, timing, and poise to deliver a polished, confident performance.",
-    tags: [
-      { label: "ESMOD", link: "https://www.instagram.com/reels/DSEjqrnkt2D/" },
-      {
-        label: "RUNWAY GLOW",
-        link: "https://www.instagram.com/reels/DO4-0ZAkeu-//",
-      },
-    ],
   },
   {
     title: "ACTING\nCLASS",
@@ -89,9 +68,6 @@ const curriculum = [
       "We help students express themselves through fun, easy acting exercises.",
     description2:
       "They learn to use their voice, expressions, and movements to tell a story—acting out simple scenes, showing emotions confidently, and performing creatively.",
-    tags: [
-      { label: "Acting", link: "https://www.instagram.com/reels/DLWsGb-yMwn/" },
-    ],
   },
 ];
 
@@ -100,14 +76,12 @@ function CurriculumCard({
   image,
   description1,
   description2,
-  tags,
   index,
 }: {
   title: string;
   image: string;
   description1: string;
   description2: string;
-  tags: { label: string; link: string }[];
   index: number;
 }) {
   const ref = useRef(null);
@@ -178,7 +152,7 @@ function CurriculumCard({
         </motion.p>
 
         <motion.div
-          className="flex flex-row flex-wrap gap-2 md:flex-col md:gap-3"
+          className="flex w-full max-w-[19rem] flex-col items-start gap-1.5 md:gap-2"
           initial={{ opacity: 0, y: 16 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{
@@ -187,14 +161,31 @@ function CurriculumCard({
             ease: [0.25, 0.1, 0.25, 1],
           }}
         >
-          {tags.map((tag) => (
-            <button
-              key={tag.label}
-              onClick={() => window.open(tag.link, "_blank")}
-              className="border border-black rounded-full px-2 md:px-5 py-1.5 text-[8px] md:text-xs tracking-wide text-black w-fit hover:bg-black hover:text-white transition-colors duration-300 cursor-pointer"
+          {curriculumContacts.map((contact) => (
+            <a
+              key={contact.label}
+              href={contact.href}
+              aria-label={contact.ariaLabel}
+              className="flex w-[6.75rem] items-center justify-between overflow-hidden whitespace-nowrap rounded-full border border-black py-0.5 pl-2.5 pr-0.5 text-[8px] font-normal leading-none tracking-tight text-black transition-[width] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:w-[7.5rem] focus-visible:w-[7.5rem] md:w-[9.5rem] md:py-1 md:pl-3 md:text-xs md:hover:w-[11rem] md:focus-visible:w-[11rem]"
             >
-              {tag.label}
-            </button>
+              <span>{contact.label}</span>
+              <span className="flex size-4 shrink-0 items-center justify-center rounded-full border border-current md:size-5">
+                <svg
+                  viewBox="0 0 16 16"
+                  aria-hidden="true"
+                  className="size-2.5 md:size-3"
+                  fill="none"
+                >
+                  <path
+                    d="M3 8h9M8.5 4.5 12 8l-3.5 3.5"
+                    stroke="currentColor"
+                    strokeWidth="1"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </span>
+            </a>
           ))}
         </motion.div>
       </div>
@@ -375,7 +366,6 @@ export default function GlamsAcademyHero() {
               image={item.image}
               description1={item.description1}
               description2={item.description2}
-              tags={item.tags}
             />
           ))}
         </div>

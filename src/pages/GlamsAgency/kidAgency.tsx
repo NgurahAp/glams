@@ -175,7 +175,7 @@ const allPhotos = [
     alt: "Kid Model 40",
   },
   {
-    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773765680/DSC03294_1_1_bnmhst.jpg",
+    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1774342857/DSC03249_tli5ym.jpg",
     alt: "Kid Model 41",
   },
 ];

@@ -233,56 +233,8 @@ export default function BabyModel() {
             Baby Model
           </motion.h1>
 
-          {/* Description block — 80% mobile, 60% desktop */}
+          {/* Model details */}
           <div className="w-full md:w-[50%] pb-12 md:pb-20" ref={ref}>
-            <SectionDivider />
-
-            <div className="w-full md:w-[85%]">
-              <motion.h3
-                className="font-bold text-xl md:text-3xl leading-tight tracking-tight text-black mt-4 md:mt-5 mb-8 md:mb-20"
-                variants={paragraphVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-              >
-                Description
-              </motion.h3>
-
-              <motion.p
-                className="font-normal text-sm md:text-xl leading-tight tracking-tight text-black mb-8 md:mb-16"
-                variants={paragraphVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-              >
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
-                diam nonummy nibh euismod. Lorem ipsum dolor sit amet,
-                consectetuer adipiscing elit, sed diam nonummy nibh euismod.
-              </motion.p>
-
-              <motion.p
-                className="font-normal text-sm md:text-xl leading-tight tracking-tight text-black mb-8 md:mb-16"
-                variants={paragraphVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-              >
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
-                diam nonummy nibh euismod. Lorem ipsum dolor sit amet,
-                consectetuer adipiscing elit, sed diam nonummy nibh euismod.
-              </motion.p>
-
-              <motion.p
-                className="font-semibold text-sm md:text-xl leading-tight tracking-tight text-black mb-8 md:mb-16"
-                variants={paragraphVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-              >
-                Lorem ipsum dolor sit amet
-              </motion.p>
-            </div>
-
             <SectionDivider />
 
             <motion.div
@@ -349,33 +301,62 @@ export default function BabyModel() {
             CONTACT FOR BABY MODEL
           </motion.h3>
 
-          <motion.p
-            className="font-normal leading-tight text-sm md:text-2xl tracking-tight text-black mb-10 md:mb-16"
+          <motion.div
+            className="flex flex-col items-start gap-2 mb-10 md:gap-2.5 md:mb-16"
             variants={paragraphVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
           >
-            PHONE NUMBER :{" "}
             <a
               href="https://wa.me/6285283824639"
               target="_blank"
               rel="noopener noreferrer"
-              className="relative inline-block group/phone"
+              aria-label="Contact baby model via WhatsApp at +62 852-8382-4639"
+              className="flex w-[8.5rem] items-center justify-between overflow-hidden whitespace-nowrap rounded-full border border-black py-1 pl-3 pr-1 text-[9px] font-normal leading-none tracking-tight text-black transition-[width] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:w-[10rem] focus-visible:w-[10rem] md:w-[13rem] md:py-1.5 md:pl-4 md:text-sm md:hover:w-[15rem] md:focus-visible:w-[15rem]"
             >
-              +62 852-8382-4639
-              <span className="absolute left-0 bottom-0 h-[2px] w-0 bg-black group-hover/phone:w-full transition-all duration-500 ease-out" />
+              <span>PHONE NUMBER</span>
+              <span className="flex size-5 shrink-0 items-center justify-center rounded-full border border-current md:size-6">
+                <svg
+                  viewBox="0 0 16 16"
+                  aria-hidden="true"
+                  className="size-3 md:size-3.5"
+                  fill="none"
+                >
+                  <path
+                    d="M3 8h9M8.5 4.5 12 8l-3.5 3.5"
+                    stroke="currentColor"
+                    strokeWidth="1"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </span>
             </a>
-            <br />
-            GMAIL :{" "}
             <a
               href="mailto:glams.management@gmail.com"
-              className="relative inline-block group/email"
+              aria-label="Email baby model at glams.management@gmail.com"
+              className="flex w-[8.5rem] items-center justify-between overflow-hidden whitespace-nowrap rounded-full border border-black py-1 pl-3 pr-1 text-[9px] font-normal leading-none tracking-tight text-black transition-[width] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:w-[10rem] focus-visible:w-[10rem] md:w-[13rem] md:py-1.5 md:pl-4 md:text-sm md:hover:w-[15rem] md:focus-visible:w-[15rem]"
             >
-              glams.management@gmail.com
-              <span className="absolute left-0 bottom-0 h-[2px] w-0 bg-black group-hover/email:w-full transition-all duration-500 ease-out" />
+              <span>GMAIL</span>
+              <span className="flex size-5 shrink-0 items-center justify-center rounded-full border border-current md:size-6">
+                <svg
+                  viewBox="0 0 16 16"
+                  aria-hidden="true"
+                  className="size-3 md:size-3.5"
+                  fill="none"
+                >
+                  <path
+                    d="M3 8h9M8.5 4.5 12 8l-3.5 3.5"
+                    stroke="currentColor"
+                    strokeWidth="1"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </span>
             </a>
-          </motion.p>
+          </motion.div>
         </div>
       </div>
     </>

@@ -155,10 +155,6 @@ const allModels = [
     alt: "Adult Model 39",
   },
   {
-    src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773763150/5-DSC08681_bdpt22.jpg",
-    alt: "Adult Model 40",
-  },
-  {
     src: "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773763150/DSC00004_ojqzuh.jpg",
     alt: "Adult Model 41",
   },

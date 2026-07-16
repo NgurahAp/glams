@@ -21,14 +21,11 @@ const darkBgRoutes = [
   "/adult-model",
 ];
 
-const cleanRoutes = ["/event"];
-
 export default function Navbar() {
   const location = useLocation();
   const navigate = useNavigate();
   const isHome = location.pathname === "/";
   const isDark = darkBgRoutes.includes(location.pathname);
-  const isClean = cleanRoutes.includes(location.pathname);
 
   const textColor = isDark ? "text-white" : "text-black";
   const underlineBg = isDark ? "bg-white" : "bg-black";
@@ -59,28 +56,27 @@ export default function Navbar() {
       <div className="w-full px-4 md:px-8 flex items-start justify-between">
         {/* Left - Back button (non-home) OR Logo (mobile home only) */}
         <div className="flex items-start">
-          {!isClean &&
-            (isHome ? (
-              /* Mobile: logo di kiri | Desktop: kosong (logo tetap di center) */
-              <Link to="/" className="md:hidden">
-                <img
-                  src="https://res.cloudinary.com/dbhx39mmm/image/upload/v1773037487/logo_ikbz71.png"
-                  alt="Logo"
-                  className={`h-6 w-auto ${!isDark ? "invert" : ""}`}
-                />
-              </Link>
-            ) : (
-              <button onClick={() => navigate(-1)} className="cursor-pointer">
-                <motion.img
-                  src="https://res.cloudinary.com/dbhx39mmm/image/upload/v1773037474/navbar-back_mhlczv.png"
-                  alt="Back"
-                  className={`h-7 md:h-10 w-auto ${!isDark ? "invert" : ""}`}
-                  style={{ transformOrigin: "left center" }}
-                  whileHover={{ scale: 0.85, opacity: 0.6, x: -6, y: -12 }}
-                  transition={{ duration: 0.3, ease: "easeOut" }}
-                />
-              </button>
-            ))}
+          {isHome ? (
+            /* Mobile: logo di kiri | Desktop: kosong (logo tetap di center) */
+            <Link to="/" className="md:hidden">
+              <img
+                src="https://res.cloudinary.com/dbhx39mmm/image/upload/v1773037487/logo_ikbz71.png"
+                alt="Logo"
+                className={`h-6 w-auto ${!isDark ? "invert" : ""}`}
+              />
+            </Link>
+          ) : (
+            <button onClick={() => navigate(-1)} className="cursor-pointer">
+              <motion.img
+                src="https://res.cloudinary.com/dbhx39mmm/image/upload/v1773037474/navbar-back_mhlczv.png"
+                alt="Back"
+                className={`h-7 md:h-10 w-auto ${!isDark ? "invert" : ""}`}
+                style={{ transformOrigin: "left center" }}
+                whileHover={{ scale: 0.85, opacity: 0.6, x: -6, y: -12 }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
+              />
+            </button>
+          )}
         </div>
 
         {/* Center - Logo (semua halaman di desktop, non-home di mobile) */}
@@ -97,17 +93,16 @@ export default function Navbar() {
         </div>
 
         {/* Right - Nav Links */}
-        {!isClean && (
-          <div className="flex flex-col items-start gap-0.5 md:gap-3">
-            {navLinks.map((link, i) => (
-              <motion.div
-                key={link.label}
-                custom={i}
-                variants={linkVariants}
-                initial="hidden"
-                animate="visible"
-                whileHover="hover"
-              >
+        <div className="flex flex-col items-start gap-0.5 md:gap-3">
+          {navLinks.map((link, i) => (
+            <motion.div
+              key={link.label}
+              custom={i}
+              variants={linkVariants}
+              initial="hidden"
+              animate="visible"
+              whileHover="hover"
+            >
                 {link.path === "#" ? (
                   <a
                     href={link.path}
@@ -141,10 +136,9 @@ export default function Navbar() {
                     />
                   </Link>
                 )}
-              </motion.div>
-            ))}
-          </div>
-        )}
+            </motion.div>
+          ))}
+        </div>
       </div>
     </motion.nav>
   );

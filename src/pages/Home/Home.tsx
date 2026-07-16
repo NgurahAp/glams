@@ -12,7 +12,6 @@ const heroTexts = [
   { label: "GLAMS AGENCY", path: "/agency-model" },
   { label: "CREATIVE PRODUCTION", path: "/production" },
   { label: "EVENT ORGANIZER", path: "/event" },
-  { label: "PHOTOSHOOT PORTOFOLIO", path: "/photoshoot" },
 ];
 
 const textVariants: Variants = {
