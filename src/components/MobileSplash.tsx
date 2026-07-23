@@ -2,15 +2,23 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import {
+  CONTACT_SECTION_ID,
+  STUDIO_LOCATION_URL,
+} from "../constants/contact";
 
 const mobileNavLinks = [
-  { label: "CONTACT", path: "#" },
+  {
+    label: "CONTACT",
+    path: `#${CONTACT_SECTION_ID}`,
+    external: false,
+  },
   {
     label: "LOCATION",
-    path: "https://www.google.com/maps/place/GLAMS+Academy+%26+Management+Lippo+Mall+Puri/@-6.1872816,106.7393835,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f5a5c615f901:0x61f530a795f6a371!8m2!3d-6.1872816!4d106.7393835!16s%2Fg%2F11mxsxhlj0!5m1!1e1?entry=ttu&g_ep=EgoyMDI2MDMwOC4wIKXMDSoASAFQAw%3D%3D",
+    path: STUDIO_LOCATION_URL,
     external: true,
   },
-  { label: "ABOUT US", path: "/about" },
+  { label: "ABOUT US", path: "/about", external: false },
 ];
 
 interface MobileSplashProps {
@@ -47,6 +55,19 @@ export default function MobileSplash({
     }
   };
 
+  const handleContactClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    if (dismissed) return;
+
+    setDismissed(true);
+    setTimeout(() => {
+      onDismiss();
+      document
+        .getElementById(CONTACT_SECTION_ID)
+        ?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 700);
+  };
+
   useEffect(() => {
     if (!dismissed) {
       document.body.style.overflow = "hidden";
@@ -74,7 +95,7 @@ export default function MobileSplash({
         >
           {/* Touch overlay */}
           <div
-            className="absolute inset-0 z-50"
+            className="absolute inset-0 z-0"
             onClick={handleTap}
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
@@ -121,14 +142,15 @@ export default function MobileSplash({
                       ease: [0.15, 0.1, 0.15, 1],
                     }}
                   >
-                    {link.path === "#" ? (
+                    {link.path === `#${CONTACT_SECTION_ID}` ? (
                       <a
                         href={link.path}
+                        onClick={handleContactClick}
                         className="text-white text-[10px] font-light tracking-tight"
                       >
                         {link.label}
                       </a>
-                    ) : (link as any).external ? (
+                    ) : link.external ? (
                       <a
                         href={link.path}
                         target="_blank"

@@ -1,5 +1,6 @@
 import { motion, type Variants } from "framer-motion";
 import { useState, useCallback, useRef, useEffect } from "react";
+import { WHATSAPP_DISPLAY, WHATSAPP_URL } from "../../constants/contact";
 
 const paragraphVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
@@ -453,9 +454,16 @@ export default function KidAgency() {
           initial="hidden"
           whileInView="visible"
         >
-          PHONE NUMBER : +62 852-8382-4639
-          <br />
-          GMAIL : glams.management@gmail.com
+          WHATSAPP :{" "}
+          <a
+            href={WHATSAPP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="relative inline-block group/phone"
+          >
+            {WHATSAPP_DISPLAY}
+            <span className="absolute left-0 bottom-0 h-[2px] w-0 bg-black group-hover/phone:w-full transition-all duration-500 ease-out" />
+          </a>
         </motion.p>
       </div>
     </section>

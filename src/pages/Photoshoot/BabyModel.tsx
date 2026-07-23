@@ -1,5 +1,7 @@
 import { motion, type Variants } from "framer-motion";
 import { useRef, useState, useCallback, useEffect } from "react";
+import ContactPillLinks from "../../components/ContactPillLinks";
+import { WHATSAPP_DISPLAY, WHATSAPP_URL } from "../../constants/contact";
 
 const paragraphVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
@@ -308,54 +310,17 @@ export default function BabyModel() {
             whileInView="visible"
             viewport={{ once: true }}
           >
-            <a
-              href="https://wa.me/6285283824639"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Contact baby model via WhatsApp at +62 852-8382-4639"
-              className="flex w-[8.5rem] items-center justify-between overflow-hidden whitespace-nowrap rounded-full border border-black py-1 pl-3 pr-1 text-[9px] font-normal leading-none tracking-tight text-black transition-[width] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:w-[10rem] focus-visible:w-[10rem] md:w-[13rem] md:py-1.5 md:pl-4 md:text-sm md:hover:w-[15rem] md:focus-visible:w-[15rem]"
-            >
-              <span>PHONE NUMBER</span>
-              <span className="flex size-5 shrink-0 items-center justify-center rounded-full border border-current md:size-6">
-                <svg
-                  viewBox="0 0 16 16"
-                  aria-hidden="true"
-                  className="size-3 md:size-3.5"
-                  fill="none"
-                >
-                  <path
-                    d="M3 8h9M8.5 4.5 12 8l-3.5 3.5"
-                    stroke="currentColor"
-                    strokeWidth="1"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </span>
-            </a>
-            <a
-              href="mailto:glams.management@gmail.com"
-              aria-label="Email baby model at glams.management@gmail.com"
-              className="flex w-[8.5rem] items-center justify-between overflow-hidden whitespace-nowrap rounded-full border border-black py-1 pl-3 pr-1 text-[9px] font-normal leading-none tracking-tight text-black transition-[width] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:w-[10rem] focus-visible:w-[10rem] md:w-[13rem] md:py-1.5 md:pl-4 md:text-sm md:hover:w-[15rem] md:focus-visible:w-[15rem]"
-            >
-              <span>GMAIL</span>
-              <span className="flex size-5 shrink-0 items-center justify-center rounded-full border border-current md:size-6">
-                <svg
-                  viewBox="0 0 16 16"
-                  aria-hidden="true"
-                  className="size-3 md:size-3.5"
-                  fill="none"
-                >
-                  <path
-                    d="M3 8h9M8.5 4.5 12 8l-3.5 3.5"
-                    stroke="currentColor"
-                    strokeWidth="1"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </span>
-            </a>
+            <ContactPillLinks
+              links={[
+              {
+                  label: "WHATSAPP",
+                  href: WHATSAPP_URL,
+                  ariaLabel:
+                    `Contact baby model via WhatsApp at ${WHATSAPP_DISPLAY}`,
+                  openInNewTab: true,
+                },
+              ]}
+            />
           </motion.div>
         </div>
       </div>

@@ -1,18 +1,28 @@
 import { motion, useAnimation } from "framer-motion";
+import {
+  CONTACT_SECTION_ID,
+  INSTAGRAM_ACADEMY_URL,
+  INSTAGRAM_MANAGEMENT_URL,
+  STUDIO_LOCATION_URL,
+  WHATSAPP_URL,
+} from "../constants/contact";
 
 const contactItems = [
-  { label: "GMAIL", href: "#" },
-  { label: "PHONE NUMBER", href: "#" },
-  { label: "INSTAGRAM ACADEMY", href: "#" },
-  { label: "INSTAGRAM MANAGEMENT", href: "#" },
+  { label: "WHATSAPP", href: WHATSAPP_URL },
+  { label: "INSTAGRAM ACADEMY", href: INSTAGRAM_ACADEMY_URL },
+  { label: "INSTAGRAM MANAGEMENT", href: INSTAGRAM_MANAGEMENT_URL },
 ];
 
-const locationItems = [{ label: "STUDIO LOCATION", href: "#" }];
+const locationItems = [
+  { label: "STUDIO LOCATION", href: STUDIO_LOCATION_URL },
+];
 
 function FooterLink({ label, href }: { label: string; href: string }) {
   return (
     <motion.a
       href={href}
+      target="_blank"
+      rel="noopener noreferrer"
       className="flex items-center gap-2 md:gap-4 w-full font-bold text-white text-sm md:text-xl tracking-tight uppercase"
       whileHover={{ opacity: 0.6 }}
       transition={{ duration: 0.2 }}
@@ -125,7 +135,7 @@ export default function Footer() {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   return (
-    <footer className="bg-black w-full text-white">
+    <footer id={CONTACT_SECTION_ID} className="bg-black w-full text-white">
       <div className="max-w-[1920px] mx-auto w-full px-5 md:px-12 py-8 md:py-14 flex flex-col justify-between min-h-[50vh] md:min-h-[70vh]">
         <div className="grid grid-cols-3 gap-6 md:gap-24">
           {/* CONTACT */}

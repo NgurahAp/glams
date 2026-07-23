@@ -1,6 +1,8 @@
 import { motion, useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import ContactPillLinks from "../../components/ContactPillLinks";
 import MobileSplash from "../../components/MobileSplash";
+import { WHATSAPP_DISPLAY, WHATSAPP_URL } from "../../constants/contact";
 
 const SPLASH_IMAGE_URL =
   "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773673670/JACK3233_vj3slo.jpg";
@@ -12,14 +14,10 @@ const CURRICULUM_IMG_URL =
 
 const curriculumContacts = [
   {
-    label: "PHONE NUMBER",
-    href: "tel:+6285811122263",
-    ariaLabel: "Call GLAMS Academy at +62 858-1112-2263",
-  },
-  {
-    label: "GMAIL",
-    href: "mailto:glams.management@gmail.com",
-    ariaLabel: "Email GLAMS Academy at glams.management@gmail.com",
+    label: "WHATSAPP",
+    href: WHATSAPP_URL,
+    ariaLabel: `Contact GLAMS Academy via WhatsApp at ${WHATSAPP_DISPLAY}`,
+    openInNewTab: true,
   },
 ];
 
@@ -161,32 +159,10 @@ function CurriculumCard({
             ease: [0.25, 0.1, 0.25, 1],
           }}
         >
-          {curriculumContacts.map((contact) => (
-            <a
-              key={contact.label}
-              href={contact.href}
-              aria-label={contact.ariaLabel}
-              className="flex w-[6.75rem] items-center justify-between overflow-hidden whitespace-nowrap rounded-full border border-black py-0.5 pl-2.5 pr-0.5 text-[8px] font-normal leading-none tracking-tight text-black transition-[width] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:w-[7.5rem] focus-visible:w-[7.5rem] md:w-[9.5rem] md:py-1 md:pl-3 md:text-xs md:hover:w-[11rem] md:focus-visible:w-[11rem]"
-            >
-              <span>{contact.label}</span>
-              <span className="flex size-4 shrink-0 items-center justify-center rounded-full border border-current md:size-5">
-                <svg
-                  viewBox="0 0 16 16"
-                  aria-hidden="true"
-                  className="size-2.5 md:size-3"
-                  fill="none"
-                >
-                  <path
-                    d="M3 8h9M8.5 4.5 12 8l-3.5 3.5"
-                    stroke="currentColor"
-                    strokeWidth="1"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </span>
-            </a>
-          ))}
+          <ContactPillLinks
+            links={curriculumContacts}
+            desktopVariant="compact"
+          />
         </motion.div>
       </div>
     </motion.div>
@@ -197,12 +173,6 @@ const isMobile = () => typeof window !== "undefined" && window.innerWidth < 768;
 export default function GlamsAcademyHero() {
   const [splashDone, setSplashDone] = useState(false);
   const [splashImageReady, setSplashImageReady] = useState(!isMobile());
-
-  const curriculumRef = useRef(null);
-  const curriculumInView = useInView(curriculumRef, {
-    once: true,
-    margin: "-80px",
-  });
 
   useEffect(() => {
     // Only preload on mobile where splash is shown
@@ -291,10 +261,7 @@ export default function GlamsAcademyHero() {
             >
               <motion.button
                 onClick={() =>
-                  window.open(
-                    "https://api.whatsapp.com/message/FSA37HDUPBF2D1?autoload=1&app_absent=0",
-                    "_blank",
-                  )
+                  window.open(WHATSAPP_URL, "_blank", "noopener,noreferrer")
                 }
                 className="border border-black rounded-full px-5 md:px-7 py-2 md:py-2.5 text-xs md:text-sm font-semibold tracking-[0.22em] uppercase text-black bg-[#f5f3e8] hover:bg-black hover:text-white transition-colors duration-300"
                 whileHover={{ scale: 1.03 }}
@@ -325,27 +292,30 @@ export default function GlamsAcademyHero() {
         </motion.p>
 
         {/* ── Class Curriculum Section ── */}
-        <div ref={curriculumRef} className="w-full px-2 md:px-12">
+        <div className="w-full px-2 md:px-12">
           <motion.div
             className="w-full overflow-hidden flex justify-center rounded-sm"
-            initial={{ opacity: 0, y: 40 }}
-            animate={curriculumInView ? { opacity: 1, y: 0 } : {}}
+            initial={isMobile() ? false : { opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 1.1, ease: [0.25, 0.1, 0.25, 1] }}
           >
             <motion.img
               src={CURRICULUM_IMG_URL}
               alt="Class Curriculum"
               className="w-full md:w-[90%] h-auto object-cover"
-              initial={{ scale: 1.05 }}
-              animate={curriculumInView ? { scale: 1 } : {}}
+              initial={isMobile() ? false : { scale: 1.05 }}
+              whileInView={{ scale: 1 }}
+              viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 1.4, ease: [0.25, 0.1, 0.25, 1] }}
             />
           </motion.div>
 
           <motion.h2
             className="text-2xl md:text-[clamp(2.5rem,6vw,5.5rem)] pt-4 md:pt-0 font-medium tracking-tight text-black uppercase text-center"
-            initial={{ opacity: 0, y: 30 }}
-            animate={curriculumInView ? { opacity: 1, y: 0 } : {}}
+            initial={isMobile() ? false : { opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
             transition={{
               duration: 0.9,
               delay: 0.3,
@@ -781,7 +751,7 @@ const faqs: FAQItem[] = [
     answer: [
       {
         type: "text",
-        content: "Contact us via WhatsApp: +62 858-1112-2263",
+        content: `Contact us via WhatsApp: ${WHATSAPP_DISPLAY}`,
       },
       {
         type: "text",
