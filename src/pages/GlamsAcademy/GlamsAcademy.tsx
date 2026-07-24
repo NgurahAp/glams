@@ -2,7 +2,12 @@ import { motion, useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import ContactPillLinks from "../../components/ContactPillLinks";
 import MobileSplash from "../../components/MobileSplash";
-import { WHATSAPP_DISPLAY, WHATSAPP_URL } from "../../constants/contact";
+import {
+  EMAIL_DISPLAY,
+  EMAIL_URL,
+  WHATSAPP_DISPLAY,
+  WHATSAPP_URL,
+} from "../../constants/contact";
 
 const SPLASH_IMAGE_URL =
   "https://res.cloudinary.com/dbhx39mmm/image/upload/v1773673670/JACK3233_vj3slo.jpg";
@@ -18,6 +23,11 @@ const curriculumContacts = [
     href: WHATSAPP_URL,
     ariaLabel: `Contact GLAMS Academy via WhatsApp at ${WHATSAPP_DISPLAY}`,
     openInNewTab: true,
+  },
+  {
+    label: "GMAIL",
+    href: EMAIL_URL,
+    ariaLabel: `Email GLAMS Academy at ${EMAIL_DISPLAY}`,
   },
 ];
 

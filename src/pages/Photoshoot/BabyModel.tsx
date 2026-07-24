@@ -1,7 +1,12 @@
 import { motion, type Variants } from "framer-motion";
 import { useRef, useState, useCallback, useEffect } from "react";
 import ContactPillLinks from "../../components/ContactPillLinks";
-import { WHATSAPP_DISPLAY, WHATSAPP_URL } from "../../constants/contact";
+import {
+  EMAIL_DISPLAY,
+  EMAIL_URL,
+  WHATSAPP_DISPLAY,
+  WHATSAPP_URL,
+} from "../../constants/contact";
 
 const paragraphVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
@@ -312,12 +317,17 @@ export default function BabyModel() {
           >
             <ContactPillLinks
               links={[
-              {
+                {
                   label: "WHATSAPP",
                   href: WHATSAPP_URL,
                   ariaLabel:
                     `Contact baby model via WhatsApp at ${WHATSAPP_DISPLAY}`,
                   openInNewTab: true,
+                },
+                {
+                  label: "GMAIL",
+                  href: EMAIL_URL,
+                  ariaLabel: `Email baby model at ${EMAIL_DISPLAY}`,
                 },
               ]}
             />

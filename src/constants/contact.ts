@@ -3,6 +3,9 @@ export const CONTACT_SECTION_ID = "contact";
 export const WHATSAPP_DISPLAY = "+62 858 1112 2263";
 export const WHATSAPP_URL = "https://wa.me/6285811122263";
 
+export const EMAIL_DISPLAY = "glams.management@gmail.com";
+export const EMAIL_URL = `mailto:${EMAIL_DISPLAY}`;
+
 export const INSTAGRAM_MANAGEMENT_URL =
   "https://www.instagram.com/glams.management/";
 export const INSTAGRAM_ACADEMY_URL =
