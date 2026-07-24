@@ -24,6 +24,7 @@ const darkBgRoutes = [
   "/",
   "/about",
   "/photoshoot",
+  "/agency-model",
   "/baby-model",
   "/kid-model",
   "/adult-model",

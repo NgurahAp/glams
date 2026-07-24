@@ -8,10 +8,17 @@ export type ContactPillLink = {
 type ContactPillLinksProps = {
   links: ContactPillLink[];
   desktopVariant?: "default" | "compact";
+  mobileVariant?: "default" | "large";
 };
 
 const baseLinkClasses =
-  "flex w-20 items-center justify-between overflow-hidden whitespace-nowrap rounded-full border border-black py-px pl-1.5 pr-px text-[6px] font-normal leading-none tracking-tight text-black transition-[width] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:w-[5.5rem] focus-visible:w-[5.5rem]";
+  "flex items-center justify-between overflow-hidden whitespace-nowrap rounded-full border border-black font-normal leading-none tracking-tight text-black transition-[width] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]";
+
+const defaultMobileClasses =
+  "w-20 py-px pl-1.5 pr-px text-[6px] hover:w-[5.5rem] focus-visible:w-[5.5rem]";
+
+const largeMobileClasses =
+  "w-[8.5rem] py-1 pl-3 pr-1 text-[9px] hover:w-[10rem] focus-visible:w-[10rem]";
 
 const defaultDesktopClasses =
   "lg:w-[13rem] lg:py-1.5 lg:pl-4 lg:pr-1 lg:text-sm lg:hover:w-[15rem] lg:focus-visible:w-[15rem]";
@@ -22,11 +29,19 @@ const compactDesktopClasses =
 export default function ContactPillLinks({
   links,
   desktopVariant = "default",
+  mobileVariant = "default",
 }: ContactPillLinksProps) {
+  const mobileClasses =
+    mobileVariant === "large" ? largeMobileClasses : defaultMobileClasses;
+
   const desktopClasses =
     desktopVariant === "compact"
       ? compactDesktopClasses
       : defaultDesktopClasses;
+
+  const circleMobileClasses = mobileVariant === "large" ? "size-5" : "size-3";
+  const arrowMobileClasses =
+    mobileVariant === "large" ? "size-3" : "size-1.5";
 
   const circleDesktopClasses =
     desktopVariant === "compact" ? "lg:size-5" : "lg:size-6";
@@ -40,16 +55,16 @@ export default function ContactPillLinks({
       aria-label={link.ariaLabel}
       target={link.openInNewTab ? "_blank" : undefined}
       rel={link.openInNewTab ? "noopener noreferrer" : undefined}
-      className={`${baseLinkClasses} ${desktopClasses}`}
+      className={`${baseLinkClasses} ${mobileClasses} ${desktopClasses}`}
     >
       <span>{link.label}</span>
       <span
-        className={`flex size-3 shrink-0 items-center justify-center rounded-full border border-current lg:mr-0.5 ${circleDesktopClasses}`}
+        className={`flex shrink-0 items-center justify-center rounded-full border border-current lg:mr-0.5 ${circleMobileClasses} ${circleDesktopClasses}`}
       >
         <svg
           viewBox="0 0 16 16"
           aria-hidden="true"
-          className={`size-1.5 ${arrowDesktopClasses}`}
+          className={`${arrowMobileClasses} ${arrowDesktopClasses}`}
           fill="none"
         >
           <path

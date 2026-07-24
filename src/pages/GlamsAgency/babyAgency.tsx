@@ -330,6 +330,7 @@ export default function BabyAgency() {
           viewport={{ once: true }}
         >
           <ContactPillLinks
+            mobileVariant="large"
             links={[
               {
                 label: "WHATSAPP",

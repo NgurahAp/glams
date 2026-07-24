@@ -316,6 +316,7 @@ export default function KidModel() {
             viewport={{ once: true }}
           >
             <ContactPillLinks
+              mobileVariant="large"
               links={[
                 {
                   label: "WHATSAPP",
