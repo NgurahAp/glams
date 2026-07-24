@@ -34,7 +34,7 @@ function App() {
           <Route
             path="/about"
             element={
-              <About image="https://res.cloudinary.com/dbhx39mmm/image/upload/v1773024788/about-hero_rhytpc.png" />
+              <About image="https://res.cloudinary.com/dbhx39mmm/image/upload/v1784864289/DSC04695_hvkcyn.png" />
             }
           />
           <Route path="/glams-academy" element={<GlamsAcademy />} />

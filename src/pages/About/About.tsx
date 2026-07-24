@@ -200,10 +200,10 @@ export default function About({ image }: AboutProps) {
       {/* BOTTOM IMAGE */}
       <div className="h-screen relative overflow-hidden">
         <motion.div
-          className="absolute inset-0 bg-cover bg-center"
+          className="absolute inset-0 bg-cover bg-center md:bg-top"
           style={{
             backgroundImage:
-              "url(https://res.cloudinary.com/dbhx39mmm/image/upload/v1773024788/about-bottom_jl32sn.png)",
+              "url(https://res.cloudinary.com/dbhx39mmm/image/upload/v1784864287/DSC04706_tudyki.png)",
           }}
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
