@@ -62,6 +62,12 @@ export default function MainHero({ images, interval = 3000 }: MainHeroProps) {
         />
       </AnimatePresence>
 
+      {/* Improve foreground legibility without hiding the photo details. */}
+      <div
+        className="pointer-events-none absolute inset-0 z-[1] bg-black/25 md:bg-black/15"
+        aria-hidden="true"
+      />
+
       {/* Bottom Left Text */}
       <div className="absolute bottom-16 md:bottom-5 left-4 md:left-5 flex flex-col items-start z-10">
         {heroTexts.map(({ label, path }, i) => (

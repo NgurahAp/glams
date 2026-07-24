@@ -64,7 +64,7 @@ export default function Navbar() {
 
   return (
     <motion.nav
-      className="absolute top-0 left-0 right-0 z-50 py-4 md:py-5"
+      className="absolute top-0 left-0 right-0 z-50 py-[1.125rem] md:py-5"
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
@@ -78,7 +78,7 @@ export default function Navbar() {
               <img
                 src="https://res.cloudinary.com/dbhx39mmm/image/upload/v1773037487/logo_ikbz71.png"
                 alt="Logo"
-                className={`h-6 w-auto ${!isDark ? "invert" : ""}`}
+                className={`h-7 w-auto ${!isDark ? "invert" : ""}`}
               />
             </Link>
           ) : (
@@ -86,7 +86,7 @@ export default function Navbar() {
               <motion.img
                 src="https://res.cloudinary.com/dbhx39mmm/image/upload/v1773037474/navbar-back_mhlczv.png"
                 alt="Back"
-                className={`h-7 md:h-10 w-auto ${!isDark ? "invert" : ""}`}
+                className={`h-8 md:h-10 w-auto ${!isDark ? "invert" : ""}`}
                 style={{ transformOrigin: "left center" }}
                 whileHover={{ scale: 0.85, opacity: 0.6, x: -6, y: -12 }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
@@ -103,13 +103,13 @@ export default function Navbar() {
             <img
               src="https://res.cloudinary.com/dbhx39mmm/image/upload/v1773037487/logo_ikbz71.png"
               alt="Logo"
-              className={`h-6 md:h-8 w-auto ${!isDark ? "invert" : ""}`}
+              className={`h-7 md:h-8 w-auto ${!isDark ? "invert" : ""}`}
             />
           </Link>
         </div>
 
         {/* Right - Nav Links */}
-        <div className="flex flex-col items-start gap-0.5 md:gap-3">
+        <div className="flex flex-col items-start gap-1 md:gap-3">
           {navLinks.map((link, i) => (
             <motion.div
               key={link.label}
@@ -123,7 +123,7 @@ export default function Navbar() {
                   <a
                     href={link.path}
                     onClick={handleContactClick}
-                    className={`${textColor} text-[10px] leading-tight md:text-base font-light cursor-pointer tracking-tight relative group`}
+                    className={`${textColor} text-xs leading-tight md:text-base font-light cursor-pointer tracking-tight relative group`}
                   >
                     {link.label}
                     <span
@@ -135,7 +135,7 @@ export default function Navbar() {
                     href={link.path}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`${textColor} text-[10px] leading-tight md:text-base font-light cursor-pointer tracking-tight relative group`}
+                    className={`${textColor} text-xs leading-tight md:text-base font-light cursor-pointer tracking-tight relative group`}
                   >
                     {link.label}
                     <span
@@ -145,7 +145,7 @@ export default function Navbar() {
                 ) : (
                   <Link
                     to={link.path}
-                    className={`${textColor} text-[10px] leading-tight md:text-base font-light cursor-pointer tracking-tight relative group`}
+                    className={`${textColor} text-xs leading-tight md:text-base font-light cursor-pointer tracking-tight relative group`}
                   >
                     {link.label}
                     <span
